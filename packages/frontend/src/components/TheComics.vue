@@ -1,0 +1,50 @@
+<script>
+import { goBook } from '@/utils/router'
+import { TheImage } from 'ui'
+import { BASE_URL } from 'common'
+
+export default {
+  name: 'TheComics',
+  components: { TheImage },
+  props: {
+    comicList: {
+      type: Array,
+      required: true
+    }
+  },
+  setup() {
+    return {
+      BASE_URL,
+      goBook
+    }
+  }
+}
+</script>
+
+<template>
+  <main class="absolute w-full max-w-4xl min-w-[300px] left-1/2 -translate-x-1/2 space-y-4 text-white px-1">
+    <template v-for="comic in comicList" :key="comic._id">
+      <div class="w-1/2 md:w-1/3 lg:w-1/4 inline-flex card px-3">
+        <TheImage
+          :src="`${BASE_URL}/${comic._id}/${comic.coverImage.chapter}/${comic.coverImage.page}.webp`"
+          :blur="false"
+          class="cursor-pointer"
+          @click="goBook(comic._id)"
+        />
+        <div class="card-body bg-primary rounded-b-2xl pt-4 px-3 pb-3">
+          <h1 class="font-cn_2 font-medium text-sm text-center tracking-wide sm:text-base">
+            {{ comic.name }}
+          </h1>
+          <span class="font-cn_2 font-medium text-xs opacity-60">{{ comic.author }}</span>
+          <div class="font-cn_2 font-medium text-xs opacity-60 space-x-1">
+            <i class="fa-solid fa-eye"></i>
+            <span>{{ comic.viewCount }}</span
+            >&nbsp;&nbsp;
+            <i class="fa-solid fa-heart"></i>
+            <span>{{ comic.favoriteCount }}</span>
+          </div>
+        </div>
+      </div>
+    </template>
+  </main>
+</template>

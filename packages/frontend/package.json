@@ -1,0 +1,16 @@
+{
+  "name": "frontend",
+  "private": true,
+  "scripts": {
+    "dev": "vite --host",
+    "build": "vite build",
+    "preview": "vite preview",
+    "test:unit": "vitest",
+    "subset": ".\\scripts\\env\\Scripts\\activate && python ./scripts/subset.py",
+    "format": "prettier --write src/"
+  },
+  "dependencies": {
+    "common": "workspace:^",
+    "ui": "workspace:^"
+  }
+}

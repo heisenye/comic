@@ -1,0 +1,123 @@
+import { createRouter, createWebHashHistory } from 'vue-router'
+import HomeView from '../views/HomeView.vue'
+import { storeHistory } from '@/utils/history'
+import { useToken } from 'common'
+import { showMsg } from 'common'
+import { msg } from 'common'
+
+const { token } = useToken()
+
+const router = createRouter({
+  history: createWebHashHistory(import.meta.env.BASE_URL),
+  routes: [
+    {
+      path: '/',
+      name: 'home',
+      component: HomeView,
+      meta: {
+        showNav: true
+      }
+    },
+    {
+      path: '/about',
+      name: 'about',
+      // route level code-splitting
+      // this generates a separate chunk (About.[hash].js) for this route
+      // which is lazy-loaded when the route is visited.
+      component: () => import('../views/AboutView.vue'),
+      meta: {
+        showNav: true
+      }
+    },
+    {
+      path: '/community',
+      name: 'community',
+      component: () => import('../views/CommunityView.vue'),
+      meta: {
+        showNav: true
+      }
+    },
+    {
+      path: '/history',
+      name: 'history',
+      component: () => import('../views/HistoryView.vue'),
+      meta: {
+        showNav: true
+      }
+    },
+    {
+      path: '/favorite',
+      name: 'favorite',
+      component: () => import('../views/FavoriteView.vue'),
+      meta: {
+        showNav: true
+      },
+      beforeEnter: (to, from, next) => {
+        token.value ? next() : showMsg(msg['NO_TOKEN'], 'info')
+      }
+    },
+    {
+      path: '/book/:id',
+      name: 'book',
+      component: () => import('../views/BookView.vue'),
+      meta: {
+        showNav: false
+      },
+      beforeEnter: (to, from, next) => {
+        storeHistory(to.params.id)
+        next()
+      }
+    },
+    {
+      path: '/read/:id/:chapter',
+      name: 'read',
+      component: () => import('../views/ReadView.vue'),
+      meta: {
+        showNav: false
+      }
+    },
+    {
+      path: '/login',
+      name: 'login',
+      component: () => import('../views/Login-RegisterView.vue'),
+      meta: {
+        showNav: false
+      }
+    },
+    {
+      path: '/register',
+      name: 'register',
+      component: () => import('../views/Login-RegisterView.vue'),
+      meta: {
+        showNav: false
+      }
+    },
+    {
+      path: '/profile',
+      name: 'profile',
+      component: () => import('../views/ProfileView.vue'),
+      meta: {
+        showNav: true
+      },
+      beforeEnter: (to, from, next) => {
+        token.value ? next() : showMsg(msg['NO_TOKEN'], 'info')
+      }
+    },
+    {
+      path: '/search',
+      name: 'search',
+      component: () => import('../views/SearchView.vue'),
+      meta: {
+        showNav: false
+      },
+      props: (route) => ({ query: route.query.text })
+    },
+    {
+      path: '/test',
+      name: 'test',
+      component: () => import('../views/TestView.vue')
+    }
+  ]
+})
+
+export default router

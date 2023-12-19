@@ -1,0 +1,4 @@
+node_modules/
+test.http
+.env
+error.log
