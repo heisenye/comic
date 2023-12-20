@@ -115,7 +115,7 @@ export default {
       <template #left>
         <RouterLink
           :to="{ name: 'home' }"
-          class="relative btn btn-ghost tracking-wider px-4 py-2 font-medium rounded-lg font-Poppins normal-case  overflow-hidden after:halo active:after:halo-active text-white"
+          class="relative btn btn-ghost tracking-wider font-medium rounded-lg font-Poppins normal-case overflow-hidden after:halo active:after:halo-active text-white"
         >
           <span class="text-xl 2xl:text-2xl 2xl:tracking-widest"> Heisenye </span>
         </RouterLink>
@@ -148,7 +148,7 @@ export default {
           :transition="true"
           class="before:text-sm md:text-md text-white"
         >
-          <TheIcon type="bell" size="lg" class="sm:text-lg xl:text-xl 2xl:text-2xl" />
+          <TheIcon type="bell" size="lg" class="xl:text-xl 2xl:text-2xl" />
         </TheButton>
         <TheButton
           type="ghost"

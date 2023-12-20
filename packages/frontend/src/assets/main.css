@@ -18,20 +18,14 @@
 
 @layer components {
   .bookmark {
-    position: absolute;
-    top: -12px;
-    left: -12px;
-    border-bottom: 32px solid transparent;
-    border-right: 32px solid transparent;
-    border-left: 32px solid rgb(217 119 6);
-    border-top: 32px solid rgb(217 119 6);
+    border-bottom: solid transparent;
+    border-right: solid transparent;
+    border-left: solid rgb(217 119 6);
+    border-top: solid rgb(217 119 6);
     clip-path: polygon(50% 0%, 100% 0%, 0% 100%, 0% 50%);
   }
 
   .bookmark p {
-    position: absolute;
-    top: -25px;
-    left: -25px;
     transform: rotate(-45deg);
     text-align: center;
     white-space: nowrap;
@@ -88,6 +82,7 @@
   .comic-input-container {
     @apply absolute left-1/2 -translate-x-2/3 hidden lg:flex lg:items-center w-[21rem] xl:w-[24rem] 2xl:w-[27rem] 3xl:w-[30rem] font-cn_3
   }
+
   @media (hover: none) {
     .square-halo {
       content: '';

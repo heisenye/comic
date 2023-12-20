@@ -43,6 +43,8 @@ export const MessageBox = defineComponent({
       'right-0',
       'top-0',
       'text-lg',
+      'xl:text-xl',
+      '2xl:text-2xl'
     ]
 
     const iconClass = types[props.type].icon
@@ -52,7 +54,7 @@ export const MessageBox = defineComponent({
           <div class={className}>
             <i class={['fa-solid', 'xl:text-lg', '2xl:text-xl', iconClass]}></i>
             <div class='xl:text-lg'>{props.msg}</div>
-            <TheButton type={"ghost"} shape={"circle"} size={"sm"} class={closeBtnClass} onClick={props.click}>
+            <TheButton type="ghost" shape="circle" size="sm" class={closeBtnClass} onClick={props.click}>
               <i class="fa-solid fa-xmark-circle"></i>
             </TheButton>
           </div>

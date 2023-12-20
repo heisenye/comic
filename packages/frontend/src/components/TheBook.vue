@@ -105,8 +105,8 @@ export default {
     <div
       class="relative left-1/2 -translate-x-1/2 w-full card rounded max-w-3xl bg-primary lg:card-side lg:py-4"
     >
-      <div class="bookmark" v-if="status === 'completed'">
-        <p class="font-cn_3">完结</p>
+      <div class="absolute bookmark border-[32px] -left-4 -top-4 xl:border-[40px]" v-if="status === 'completed'">
+        <p class="absolute -left-6 -top-6 xl:text-lg font-cn_3">完结</p>
       </div>
       <div class="relative flex justify-center pb-6 pt-8 lg:w-3/5">
         <TheImage

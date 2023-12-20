@@ -13,7 +13,7 @@ export const goBook = (id) => {
 }
 
 export const goRead = (id, chapter) => {
-  router.push({ name: 'read', params: { id: id, chapter: chapter } })
+  router.replace({ name: 'read', params: { id: id, chapter: chapter } })
 }
 
 export const goBack = () => {
