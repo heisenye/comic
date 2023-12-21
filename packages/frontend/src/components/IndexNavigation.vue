@@ -99,8 +99,8 @@ export default {
           <RouterLink
             :to="{ name: link.name }"
             class="link link-hover text-base xl:text-lg font-semibold px-3 py-1 font-cn_2"
-            :class="{ 'text-info': activeLinkIndex === index}"
-            @click="() => activeLinkIndex = index"
+            :class="{ 'text-info': activeLinkIndex === index }"
+            @click="() => (activeLinkIndex = index)"
             >{{ link.zh }}
           </RouterLink>
         </template>
@@ -121,9 +121,7 @@ export default {
         </RouterLink>
       </template>
       <template #right>
-        <div
-          class="comic-input-container"
-        >
+        <div class="comic-input-container">
           <input
             type="text"
             placeholder="搜索标题或标签"
@@ -160,7 +158,7 @@ export default {
           @click="token ? goProfile() : goLogin()"
         >
           <TheAvatar size="lg" class="sm:text-xl 2xl:text-2xl">
-            <TheIcon type="user" size="lg" class="sm:text-lg xl:text-xl 2xl:text-2xl" />
+            <TheIcon type="user" size="lg" class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 text-white sm:text-lg xl:text-xl 2xl:text-2xl" />
           </TheAvatar>
         </TheButton>
       </template>

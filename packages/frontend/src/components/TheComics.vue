@@ -22,7 +22,9 @@ export default {
 </script>
 
 <template>
-  <main class="absolute w-full max-w-4xl min-w-[300px] left-1/2 -translate-x-1/2 space-y-4 text-white px-1">
+  <main
+    class="absolute w-full max-w-4xl min-w-[300px] left-1/2 -translate-x-1/2 space-y-4 text-white px-1"
+  >
     <template v-for="comic in comicList" :key="comic._id">
       <div class="w-1/2 md:w-1/3 lg:w-1/4 inline-flex card px-3">
         <TheImage

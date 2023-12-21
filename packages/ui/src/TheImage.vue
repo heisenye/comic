@@ -23,7 +23,7 @@ export default {
   },
   directives: {
     lazy: {
-      mounted(el, binding) {
+      created(el, binding) {
         const { isLazy } = binding.value
         if (!isLazy) return (el.src = el.dataset.src)
 
@@ -36,10 +36,9 @@ export default {
                 observer.unobserve(el)
               }
             })
-          },
-          {
-            rootMargin: '0px 20px 20px 0px',
-            root: null
+          }, {
+            root: null,
+            rootMargin: '100px 0px 20px 0px'
           }
         )
         observer.observe(el)
@@ -60,28 +59,26 @@ export default {
       'before:blur-sm': !isLoaded.value && blur,
       'aspect-3/4': !isLoaded.value,
       'aspect-auto': isLoaded.value,
-      relative: true,
-      'overflow-hidden': true
     }))
 
     return {
       isLoaded,
       imgClassName,
-      imgContainerClassName
+      imgContainerClassName,
     }
   }
 }
 </script>
 
 <template>
-  <figure :class="imgContainerClassName">
+  <figure :class="['relative', 'overflow-none', imgContainerClassName]">
     <img
       v-lazy="{ isLazy: lazy }"
       :data-src="src"
       :alt="alt"
-      @load="() => (isLoaded = true)"
+      @load="() => isLoaded = true"
       class="transition-opacity ease-out"
-      :class="imgClassName"
+      :class="[imgClassName]"
     />
   </figure>
 </template>

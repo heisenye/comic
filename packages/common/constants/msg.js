@@ -17,4 +17,5 @@ export default {
   UPLOAD_SUCCESS: '上传成功',
   AVATAR_LOAD_FAIL: '头像加载失败',
   UPDATE_COMIC_SUCCESS: '更新漫画成功',
+  REACHED_LAST_WATCHED_POSITION: '已到达上次观看位置',
 }

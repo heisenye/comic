@@ -4,7 +4,6 @@ import { storeHistory } from '@/utils/history'
 import { useToken } from 'common'
 import { showMsg } from 'common'
 import { msg } from 'common'
-
 const { token } = useToken()
 
 const router = createRouter({
@@ -117,7 +116,29 @@ const router = createRouter({
       name: 'test',
       component: () => import('../views/TestView.vue')
     }
-  ]
+  ],
+  scrollBehavior(to, from, savedPosition) {
+    if (to.name === 'read') {
+      const { id, chapter } = to.params
+      const ele = localStorage.getItem(`${id}-${chapter}`)
+      if (ele) {
+        return new Promise((resolve) => {
+          setTimeout(() => {
+            showMsg(msg['REACHED_LAST_WATCHED_POSITION'], 'success')
+            resolve({
+              el: `#${ele}`,
+              top: 10,
+              behavior: 'smooth'
+            })
+          }, 1000)
+        })
+      }
+    }
+    return {
+      top: 0,
+      behavior: 'smooth'
+    }
+  }
 })
 
 export default router

@@ -1,6 +1,5 @@
 <script>
 import { onMounted, ref, toRefs } from 'vue'
-import { goRead } from '@/utils/router'
 import { TheButton, TheIcon, TheImage } from 'ui'
 import { http } from 'common'
 import { useToken } from 'common'
@@ -93,7 +92,6 @@ export default {
       tags,
       description,
       status,
-      goRead,
       addOrDeleteFavoriteFn
     }
   }
@@ -105,7 +103,10 @@ export default {
     <div
       class="relative left-1/2 -translate-x-1/2 w-full card rounded max-w-3xl bg-primary lg:card-side lg:py-4"
     >
-      <div class="absolute bookmark border-[32px] -left-4 -top-4 xl:border-[40px]" v-if="status === 'completed'">
+      <div
+        class="absolute bookmark border-[32px] -left-4 -top-4 xl:border-[40px]"
+        v-if="status === 'completed'"
+      >
         <p class="absolute -left-6 -top-6 xl:text-lg font-cn_3">完结</p>
       </div>
       <div class="relative flex justify-center pb-6 pt-8 lg:w-3/5">
@@ -148,7 +149,13 @@ export default {
         <h1 class="font-cn_3 text-lg mx-auto">章节</h1>
         <div class="grid grid-cols-4 gap-x-6 place-items-center">
           <template v-for="n in chapters" :key="n">
-            <button class="btn btn-sm btn-secondary w-12" @click="goRead(id, n)">{{ n }}</button>
+            <RouterLink
+              :to="{ name: 'read', params: { id: id, chapter: n } }"
+              class="btn btn-sm btn-secondary w-12"
+              replace
+            >
+              {{ n }}
+            </RouterLink>
           </template>
         </div>
       </div>

@@ -6,7 +6,6 @@ import TheComics from '@/components/TheComics.vue'
 import { TheNavigation } from 'ui'
 import { http } from 'common'
 
-
 export default {
   name: 'SearchView',
   components: { TheComics, TheNavigation },
@@ -60,14 +59,14 @@ export default {
       </template>
       <template #right>
         <div class="relative flex-grow flex items-center pr-2 font-cn_3">
-            <input
-              type="text"
-              placeholder="搜索标题或标签"
-              class="comic-input"
-              v-model="keyword"
-              @keyup.enter="searchFn"
-            />
-            <i class="fa-solid fa-magnifying-glass absolute left-4"></i>
+          <input
+            type="text"
+            placeholder="搜索标题或标签"
+            class="comic-input"
+            v-model="keyword"
+            @keyup.enter="searchFn"
+          />
+          <i class="fa-solid fa-magnifying-glass absolute left-4"></i>
         </div>
         <button class="btn btn-info btn-sm rounded-md text-white font-cn_2" @click="searchFn">
           搜寻
