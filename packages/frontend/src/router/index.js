@@ -52,7 +52,11 @@ const router = createRouter({
         showNav: true
       },
       beforeEnter: (to, from, next) => {
-        token.value ? next() : showMsg(msg['NO_TOKEN'], 'info')
+        token.value ? next() : showMsg({
+          msg: msg['NO_TOKEN'],
+          messageType: 'info',
+          popupType: 'alert'
+        })
       }
     },
     {
@@ -99,7 +103,11 @@ const router = createRouter({
         showNav: true
       },
       beforeEnter: (to, from, next) => {
-        token.value ? next() : showMsg(msg['NO_TOKEN'], 'info')
+        token.value ? next() : showMsg({
+          msg: msg['NO_TOKEN'],
+          messageType: 'info',
+          popupType: 'toast'
+        })
       }
     },
     {
@@ -108,8 +116,7 @@ const router = createRouter({
       component: () => import('../views/SearchView.vue'),
       meta: {
         showNav: false
-      },
-      props: (route) => ({ query: route.query.text })
+      }
     },
     {
       path: '/test',
@@ -124,7 +131,11 @@ const router = createRouter({
       if (ele) {
         return new Promise((resolve) => {
           setTimeout(() => {
-            showMsg(msg['REACHED_LAST_WATCHED_POSITION'], 'success')
+            showMsg({
+              msg: msg['REACHED_LAST_WATCHED_POSITION'],
+              messageType: 'success',
+              popupType: 'toast',
+            })
             resolve({
               el: `#${ele}`,
               top: 10,
@@ -133,10 +144,6 @@ const router = createRouter({
           }, 1000)
         })
       }
-    }
-    return {
-      top: 0,
-      behavior: 'smooth'
     }
   }
 })

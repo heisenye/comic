@@ -61,7 +61,12 @@ service.interceptors.response.use(
     if (error.response.data.code === 401) {
       removeToken()
     }
-    showMsg(error.response.data.msg, 'error')
+
+    showMsg({
+      msg: error.response.data.msg,
+      messageType: 'error',
+      popupType: 'alert'
+    })
     return Promise.reject(error)
   }
 )

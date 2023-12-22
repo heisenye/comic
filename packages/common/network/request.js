@@ -12,7 +12,11 @@ function createRequest() {
     const prev = timeStamps.get(configKey)
 
     if (useThrottle && prev && now - prev < throttleTime) {
-      showMsg(msg['TOO_MANY_REQUESTS'], 'warning')
+      showMsg({
+        msg: msg['TOO_MANY_REQUESTS'],
+        messageType: 'error',
+        popupType: 'alert'
+      })
       throw new Error(msg['TOO_MANY_REQUESTS'])
     }
     timeStamps.set(configKey, now)

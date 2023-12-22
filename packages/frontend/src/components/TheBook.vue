@@ -53,7 +53,11 @@ export default {
     const addOrDeleteFavoriteFn = async () => {
       try {
         if (!token.value) {
-          showMsg(msg['NO_TOKEN'], 'info')
+          showMsg({
+            msg: msg['NO_TOKEN'],
+            messageType: 'info',
+            popupType: 'alert',
+          })
           return
         }
         if (isFavorited.value) {
@@ -61,7 +65,11 @@ export default {
           if (response.code === 200) {
             isFavorited.value = false
             favoriteCount.value--
-            showMsg(msg['DELETE_FAVORITE_SUCCESS'], 'success')
+            showMsg({
+              msg: msg['DELETE_FAVORITE_SUCCESS'],
+              messageType: 'success',
+              popupType: 'alert',
+            })
           }
         } else {
           const response = await http.postFavorite({
@@ -70,7 +78,11 @@ export default {
           if (response.code === 200) {
             isFavorited.value = true
             favoriteCount.value++
-            showMsg(msg['ADD_FAVORITE_SUCCESS'], 'success')
+            showMsg({
+              msg: msg['ADD_FAVORITE_SUCCESS'],
+              messageType: 'success',
+              popupType: 'alert',
+            })
           }
         }
       } catch (error) {

@@ -7,7 +7,7 @@ const getToken = () => {
 const token = ref(getToken())
 
 watch(token, (newVal) => {
-  if (newVal === null) {
+  if (!newVal) {
     localStorage.removeItem('token')
   } else {
     localStorage.setItem('token', newVal)

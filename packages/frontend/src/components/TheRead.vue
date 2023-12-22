@@ -1,5 +1,5 @@
 <script>
-import { ref, computed, onMounted, watch } from 'vue'
+import { ref, computed, onMounted, watch, onUnmounted } from 'vue'
 import { useRoute } from 'vue-router'
 import { TheImage } from 'ui'
 import { BASE_URL } from 'common'
@@ -52,21 +52,28 @@ export default {
       localStorage.setItem(`${id}-${chapter}`, String(newVal))
     })
 
+    const observer = new IntersectionObserver(
+      (entries, observer) => {
+        entries.forEach((entry) => {
+          if (entry.intersectionRatio === 1) {
+            currentPage.value = entry.target.id
+          }
+        })
+      },
+      {
+        threshold: 1
+      }
+    )
+
     onMounted(() => {
-      const observer = new IntersectionObserver(
-        (entries, observer) => {
-          entries.forEach((entry) => {
-            if (entry.intersectionRatio === 1) {
-              currentPage.value = entry.target.id
-            }
-          })
-        },
-        {
-          threshold: 1
-        }
-      )
       comicPages.value.forEach((page) => {
         observer.observe(page)
+      })
+    })
+
+    onUnmounted(() => {
+      comicPages.value.forEach((page) => {
+        observer.unobserve(page)
       })
     })
 

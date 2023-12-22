@@ -31,7 +31,11 @@ export default {
 
       for (const key in data) {
         if (!data[key]) {
-          showMsg(msg['INCOMPLETE_FORM'])
+          showMsg({
+            msg: msg['INCOMPLETE_FORM'],
+            messageType: 'info',
+            popupType: 'alert',
+          })
           return
         }
       }
@@ -44,7 +48,12 @@ export default {
           const token = response.data.token
           setToken(token)
           isSuccess.value = true
-          showMsg(msg['LOGIN_SUCCESS'], 'success')
+          showMsg({
+            msg: msg['LOGIN_SUCCESS'],
+            messageType: 'success',
+            popupType: 'toast',
+            toastPos: ['bottom', 'end']
+          })
           setTimeout(() => {
             goHome()
           }, 3000)
@@ -70,7 +79,12 @@ export default {
         const response = await http.register(data)
         if (response) {
           isSuccess.value = true
-          showMsg(msg['REGISTER_SUCCESS'], 'success')
+          showMsg({
+            msg: msg['REGISTER_SUCCESS'],
+            messageType: 'success',
+            popupType: 'toast',
+            toastPos: ['bottom', 'end']
+          })
           setTimeout(() => {
             replaceLogin()
           }, 3000)

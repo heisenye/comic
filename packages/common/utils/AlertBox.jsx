@@ -1,7 +1,7 @@
-import { createApp, defineComponent } from 'vue'
-import {TheButton} from "ui"
+import { defineComponent } from 'vue'
+import { TheButton } from "ui"
 
-export const MessageBox = defineComponent({
+const AlertBox = defineComponent({
   props: {
     msg: {
       type: String,
@@ -23,21 +23,6 @@ export const MessageBox = defineComponent({
       error: { icon: 'fa-circle-xmark', alertType: 'alert-error' }
     }
 
-    const className = [
-      'alert',
-      'fixed',
-      "z-50",
-      'left-1/2',
-      '-translate-x-1/2',
-      'bottom-12',
-      'w-4/5',
-      'max-w-lg',
-      'font-Noto',
-      'gap-6',
-      'xl:gap-8',
-      types[props.type].alertType
-    ]
-
     const closeBtnClass = [
       'absolute',
       'right-0',
@@ -48,10 +33,11 @@ export const MessageBox = defineComponent({
     ]
 
     const iconClass = types[props.type].icon
+    const alertClass = types[props.type].alertType
 
     return () => {
       return (
-          <div class={className}>
+          <div class={['alert', 'z-50', 'fixed', 'left-1/2', '-translate-x-1/2', 'bottom-12', 'max-w-lg', 'w-4/5', 'gap-6', 'xl:gap-8', 'font-Noto', alertClass]}>
             <i class={['fa-solid', 'xl:text-lg', '2xl:text-xl', iconClass]}></i>
             <div class='xl:text-lg'>{props.msg}</div>
             <TheButton type="ghost" shape="circle" size="sm" class={closeBtnClass} onClick={props.click}>
@@ -63,32 +49,4 @@ export const MessageBox = defineComponent({
   }
 })
 
-function showMsg(msg, type, fn) {
-  const div = document.createElement('div')
-  document.body.appendChild(div)
-
-  const app = createApp(MessageBox, {
-    msg,
-    type,
-    click: () => {
-      if (fn && typeof fn === 'function') fn()
-      setTimeout(() => {
-        app.unmount()
-        div.remove()
-      }, 500)
-      div.classList.add('opacity-0', 'transition-opacity')
-    }
-  })
-  app.mount(div)
-
-  setTimeout(() => {
-    setTimeout(() => {
-      app.unmount()
-      div.remove()
-    }, 1000)
-
-    div.classList.add('opacity-0', 'transition-opacity')
-  }, 2500)
-}
-
-export default showMsg
+export default AlertBox
