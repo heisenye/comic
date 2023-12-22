@@ -27,7 +27,11 @@ export default {
     const uploadError = () => {
       URL.revokeObjectURL(previewSrc.value)
       previewSrc.value = ''
-      showMsg(msg['AVATAR_FORMAT_ERROR'], 'error')
+      showMsg({
+        msg: msg['UPLOAD_ERROR'],
+        messageType: 'error',
+        popupType: 'alert'
+      })
     }
 
     const cancelUpload = () => {
@@ -43,22 +47,34 @@ export default {
         previewSrc.value = URL.createObjectURL(file)
         modal.value.showModal()
       } else {
-        showMsg(msg['AVATAR_FORMAT_ERROR'], 'error')
+        showMsg({
+          msg: msg['AVATAR_FORMAT_ERROR'],
+          messageType: 'error',
+          popupType: 'alert'
+        })
         input.value.value = null
         return
       }
       if (file.size > 1024 * 1024 * 10) {
-        showMsg(msg['AVATAR_SIZE_ERROR'], 'error')
+        showMsg({
+          msg: msg['AVATAR_SIZE_ERROR'],
+          messageType: 'error',
+          popupType: 'alert'
+        })
         input.value.value = null
       }
     }
 
     const uploadAvatar = async () => {
-      showMsg(msg['UPLOADING'], 'info')
+      showMsg({
+        msg: msg['UPLOADING'],
+        messageType: 'info',
+        popupType: 'alert'
+      })
       const form = new FormData()
       form.append('avatar', input.value.files[0])
       const response = await http.postAvatar(form)
-      if (response.data) {
+      if (response.code === 200) {
         refresh()
       }
     }
@@ -66,7 +82,7 @@ export default {
     onMounted(async () => {
       try {
         const response = await http.getProfile(token.value)
-        if (response) {
+        if (response.code === 200) {
           userStore.setUser(response.data)
         }
       } catch (error) {

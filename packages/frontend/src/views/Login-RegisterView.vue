@@ -34,7 +34,7 @@ export default {
           showMsg({
             msg: msg['INCOMPLETE_FORM'],
             messageType: 'info',
-            popupType: 'alert',
+            popupType: 'alert'
           })
           return
         }

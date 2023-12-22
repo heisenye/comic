@@ -56,7 +56,7 @@ export default {
           showMsg({
             msg: msg['NO_TOKEN'],
             messageType: 'info',
-            popupType: 'alert',
+            popupType: 'alert'
           })
           return
         }
@@ -68,7 +68,7 @@ export default {
             showMsg({
               msg: msg['DELETE_FAVORITE_SUCCESS'],
               messageType: 'success',
-              popupType: 'alert',
+              popupType: 'alert'
             })
           }
         } else {
@@ -81,7 +81,7 @@ export default {
             showMsg({
               msg: msg['ADD_FAVORITE_SUCCESS'],
               messageType: 'success',
-              popupType: 'alert',
+              popupType: 'alert'
             })
           }
         }

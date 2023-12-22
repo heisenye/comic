@@ -158,7 +158,11 @@ export default {
           @click="token ? goProfile() : goLogin()"
         >
           <TheAvatar size="lg" class="sm:text-xl 2xl:text-2xl">
-            <TheIcon type="user" size="lg" class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 text-white sm:text-lg xl:text-xl 2xl:text-2xl" />
+            <TheIcon
+              type="user"
+              size="lg"
+              class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 text-white sm:text-lg xl:text-xl 2xl:text-2xl"
+            />
           </TheAvatar>
         </TheButton>
       </template>

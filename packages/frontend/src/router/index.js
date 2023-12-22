@@ -52,11 +52,13 @@ const router = createRouter({
         showNav: true
       },
       beforeEnter: (to, from, next) => {
-        token.value ? next() : showMsg({
-          msg: msg['NO_TOKEN'],
-          messageType: 'info',
-          popupType: 'alert'
-        })
+        token.value
+          ? next()
+          : showMsg({
+              msg: msg['NO_TOKEN'],
+              messageType: 'info',
+              popupType: 'alert'
+            })
       }
     },
     {
@@ -103,11 +105,13 @@ const router = createRouter({
         showNav: true
       },
       beforeEnter: (to, from, next) => {
-        token.value ? next() : showMsg({
-          msg: msg['NO_TOKEN'],
-          messageType: 'info',
-          popupType: 'toast'
-        })
+        token.value
+          ? next()
+          : showMsg({
+              msg: msg['NO_TOKEN'],
+              messageType: 'info',
+              popupType: 'toast'
+            })
       }
     },
     {
@@ -134,7 +138,7 @@ const router = createRouter({
             showMsg({
               msg: msg['REACHED_LAST_WATCHED_POSITION'],
               messageType: 'success',
-              popupType: 'toast',
+              popupType: 'toast'
             })
             resolve({
               el: `#${ele}`,
