@@ -107,8 +107,8 @@ export default {
 </script>
 
 <template>
-  <main class="flex justify-center items-center h-screen px-8 md:px-16">
-    <div class="card bg-primary shadow-md shadow-accent max-w-lg w-full">
+  <main class="flex justify-center items-center h-screen">
+    <div class="card bg-primary shadow-md shadow-accent max-w-lg w-4/5">
       <div class="card-body pb-6 pt-8 font-cn_2">
         <div class="card-title my-4 tracking-wider whitespace-nowrap justify-between">
           <TheButton type="secondary" size="sm" class="self-start lg:btn-md" @click="goHome">
