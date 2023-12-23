@@ -47,7 +47,7 @@ jobs:
           host: ${{ secrets.CLOUD_IP }}
           username: ${{ secrets.CLOUD_NAME }}
           password: ${{ secrets.CLOUD_PASSWORD }}
-          scripts: |
+          script: |
             cd ~
             sudo sh deploy.sh 
 
