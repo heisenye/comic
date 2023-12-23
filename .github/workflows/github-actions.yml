@@ -49,7 +49,7 @@ jobs:
           password: ${{ secrets.CLOUD_PASSWORD }}
           script: |
             cd ~
-            sudo sh deploy.sh 
+            sudo sh deploy.sh ${{ secrets.DOCKER_USERNAME }} ${{ secrets.DOCKER_PASSWORD }}
 
         
 
