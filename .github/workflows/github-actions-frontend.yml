@@ -14,12 +14,6 @@ jobs:
         with:
           images: ${{ secrets.DOCKER_USERNAME }}/comic-frontend
 
-#      - name: Docker meta for backend
-#        id: meta-backend
-#        uses: docker/metadata-action@v5
-#        with:
-#          images: ${{ secrets.DOCKER_USERNAME }}/comic-backend
-
       - name: Login to Dockerhub
         uses: docker/login-action@v3
         with:
@@ -33,19 +27,6 @@ jobs:
           push: true
           tags: ${{ steps.meta-frontend.outputs.tags }}
           labels: ${{ steps.meta-frontend.outputs.labels }}
-
-#      - name: print tags and labels
-#        run: |
-#          echo "tags: ${{ steps.meta-frontend.outputs.tags }}"
-#          echo "labels: ${{ steps.meta-frontend.outputs.labels }}"
-
-#      - name: Build and push backend
-#        uses: docker/build-push-action@v5
-#        with:
-#          context: ./packages/backend
-#          push: true
-#          tags: ${{ steps.meta-backend.outputs.tags }}
-#          labels: ${{ steps.meta-backend.outputs.labels }}
 
       - name: ssh to server
         uses: appleboy/ssh-action@master
