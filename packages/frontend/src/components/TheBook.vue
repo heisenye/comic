@@ -69,7 +69,7 @@ export default {
               msg: msg['DELETE_FAVORITE_SUCCESS'],
               messageType: 'success',
               popupType: 'toast',
-              toastPos: ['right', 'bottom']
+              toastPos: ['end', 'bottom']
             })
           }
         } else {
@@ -83,7 +83,7 @@ export default {
               msg: msg['ADD_FAVORITE_SUCCESS'],
               messageType: 'success',
               popupType: 'toast',
-              toastPos: ['right', 'bottom']
+              toastPos: ['start', 'bottom']
             })
           }
         }

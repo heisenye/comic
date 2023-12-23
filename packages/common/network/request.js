@@ -14,7 +14,7 @@ function createRequest() {
     if (useThrottle && prev && now - prev < throttleTime) {
       showMsg({
         msg: msg['TOO_MANY_REQUESTS'],
-        messageType: 'error',
+        messageType: 'warning',
         popupType: 'alert'
       })
       throw new Error(msg['TOO_MANY_REQUESTS'])
