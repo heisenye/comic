@@ -107,7 +107,7 @@ export default {
 </script>
 
 <template>
-  <main class="grid place-items-center h-screen w-screen px-8 md:px-16">
+  <main class="flex justify-center items-center h-screen px-8 md:px-16">
     <div class="card bg-primary shadow-md shadow-accent max-w-lg w-full">
       <div class="card-body pb-6 pt-8 font-cn_2">
         <div class="card-title my-4 tracking-wider whitespace-nowrap justify-between">
