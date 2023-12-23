@@ -95,9 +95,7 @@ export default {
         URL.revokeObjectURL(previewSrc.value)
       }
     })
-    const { logout } = userStore
-    const user = storeToRefs(userStore)
-    const { username, id, createdAt } = user
+    const { username, id, createdAt, logout } = userStore
 
     return {
       username,
@@ -123,7 +121,7 @@ export default {
       class="relative max-w-2xl w-full left-1/2 -translate-x-1/2 space-y-4 grid grid-cols-1 lg:grid-cols-2 lg:gap-x-3"
     >
       <div class="navbar rounded-xl bg-primary w-full text-sm px-4 lg:col-span-2">
-        <TheButton type="secondary" shape="circle" class="relative h-20 w-20">
+        <TheButton type="secondary" shape="circle" class="relative h-20 w-20 lg:h-24 lg:w-24">
           <input type="file" class="hidden h-0 w-0" ref="input" @change="showPreview" />
           <TheAvatar
             size="2xl"
@@ -131,10 +129,14 @@ export default {
             @click="() => input.click()"
           />
         </TheButton>
-        <div class="mx-4 flex-1">
-          <span class="text-xl tracking-wider">{{ username }}</span>
+        <div class="mx-4 lg:mx-6 flex-1">
+          <span class="text-xl lg:text-2xl tracking-wider">{{ username }}</span>
         </div>
-        <TheButton type="error" class="z-50 h-10 text-black font-cn_2" @click="logout">
+        <TheButton
+          type="error"
+          class="z-50 h-10 lg:h-12 lg:w-20 lg:text-base text-black font-cn_2"
+          @click="logout"
+        >
           登出
         </TheButton>
       </div>
@@ -152,7 +154,7 @@ export default {
     <dialog class="modal" ref="modal">
       <div class="modal-box bg-primary">
         <form method="dialog">
-          <TheButton type="ghost" shape="circle" class="absolute right-2 top-2 z-10">
+          <TheButton type="ghost" shape="circle" class="absolute right-0 top-0 z-10">
             <TheIcon type="xmark-circle" class="text-lg" />
           </TheButton>
         </form>

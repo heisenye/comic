@@ -12,17 +12,11 @@ export default {
       default: "modal"
     },
   },
-  setup() {
-    const modalRef = ref(null)
-    return {
-      modalRef
-    }
-  },
 }
 </script>
 
 <template>
-  <dialog :id="id" class="modal" ref="modalRef">
+  <dialog :id="id" class="modal">
     <div class="modal-box">
       <slot></slot>
       <form method="dialog">
