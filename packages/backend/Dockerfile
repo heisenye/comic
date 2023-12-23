@@ -20,7 +20,7 @@ WORKDIR /app
 
 COPY package*.json ./
 
-RUN npm install -D pnpm
+RUN npm install -g pnpm
 RUN pnpm install
 
 COPY . .
@@ -32,6 +32,8 @@ WORKDIR /app
 COPY --from=build-stage /app/node_modules ./node_modules
 
 COPY --from=build-stage /app ./
+
+RUN npm install pnpm -g
 
 EXPOSE 888
 
