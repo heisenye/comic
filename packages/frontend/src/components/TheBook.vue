@@ -68,7 +68,8 @@ export default {
             showMsg({
               msg: msg['DELETE_FAVORITE_SUCCESS'],
               messageType: 'success',
-              popupType: 'alert'
+              popupType: 'toast',
+              toastPos: ['right', 'bottom']
             })
           }
         } else {
@@ -81,7 +82,8 @@ export default {
             showMsg({
               msg: msg['ADD_FAVORITE_SUCCESS'],
               messageType: 'success',
-              popupType: 'alert'
+              popupType: 'toast',
+              toastPos: ['right', 'bottom']
             })
           }
         }
