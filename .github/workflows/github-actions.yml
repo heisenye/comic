@@ -33,6 +33,11 @@ jobs:
           tags: ${{ steps.meta-frontend.outputs.tags }}
           labels: ${{ steps.meta-frontend.outputs.labels }}
 
+      - name: print tags and labels
+        run: |
+          echo "tags: ${{ steps.meta-frontend.outputs.tags }}"
+          echo "labels: ${{ steps.meta-frontend.outputs.labels }}"
+
 #      - name: Build and push backend
 #        uses: docker/build-push-action@v5
 #        with:
@@ -41,16 +46,16 @@ jobs:
 #          tags: ${{ steps.meta-backend.outputs.tags }}
 #          labels: ${{ steps.meta-backend.outputs.labels }}
 
-      - name: ssh to server
-        uses: appleboy/ssh-action@master
-        with:
-          host: ${{ secrets.CLOUD_IP }}
-          username: ${{ secrets.CLOUD_NAME }}
-          password: ${{ secrets.CLOUD_PASSWORD }}
-          script: |
-            cd ~
-            sudo sh deploy.sh ${{ secrets.DOCKER_USERNAME }} ${{ secrets.DOCKER_PASSWORD }} 
-            
+#      - name: ssh to server
+#        uses: appleboy/ssh-action@master
+#        with:
+#          host: ${{ secrets.CLOUD_IP }}
+#          username: ${{ secrets.CLOUD_NAME }}
+#          password: ${{ secrets.CLOUD_PASSWORD }}
+#          script: |
+#            cd ~
+#            sudo sh deploy.sh ${{ secrets.DOCKER_USERNAME }} ${{ secrets.DOCKER_PASSWORD }}
+#
 
         
 
