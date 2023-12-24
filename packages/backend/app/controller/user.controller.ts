@@ -137,6 +137,7 @@ class UserController {
       if (!token) {
         ctx.response.status = ResponseCode.Unauthorized
         ctx.body = Response.NoToken()
+        console.log(1111)
         return
       }
       try {

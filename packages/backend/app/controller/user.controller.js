@@ -243,6 +243,7 @@ var UserController = /** @class */ (function () {
                         if (!token) {
                             ctx.response.status = status_1.ResponseCode.Unauthorized;
                             ctx.body = response_1.default.NoToken();
+                            console.log(1111);
                             return [2 /*return*/];
                         }
                         try {

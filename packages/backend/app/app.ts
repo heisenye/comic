@@ -14,7 +14,7 @@ app.use(serve(__dirname + '/public'))
 app.use(bodyParser())
 
 app.use(indexRouter.routes())
-app.use(comicsRouter.routes())
+app.use(comicsRouter.routes()).use(comicsRouter.allowedMethods())
 app.use(userRouter.routes()).use(userRouter.allowedMethods())
 
 const run = (port: number): Server => {
