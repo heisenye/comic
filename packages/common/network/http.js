@@ -149,11 +149,7 @@ export function postAvatar(data) {
         'Content-Type': 'multipart/form-data'
       }
     },
-    {
-      useCache: false,
-      useThrottle: true,
-      throttleTime: 10000
-    }
+
   )
 }
 
