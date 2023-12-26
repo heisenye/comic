@@ -69,15 +69,6 @@ service.interceptors.response.use(
       removeToken()
     }
 
-    // if (error.response.status === 429) {
-    //   showMsg({
-    //     msg: error.response.data,
-    //     messageType: 'error',
-    //     popupType: 'alert'
-    //   })
-    //   return
-    // }
-
     showMsg({
       msg: error.response.data.msg,
       messageType: 'error',
