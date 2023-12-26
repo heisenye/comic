@@ -53,8 +53,10 @@ export default {
             toastPos: ['bottom', 'end']
           })
           setTimeout(() => {
-            goHome()
-          }, 3000)
+            if (route.name === 'login') {
+              goHome()
+            }
+          }, 2000)
         }
       } catch (error) {
         console.error(error)
@@ -85,7 +87,7 @@ export default {
           })
           setTimeout(() => {
             replaceLogin()
-          }, 3000)
+          }, 1000)
         }
       } catch (error) {
         console.error(error)

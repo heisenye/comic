@@ -129,7 +129,7 @@ body {
 }
 
 ::selection {
-  background-color: #666666;
+  @apply bg-accent;
   border-radius: 5px;
 }
 

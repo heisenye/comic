@@ -45,6 +45,7 @@ var favorite_model_1 = require("../model/favorite.model");
 var response_1 = require("../utils/response");
 var status_1 = require("../constants/status");
 var sharp = require("sharp");
+var logger_1 = require("../logger");
 var ComicController = /** @class */ (function () {
     function ComicController() {
     }
@@ -63,7 +64,7 @@ var ComicController = /** @class */ (function () {
                         return [3 /*break*/, 3];
                     case 2:
                         error_1 = _a.sent();
-                        console.error(error_1);
+                        ctx.response.status = status_1.ResponseCode.Internal_Server_Error;
                         ctx.body = response_1.default.UnknownError(error_1);
                         return [3 /*break*/, 3];
                     case 3: return [2 /*return*/];
@@ -84,7 +85,7 @@ var ComicController = /** @class */ (function () {
                             ctx.body = response_1.default.InValidId();
                             return [2 /*return*/];
                         }
-                        return [4 /*yield*/, comic_model_1.default.findOne({ _id: id })];
+                        return [4 /*yield*/, comic_model_1.default.findById(id)];
                     case 1:
                         comic = _a.sent();
                         if (!comic) {
@@ -96,6 +97,7 @@ var ComicController = /** @class */ (function () {
                         return [3 /*break*/, 3];
                     case 2:
                         error_2 = _a.sent();
+                        ctx.response.status = status_1.ResponseCode.Internal_Server_Error;
                         ctx.body = response_1.default.UnknownError(error_2);
                         return [3 /*break*/, 3];
                     case 3: return [2 /*return*/];
@@ -135,6 +137,7 @@ var ComicController = /** @class */ (function () {
                     case 2:
                         error_3 = _b.sent();
                         console.error(error_3);
+                        ctx.response.status = status_1.ResponseCode.Internal_Server_Error;
                         ctx.body = response_1.default.UnknownError(error_3);
                         return [3 /*break*/, 3];
                     case 3: return [2 /*return*/];
@@ -156,7 +159,7 @@ var ComicController = /** @class */ (function () {
                             return [2 /*return*/];
                         }
                         if (!(typeof ids === 'string')) return [3 /*break*/, 2];
-                        return [4 /*yield*/, comic_model_1.default.findOne({ _id: ids })];
+                        return [4 /*yield*/, comic_model_1.default.findById(ids)];
                     case 1:
                         historyComic = _a.sent();
                         if (!historyComic) {
@@ -178,7 +181,7 @@ var ComicController = /** @class */ (function () {
                         return [3 /*break*/, 5];
                     case 4:
                         error_4 = _a.sent();
-                        console.error(error_4);
+                        ctx.response.status = status_1.ResponseCode.Internal_Server_Error;
                         ctx.body = response_1.default.UnknownError(error_4);
                         return [3 /*break*/, 5];
                     case 5: return [2 /*return*/];
@@ -220,7 +223,7 @@ var ComicController = /** @class */ (function () {
                         _a.sent();
                         _a.label = 6;
                     case 6:
-                        console.error(error_5);
+                        ctx.response.status = status_1.ResponseCode.Internal_Server_Error;
                         ctx.body = response_1.default.UnknownError(error_5);
                         return [3 /*break*/, 7];
                     case 7: return [2 /*return*/];
@@ -262,7 +265,7 @@ var ComicController = /** @class */ (function () {
                         return [3 /*break*/, 4];
                     case 3:
                         error_6 = _a.sent();
-                        console.error(error_6);
+                        ctx.response.status = status_1.ResponseCode.Internal_Server_Error;
                         response_1.default.UnknownError(error_6);
                         return [3 /*break*/, 4];
                     case 4: return [2 /*return*/];
@@ -290,7 +293,7 @@ var ComicController = /** @class */ (function () {
                         return [3 /*break*/, 3];
                     case 2:
                         error_7 = _a.sent();
-                        console.error(error_7);
+                        ctx.response.status = status_1.ResponseCode.Internal_Server_Error;
                         response_1.default.UnknownError(error_7);
                         return [3 /*break*/, 3];
                     case 3: return [2 /*return*/];
@@ -322,7 +325,7 @@ var ComicController = /** @class */ (function () {
                         return [3 /*break*/, 3];
                     case 2:
                         error_8 = _a.sent();
-                        console.error(error_8);
+                        ctx.response.status = status_1.ResponseCode.Internal_Server_Error;
                         response_1.default.UnknownError(error_8);
                         return [3 /*break*/, 3];
                     case 3: return [2 /*return*/];
@@ -338,7 +341,6 @@ var ComicController = /** @class */ (function () {
                     case 0:
                         _a.trys.push([0, 2, , 3]);
                         keyword = ctx.query.keyword;
-                        console.log(keyword);
                         if (!keyword) {
                             ctx.body = response_1.default.Success({ data: [] });
                             return [2 /*return*/];
@@ -350,7 +352,7 @@ var ComicController = /** @class */ (function () {
                         return [3 /*break*/, 3];
                     case 2:
                         error_9 = _a.sent();
-                        console.error(error_9);
+                        ctx.response.status = status_1.ResponseCode.Internal_Server_Error;
                         response_1.default.UnknownError(error_9);
                         return [3 /*break*/, 3];
                     case 3: return [2 /*return*/];
@@ -374,7 +376,7 @@ var ComicController = /** @class */ (function () {
                         return [3 /*break*/, 3];
                     case 2:
                         error_10 = _b.sent();
-                        console.error(error_10);
+                        ctx.response.status = status_1.ResponseCode.Internal_Server_Error;
                         response_1.default.UnknownError(error_10);
                         return [3 /*break*/, 3];
                     case 3: return [2 /*return*/];
@@ -403,7 +405,7 @@ var ComicController = /** @class */ (function () {
                         return [3 /*break*/, 3];
                     case 2:
                         error_11 = _c.sent();
-                        console.error(error_11);
+                        ctx.response.status = status_1.ResponseCode.Internal_Server_Error;
                         ctx.body = response_1.default.UnknownError(error_11);
                         return [3 /*break*/, 3];
                     case 3: return [2 /*return*/];
@@ -435,14 +437,16 @@ var ComicController = /** @class */ (function () {
                             sharp(file.buffer)
                                 .webp({ quality: 80 })
                                 .toFile(filePath, function (err) {
-                                console.log(err);
+                                if (err) {
+                                    logger_1.default.error(err);
+                                }
                             });
                         });
                         ctx.body = response_1.default.Success();
                         return [3 /*break*/, 3];
                     case 2:
                         error_12 = _a.sent();
-                        console.error(error_12);
+                        ctx.response.status = status_1.ResponseCode.Internal_Server_Error;
                         response_1.default.UnknownError(error_12);
                         return [3 /*break*/, 3];
                     case 3: return [2 /*return*/];

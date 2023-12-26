@@ -46,6 +46,7 @@ function createRequest() {
         if (useCache) {
           cache.delete(configKey)
         }
+        console.log(error.response.headers)
         throw error
       })
   }

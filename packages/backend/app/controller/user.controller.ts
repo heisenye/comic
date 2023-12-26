@@ -24,7 +24,6 @@ class UserController {
       }
       ctx.body = Response.Success<IUser>({ data: user })
     } catch (error) {
-      console.error(error)
       ctx.response.status = ResponseCode.Internal_Server_Error
       ctx.body = Response.UnknownError(error as Error)
     }
@@ -62,7 +61,6 @@ class UserController {
         }
       })
     } catch (error) {
-      console.error(error)
       ctx.response.status = ResponseCode.Internal_Server_Error
       ctx.body = Response.UnknownError(error as Error)
     }
@@ -70,12 +68,16 @@ class UserController {
 
   public async register(ctx: Context) {
     try {
-      console.log(ctx.request['body'])
       const { username, pwd } = ctx.request['body']
+      const existingUser = await User.findOne({username})
+      if (existingUser) {
+        ctx.response.status = ResponseCode.Conflict
+        ctx.body = Response.UserAlreadyExists()
+        return
+      }
       const user = await User.create({ username, password: pwd })
       ctx.body = Response.Success<IUser>({ data: user })
     } catch (error) {
-      console.error(error)
       ctx.response.status = ResponseCode.Internal_Server_Error
       ctx.body = Response.UnknownError(error as Error)
     }
@@ -95,7 +97,6 @@ class UserController {
         data: { id, username, createdAt: new Date(createdAt).toLocaleDateString() }
       })
     } catch (error) {
-      console.error(error)
       ctx.response.status = ResponseCode.Internal_Server_Error
       ctx.body = Response.UnknownError(error as Error)
     }
@@ -125,7 +126,6 @@ class UserController {
       }
       ctx.body = Response.Success<boolean>({ data: true })
     } catch (error) {
-      console.error(error)
       ctx.response.status = ResponseCode.Internal_Server_Error
       ctx.body = Response.UnknownError(error as Error)
     }
@@ -150,7 +150,6 @@ class UserController {
       }
       await next()
     } catch (error) {
-      console.error(error)
       ctx.response.status = ResponseCode.Internal_Server_Error
       ctx.body = Response.UnknownError(error as Error)
     }

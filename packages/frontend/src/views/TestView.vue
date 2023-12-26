@@ -1,26 +1,16 @@
 <script>
-import { TheModal } from 'ui'
-import TheTest from '@/components/TheTest.vue'
-import { onMounted, ref } from 'vue'
+import TheComicRow from '@/components/TheComicRow.vue'
 
 export default {
-  components: { TheModal, TheTest },
+  components: { TheComicRow },
   setup() {
-    const searchText = ref('')
-    const val = ref(null)
 
-    onMounted(() => {})
-
-    return {
-      searchText,
-      val
-    }
   }
 }
 </script>
 
 <template>
-  <TheTest> </TheTest>
+  <TheComicRow/>
 </template>
 
 <style scoped></style>

@@ -81,7 +81,6 @@ var UserController = /** @class */ (function () {
                         return [3 /*break*/, 3];
                     case 2:
                         error_1 = _a.sent();
-                        console.error(error_1);
                         ctx.response.status = status_1.ResponseCode.Internal_Server_Error;
                         ctx.body = response_1.default.UnknownError(error_1);
                         return [3 /*break*/, 3];
@@ -126,7 +125,6 @@ var UserController = /** @class */ (function () {
                         return [3 /*break*/, 3];
                     case 2:
                         error_2 = _c.sent();
-                        console.error(error_2);
                         ctx.response.status = status_1.ResponseCode.Internal_Server_Error;
                         ctx.body = response_1.default.UnknownError(error_2);
                         return [3 /*break*/, 3];
@@ -137,25 +135,31 @@ var UserController = /** @class */ (function () {
     };
     UserController.prototype.register = function (ctx) {
         return __awaiter(this, void 0, void 0, function () {
-            var _a, username, pwd, user, error_3;
+            var _a, username, pwd, existingUser, user, error_3;
             return __generator(this, function (_b) {
                 switch (_b.label) {
                     case 0:
-                        _b.trys.push([0, 2, , 3]);
-                        console.log(ctx.request['body']);
+                        _b.trys.push([0, 3, , 4]);
                         _a = ctx.request['body'], username = _a.username, pwd = _a.pwd;
-                        return [4 /*yield*/, user_model_1.default.create({ username: username, password: pwd })];
+                        return [4 /*yield*/, user_model_1.default.findOne({ username: username })];
                     case 1:
+                        existingUser = _b.sent();
+                        if (existingUser) {
+                            ctx.response.status = status_1.ResponseCode.Conflict;
+                            ctx.body = response_1.default.UserAlreadyExists();
+                            return [2 /*return*/];
+                        }
+                        return [4 /*yield*/, user_model_1.default.create({ username: username, password: pwd })];
+                    case 2:
                         user = _b.sent();
                         ctx.body = response_1.default.Success({ data: user });
-                        return [3 /*break*/, 3];
-                    case 2:
+                        return [3 /*break*/, 4];
+                    case 3:
                         error_3 = _b.sent();
-                        console.error(error_3);
                         ctx.response.status = status_1.ResponseCode.Internal_Server_Error;
                         ctx.body = response_1.default.UnknownError(error_3);
-                        return [3 /*break*/, 3];
-                    case 3: return [2 /*return*/];
+                        return [3 /*break*/, 4];
+                    case 4: return [2 /*return*/];
                 }
             });
         });
@@ -183,7 +187,6 @@ var UserController = /** @class */ (function () {
                         return [3 /*break*/, 3];
                     case 2:
                         error_4 = _a.sent();
-                        console.error(error_4);
                         ctx.response.status = status_1.ResponseCode.Internal_Server_Error;
                         ctx.body = response_1.default.UnknownError(error_4);
                         return [3 /*break*/, 3];
@@ -223,7 +226,6 @@ var UserController = /** @class */ (function () {
                         return [3 /*break*/, 3];
                     case 2:
                         error_5 = _a.sent();
-                        console.error(error_5);
                         ctx.response.status = status_1.ResponseCode.Internal_Server_Error;
                         ctx.body = response_1.default.UnknownError(error_5);
                         return [3 /*break*/, 3];
@@ -261,7 +263,6 @@ var UserController = /** @class */ (function () {
                         return [3 /*break*/, 3];
                     case 2:
                         error_6 = _a.sent();
-                        console.error(error_6);
                         ctx.response.status = status_1.ResponseCode.Internal_Server_Error;
                         ctx.body = response_1.default.UnknownError(error_6);
                         return [3 /*break*/, 3];

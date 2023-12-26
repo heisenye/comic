@@ -1,7 +1,7 @@
 <script>
 import { onBeforeMount, ref } from 'vue'
 import { goBook } from '@/utils/router'
-import ComicRecommendation from '@/components/TheComicRows.vue'
+import ComicRecommendation from '@/components/TheComicsRow.vue'
 import { http } from 'common'
 import { BASE_URL } from 'common'
 

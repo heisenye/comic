@@ -41,6 +41,13 @@ service.interceptors.response.use(
       error.config.loading.remove()
     }
 
+    if (error.code === 'ERR_BAD_REQUEST') {
+      error.response.data = {
+        code: 429,
+        msg: msg['TOO_MANY_REQUESTS_RETRY_AFTER'](error.response.headers['retry-after'])
+      }
+    }
+
     if (!error.response) {
       if (error.code === 'ERR_NETWORK') {
         error.response = {
@@ -61,6 +68,15 @@ service.interceptors.response.use(
     if (error.response.data.code === 401) {
       removeToken()
     }
+
+    // if (error.response.status === 429) {
+    //   showMsg({
+    //     msg: error.response.data,
+    //     messageType: 'error',
+    //     popupType: 'alert'
+    //   })
+    //   return
+    // }
 
     showMsg({
       msg: error.response.data.msg,

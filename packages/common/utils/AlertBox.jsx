@@ -1,7 +1,7 @@
 import { defineComponent } from 'vue'
 import { TheButton } from "ui"
 
-const AlertBox = defineComponent({
+export const AlertBox = defineComponent({
   props: {
     msg: {
       type: String,

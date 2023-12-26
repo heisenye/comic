@@ -27,11 +27,11 @@ function showMsg({ msg, messageType , popupType = 'alert', toastPos, fn }) {
         app.unmount()
         div.remove()
       }, 500)
-      div.classList.add('opacity-0', 'transition-opacity')
+      div.classList.add('opacity-0', 'transition-opacity', 'duration-500')
     }
   }
 
-  if (popupType === 'toast' && toastPos)  appProps.position = toastPos
+  if (popupType === 'toast' && toastPos) { appProps.position = toastPos }
 
   const app = createApp(box, appProps)
   app.mount(div)
@@ -40,10 +40,10 @@ function showMsg({ msg, messageType , popupType = 'alert', toastPos, fn }) {
     setTimeout(() => {
       app.unmount()
       div.remove()
-    }, 1000)
+    }, 500)
 
-    div.classList.add('opacity-0', 'transition-opacity')
-  }, 2500)
+    div.classList.add('opacity-0', 'transition-opacity', 'duration-500')
+  }, 1500)
 }
 
 export default showMsg

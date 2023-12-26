@@ -3,22 +3,15 @@ import {onMounted, ref, Transition} from "vue"
 import {RouterLink} from "vue-router"
 import {useComicStore} from "@/stores/comic"
 import {TheButton, TheIcon, TheModal} from 'ui'
-import {msg, comicConstants} from "common"
-import {http} from "common"
-import {MessageBox} from "common"
+import {http, msg, comicConstants, AlertBox} from "common"
 
 const {tags, statuses} = comicConstants
 
 export default {
   name: "ComicManagementView",
-  components: {TheButton, TheIcon, TheModal, MessageBox, RouterLink, Transition},
+  components: {TheButton, TheIcon, TheModal, RouterLink, AlertBox, Transition},
   setup() {
     const comicStore = useComicStore()
-
-    const addComicModal = ref()
-    const tagsModal = ref()
-    const descriptionModal = ref()
-    const noUnfilledComicModal = ref()
 
     const name = ref("")
     const author = ref("")
@@ -54,6 +47,11 @@ export default {
       console.log(response)
     }
 
+    const viewUnfilledComicsHandler = () => {
+      unfilledComicsShow.value = !unfilledComicsShow.value
+      if (unfilledComics.value.length === 0) document.getElementById('noUnfilledComic').showModal()
+    }
+
     const selectComic = (comic) => {
       comicStore.selectComic(comic)
     }
@@ -72,16 +70,13 @@ export default {
     })
 
     return {
+      viewUnfilledComicsHandler,
       uploadComic,
       msg,
       comicsCount,
       unfilledComics,
       foundComics,
       unfilledComicsCount,
-      addComicModal,
-      tagsModal,
-      descriptionModal,
-      noUnfilledComicModal,
       statuses,
       tags,
       selectedStatus,
@@ -122,17 +117,11 @@ export default {
           <span class="text-base text-primary opacity-60">未填充漫画数 </span>
           <span class="text-2xl">{{unfilledComicsCount}}</span>
         </div>
-        <TheButton type="ghost" size="md" shape="square" class="ml-auto bg-base-300" @click="()=>{
-          unfilledComicsShow = !unfilledComicsShow;
-          if (unfilledComics.length === 0) noUnfilledComicModal.modalRef.showModal()
-        }">
+        <TheButton type="ghost" size="md" shape="square" class="ml-auto bg-base-300" @click="viewUnfilledComicsHandler">
           <TheIcon type="eye" size="lg"/>
         </TheButton>
-        <TheModal ref="noUnfilledComicModal">
+        <TheModal id="noUnfilledComic">
           <h1 class="text-lg text-center">当前无未填充漫画</h1>
-          <form method="dialog">
-            <TheButton type="success" class="block mx-auto mt-4">确定</TheButton>
-          </form>
         </TheModal>
       </div>
     </div>
@@ -165,10 +154,14 @@ export default {
         </RouterLink>
       </div>
     </div>
-      <TheButton class="fixed right-4 bottom-4 hover:shadow-2xl" type="info" shape="circle" size="lg" @click="addComicModal.modalRef.showModal()">
+<!--  点击按钮  -->
+      <TheButton class="fixed right-4 bottom-4 hover:shadow-2xl" type="info" shape="circle" size="lg" onclick="document.getElementById('newComic').showModal()">
         <TheIcon type="plus" size="xl"/>
       </TheButton>
-    <TheModal ref="addComicModal">
+<!--    -->
+
+<!--  弹出框  -->
+    <TheModal id="newComic">
         <div class="card">
           <form class="card-body">
             <div class="form-control space-y-3">
@@ -184,9 +177,9 @@ export default {
                   </option>
                 </template>
               </select>
-              <div class="btn" @click="tagsModal.modalRef.showModal()">
+              <div class="btn" onclick="document.getElementById('tags').showModal()">
                 选择标签
-                <TheModal id="tags" ref="tagsModal">
+                <TheModal id="tags">
                     <div class="grid grid-cols-3 gap-2">
                     <template v-for="tag in tags" :key="tag">
                         <input type="checkbox" :id="tag" :value="tag" v-model="selectedTags" class="hidden" @change="()=>console.log(selectedTags)">
@@ -195,10 +188,10 @@ export default {
                     </div>
                 </TheModal>
               </div>
-              <div class="btn" @click="descriptionModal.modalRef.showModal()">
+              <div class="btn" onclick="document.getElementById('description').showModal() ">
                 添加简介
-                <TheModal ref="descriptionModal">
-                    <textarea class="textarea textarea-primary" v-model="description"/>
+                <TheModal id="description">
+                    <textarea rows="3" class="textarea textarea-primary" v-model="description"/>
                 </TheModal>
               </div>
             </div>
@@ -208,8 +201,9 @@ export default {
           </form>
         </div>
         <Transition>
-          <MessageBox v-if="messageShow" :msg="msg['INCOMPLETE_FORM']" :click="()=>messageShow = false" class="bottom-8" />
+          <AlertBox v-if="messageShow" :msg="msg['INCOMPLETE_FORM']" :click="()=>messageShow = false" class="bottom-8" />
         </Transition>
     </TheModal>
+<!--    -->
   </main>
 </template>

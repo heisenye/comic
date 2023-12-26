@@ -71,7 +71,7 @@ export default {
 </script>
 
 <template>
-  <figure :class="['relative', 'overflow-none', imgContainerClassName]">
+  <figure :class="['relative', imgContainerClassName, 'overflow-none']">
     <img
       v-lazy="{ isLazy: lazy }"
       :data-src="src"

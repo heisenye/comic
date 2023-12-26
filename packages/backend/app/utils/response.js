@@ -22,52 +22,51 @@ var Response = /** @class */ (function () {
         };
     };
     Response.InValidId = function (msg) {
-        logger_1.default.error(msg || message_1.default['INVALID_ID']);
         return {
             code: status_1.ResponseCode.Bad_Request,
             msg: msg || message_1.default['INVALID_ID']
         };
     };
     Response.InValidChapter = function (msg) {
-        logger_1.default.error(msg || message_1.default['INVALID_CHAPTER']);
         return {
             code: status_1.ResponseCode.Bad_Request,
             msg: msg || message_1.default['INVALID_CHAPTER']
         };
     };
     Response.NoComic = function (msg) {
-        logger_1.default.error(msg || message_1.default['NO_COMIC']);
         return {
             code: status_1.ResponseCode.Bad_Request,
             msg: msg || message_1.default['NO_COMIC']
         };
     };
     Response.NoUser = function (msg) {
-        logger_1.default.error(msg || message_1.default['NO_USER']);
         return {
             code: status_1.ResponseCode.Unauthorized,
             msg: msg || message_1.default['NO_USER']
         };
     };
     Response.NoToken = function (msg) {
-        logger_1.default.error(msg || message_1.default['NO_TOKEN']);
         return {
             code: status_1.ResponseCode.Unauthorized,
             msg: msg || message_1.default['NO_TOKEN']
         };
     };
     Response.InvalidCredentials = function (msg) {
-        logger_1.default.error(msg || message_1.default['INVALID_CREDENTIALS']);
         return {
             code: status_1.ResponseCode.Unauthorized,
             msg: msg || message_1.default['INVALID_CREDENTIALS']
         };
     };
     Response.InvalidToken = function (msg) {
-        logger_1.default.error(msg || message_1.default['INVALID_TOKEN']);
         return {
             code: status_1.ResponseCode.Unauthorized,
             msg: msg || message_1.default['INVALID_TOKEN']
+        };
+    };
+    Response.UserAlreadyExists = function (msg) {
+        return {
+            code: status_1.ResponseCode.Conflict,
+            msg: msg || message_1.default['USER_ALREADY_EXISTS']
         };
     };
     return Response;

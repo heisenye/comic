@@ -2,6 +2,7 @@ export default {
   UNKNOWN_ERROR: '未知错误',
   NETWORK_ERROR: '网络错误',
   TOO_MANY_REQUESTS: '请求过于频繁',
+  TOO_MANY_REQUESTS_RETRY_AFTER: (s) => `请求过于频繁，请${s}秒后重试`,
   NO_TOKEN: '未登录',
   LOGIN_SUCCESS: '登录成功',
   LOGOUT_SUCCESS: '登出成功',

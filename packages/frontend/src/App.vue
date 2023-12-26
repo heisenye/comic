@@ -23,13 +23,12 @@ export default {
       <!--      </keep-alive>-->
     </transition>
   </RouterView>
-  <h1 class="absolute bottom-0 text-warning">{{}}</h1>
 </template>
 
 <style scoped>
 .component-enter-active,
 .component-leave-active {
-  transition: opacity linear 0.12s;
+  transition: opacity ease-in-out 0.15s;
 }
 
 .component-enter-from,

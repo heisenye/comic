@@ -29,7 +29,6 @@ export default class Response {
   }
 
   public static InValidId(msg?: string): IResponseBody {
-    logger.error(msg || message['INVALID_ID'])
     return {
       code: ResponseCode.Bad_Request,
       msg: msg || message['INVALID_ID']
@@ -37,7 +36,6 @@ export default class Response {
   }
 
   public static InValidChapter(msg?: string): IResponseBody {
-    logger.error(msg || message['INVALID_CHAPTER'])
     return {
       code: ResponseCode.Bad_Request,
       msg: msg || message['INVALID_CHAPTER']
@@ -45,7 +43,6 @@ export default class Response {
   }
 
   public static NoComic(msg?: string): IResponseBody {
-    logger.error(msg || message['NO_COMIC'])
     return {
       code: ResponseCode.Bad_Request,
       msg: msg || message['NO_COMIC']
@@ -53,7 +50,6 @@ export default class Response {
   }
 
   public static NoUser(msg?: string): IResponseBody {
-    logger.error(msg || message['NO_USER'])
     return {
       code: ResponseCode.Unauthorized,
       msg: msg || message['NO_USER']
@@ -61,7 +57,6 @@ export default class Response {
   }
 
   public static NoToken(msg?: string): IResponseBody {
-    logger.error(msg || message['NO_TOKEN'])
     return {
       code: ResponseCode.Unauthorized,
       msg: msg || message['NO_TOKEN']
@@ -69,7 +64,6 @@ export default class Response {
   }
 
   public static InvalidCredentials(msg?: string): IResponseBody {
-    logger.error(msg || message['INVALID_CREDENTIALS'])
     return {
       code: ResponseCode.Unauthorized,
       msg: msg || message['INVALID_CREDENTIALS']
@@ -77,10 +71,16 @@ export default class Response {
   }
 
   public static InvalidToken(msg?: string): IResponseBody {
-    logger.error(msg || message['INVALID_TOKEN'])
     return {
       code: ResponseCode.Unauthorized,
       msg: msg || message['INVALID_TOKEN']
+    }
+  }
+
+  public static UserAlreadyExists(msg?: string): IResponseBody {
+    return {
+      code: ResponseCode.Conflict,
+      msg: msg || message['USER_ALREADY_EXISTS']
     }
   }
 }

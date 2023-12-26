@@ -9,5 +9,7 @@ exports.default = {
     INVALID_TOKEN: 'token无效',
     INVALID_ID: 'id无效',
     INVALID_CHAPTER: '章节无效',
-    NO_COMIC: '漫画不存在'
+    NO_COMIC: '漫画不存在',
+    USER_ALREADY_EXISTS: '用户名已存在',
+    TOO_MANY_REQUESTS: '请求过于频繁,请60秒后重试',
 };

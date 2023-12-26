@@ -2,5 +2,5 @@
   "watch": ["app/**/*.ts", "app/app.ts", "./index.ts"],
   "ignore": ["node_modules/**"],
   "ext": "ts",
-  "exec": "npx ts-node ./index.ts"
+  "exec": "tsc index.ts && npx ts-node ./index.ts"
 }

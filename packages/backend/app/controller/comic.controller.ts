@@ -9,6 +9,7 @@ import Favorite from '../model/favorite.model'
 import Response from '../utils/response'
 import { ResponseCode } from '../constants/status'
 import sharp = require('sharp')
+import logger from '../logger'
 
 class ComicController {
   public async getComics(ctx: Context) {
@@ -17,7 +18,7 @@ class ComicController {
       ctx.response.status = ResponseCode.OK
       ctx.body = Response.Success<IComic[]>({ data: comics })
     } catch (error) {
-      console.error(error)
+      ctx.response.status = ResponseCode.Internal_Server_Error
       ctx.body = Response.UnknownError(error as Error)
     }
   }
@@ -30,7 +31,7 @@ class ComicController {
         ctx.body = Response.InValidId()
         return
       }
-      const comic = await ComicModel.findOne({ _id: id })
+      const comic = await ComicModel.findById(id)
       if (!comic) {
         ctx.response.status = ResponseCode.Not_Found
         ctx.body = Response.NoComic()
@@ -38,6 +39,7 @@ class ComicController {
       }
       ctx.body = Response.Success<IComic>({ data: comic })
     } catch (error) {
+      ctx.response.status = ResponseCode.Internal_Server_Error
       ctx.body = Response.UnknownError(error as Error)
     }
   }
@@ -65,6 +67,7 @@ class ComicController {
       ctx.body = Response.Success<IComicChapter>({ data: comicImages })
     } catch (error) {
       console.error(error)
+      ctx.response.status = ResponseCode.Internal_Server_Error
       ctx.body = Response.UnknownError(error as Error)
     }
   }
@@ -78,7 +81,7 @@ class ComicController {
         return
       }
       if (typeof ids === 'string') {
-        const historyComic = await ComicModel.findOne({ _id: ids })
+        const historyComic = await ComicModel.findById(ids)
         if (!historyComic) {
           ctx.response.status = ResponseCode.Not_Found
           ctx.body = Response.NoComic()
@@ -96,7 +99,7 @@ class ComicController {
       ctx.response.status = ResponseCode.OK
       ctx.body = Response.Success<IComic[]>({ data: orderedHistoryComics })
     } catch (error) {
-      console.error(error)
+      ctx.response.status = ResponseCode.Internal_Server_Error
       ctx.body = Response.UnknownError(error as Error)
     }
   }
@@ -119,7 +122,7 @@ class ComicController {
       if (favoriteRecord) {
         await Favorite.deleteOne({ _id: favoriteRecord._id })
       }
-      console.error(error)
+      ctx.response.status = ResponseCode.Internal_Server_Error
       ctx.body = Response.UnknownError(error as Error)
     }
   }
@@ -147,7 +150,7 @@ class ComicController {
       ctx.response.status = ResponseCode.OK
       ctx.body = Response.Success()
     } catch (error) {
-      console.error(error)
+      ctx.response.status = ResponseCode.Internal_Server_Error
       Response.UnknownError(error as Error)
     }
   }
@@ -164,7 +167,7 @@ class ComicController {
 
       ctx.body = Response.Success<IComic[]>({ data: favoriteComics })
     } catch (error) {
-      console.error(error)
+      ctx.response.status = ResponseCode.Internal_Server_Error
       Response.UnknownError(error as Error)
     }
   }
@@ -185,7 +188,7 @@ class ComicController {
       }
       ctx.body = Response.Success<Boolean>({ data: false })
     } catch (error) {
-      console.error(error)
+      ctx.response.status = ResponseCode.Internal_Server_Error
       Response.UnknownError(error as Error)
     }
   }
@@ -193,7 +196,6 @@ class ComicController {
   public async getSearchComics(ctx: Context) {
     try {
       const { keyword } = ctx.query
-      console.log(keyword)
       if (!keyword) {
         ctx.body = Response.Success<IComic[]>({ data: [] })
         return
@@ -201,7 +203,7 @@ class ComicController {
       const searchComics = await ComicModel.find({ name: { $regex: keyword, $options: 'i' } })
       ctx.body = Response.Success<IComic[]>({ data: searchComics })
     } catch (error) {
-      console.error(error)
+      ctx.response.status = ResponseCode.Internal_Server_Error
       Response.UnknownError(error as Error)
     }
   }
@@ -213,7 +215,7 @@ class ComicController {
       console.log(comic)
       ctx.body = Response.Success()
     } catch (error) {
-      console.error(error)
+      ctx.response.status = ResponseCode.Internal_Server_Error
       Response.UnknownError(error as Error)
     }
   }
@@ -229,7 +231,7 @@ class ComicController {
       await ComicModel.updateOne({ _id: id }, { [field]: newVal })
       ctx.body = Response.Success()
     } catch (error) {
-      console.error(error)
+      ctx.response.status = ResponseCode.Internal_Server_Error
       ctx.body = Response.UnknownError(error as Error)
     }
   }
@@ -251,12 +253,14 @@ class ComicController {
         sharp(file.buffer)
           .webp({ quality: 80 })
           .toFile(filePath, (err) => {
-            console.log(err)
+          if (err) {
+              logger.error(err)
+            }
           })
       })
       ctx.body = Response.Success()
     } catch (error) {
-      console.error(error)
+      ctx.response.status = ResponseCode.Internal_Server_Error
       Response.UnknownError(error as Error)
     }
   }
