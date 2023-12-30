@@ -1,18 +1,19 @@
 <script>
-import { ref, watch, onMounted } from 'vue'
+import { ref, watch, onMounted, computed } from 'vue'
 import { useRoute } from 'vue-router'
 import { goBack, goSearchResult } from '@/utils/router'
 import TheComics from '@/components/TheComics.vue'
-import { TheNavigation } from 'ui'
+import { TheButton, TheIcon, TheNavigation } from 'ui'
 import { http } from 'common'
 
 export default {
   name: 'SearchView',
-  components: { TheComics, TheNavigation },
+  components: { TheButton, TheIcon, TheComics, TheNavigation },
   setup() {
     const route = useRoute()
 
     const keyword = route.query.keyword ? ref(route.query.keyword) : ref('')
+    const isSearchDisabled = computed(() => !keyword.value.trim())
     const searchComics = ref([])
 
     watch(
@@ -38,6 +39,7 @@ export default {
     return {
       goBack,
       keyword,
+      isSearchDisabled,
       searchComics,
 
       searchFn
@@ -58,23 +60,26 @@ export default {
         </button>
       </template>
       <template #right>
-        <div class="relative flex-grow flex items-center pr-2 font-cn_3">
+        <div class="relative flex-grow flex items-center pr-2 font-Noto">
           <input
             type="text"
             placeholder="搜索标题或标签"
-            class="comic-input"
+            class="nav-input"
             v-model="keyword"
             @keyup.enter="searchFn"
           />
-          <i class="fa-solid fa-magnifying-glass absolute left-4"></i>
+          <TheIcon type="magnifying-glass" class="absolute left-4" />
+          <TheButton shape="circle" type="error" :disabled="isSearchDisabled" class="absolute right-4 size-6">
+            <TheIcon size="sm" type="arrow-right" class="text-base" :class="{'text-white': !isSearchDisabled}" @click="searchFn" />
+          </TheButton>
         </div>
-        <button class="btn btn-info btn-sm rounded-md text-white font-cn_2" @click="searchFn">
-          搜寻
-        </button>
+        <router-link :to="{ name: 'home' }" class="relative btn btn-info btn-circle text-white">
+          <TheIcon type="house" class="lg:text-lg xl:text-xl 2xl:text-2xl"></TheIcon>
+        </router-link>
       </template>
     </TheNavigation>
     <h1
-      class="absolute top-44 text-xl text-center w-full text-white font-cn_3"
+      class="absolute top-44 text-xl text-center w-full text-white font-base_3"
       v-if="searchComics.length === 0 && $route.query.keyword"
     >
       什么也没有找见

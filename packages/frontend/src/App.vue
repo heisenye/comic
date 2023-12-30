@@ -1,7 +1,6 @@
 <script>
 import { RouterView } from 'vue-router'
 import IndexNavigation from '@/components/IndexNavigation.vue'
-console.log(import.meta.env.VITE_BASE_URL)
 
 export default {
   name: 'App',

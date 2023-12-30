@@ -74,7 +74,8 @@ service.interceptors.response.use(
       messageType: 'error',
       popupType: 'alert'
     })
-    return Promise.reject(error)
+
+    throw error
   }
 )
 

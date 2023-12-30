@@ -53,10 +53,10 @@ export default {
 
 <template>
   <main
-    class="absolute top-44 w-full max-w-4xl min-w-[300px] left-1/2 -translate-x-1/2 px-1 space-y-4 text-white"
+    class="relative top-40 mx-auto w-full max-w-4xl min-w-[300px] px-1 space-y-4 text-white"
   >
     <template v-for="comic in historyComics" :key="comic._id">
-      <div v-if="comic.isVisible" class="w-1/2 md:w-1/3 lg:w-1/4 card inline-flex px-3 indicator">
+      <div v-if="comic.isVisible" class="w-1/2 md:w-1/3 lg:w-1/4 xl:w-1/5 card inline-flex px-4 indicator">
         <TheImage
           class="cursor-pointer"
           :src="`${BASE_URL}/${comic._id}/${comic.coverImage.chapter}/${comic.coverImage.page}.webp`"
@@ -68,7 +68,7 @@ export default {
           @click="removeHistory(comic._id)"
         ></i>
         <div
-          class="card-body text-center bg-primary rounded-b-2xl font-cn_2 py-6 px-0 whitespace-nowrap"
+          class="card-body text-center bg-primary rounded-b-2xl font-base_2 py-6 px-0 whitespace-nowrap"
         >
           {{ comic.name }}
         </div>

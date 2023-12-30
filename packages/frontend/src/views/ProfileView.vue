@@ -134,7 +134,7 @@ export default {
         </div>
         <TheButton
           type="error"
-          class="z-50 h-10 lg:h-12 lg:w-20 lg:text-base text-black font-cn_2"
+          class="z-50 h-10 lg:h-12 lg:w-20 lg:text-base text-black font-base_2"
           @click="logout"
         >
           登出
@@ -147,7 +147,7 @@ export default {
         </div>
       </div>
       <div class="navbar rounded-xl bg-primary w-full text-sm px-4">
-        <span class="font-cn_3 text-lg text-white pr-4">注册时间</span>
+        <span class="font-base_3 text-lg text-white pr-4">注册时间</span>
         <span class="text-lg tracking-wide">{{ createdAt }}</span>
       </div>
     </div>
@@ -165,11 +165,11 @@ export default {
         </div>
         <div class="flex justify-center">
           <TheButton type="accent" class="w-32 lg:w-20 mx-auto my-3" @click="uploadAvatar">
-            <span class="font-cn_3">上传</span>
+            <span class="font-base_3">上传</span>
           </TheButton>
           <form method="dialog" class="hidden lg:block mx-auto">
             <TheButton type="info" class="w-20 my-3" @click="cancelUpload">
-              <span class="font-cn_3">取消</span>
+              <span class="font-base_3">取消</span>
             </TheButton>
           </form>
         </div>

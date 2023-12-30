@@ -34,11 +34,11 @@ export default {
           @click="goBook(comic._id)"
         />
         <div class="card-body bg-primary rounded-b-2xl pt-4 px-3 pb-3">
-          <h1 class="font-cn_2 font-medium text-sm text-center tracking-wide sm:text-base">
+          <h1 class="font-base_2 font-medium text-sm text-center tracking-wide sm:text-base">
             {{ comic.name }}
           </h1>
-          <span class="font-cn_2 font-medium text-xs opacity-60">{{ comic.author }}</span>
-          <div class="font-cn_2 font-medium text-xs opacity-60 space-x-1">
+          <span class="font-base_2 font-medium text-xs opacity-60">{{ comic.author }}</span>
+          <div class="font-base_2 font-medium text-xs opacity-60 space-x-1">
             <i class="fa-solid fa-eye"></i>
             <span>{{ comic.viewCount }}</span
             >&nbsp;&nbsp;

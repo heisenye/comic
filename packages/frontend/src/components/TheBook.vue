@@ -121,7 +121,7 @@ export default {
         class="absolute bookmark border-[32px] -left-4 -top-4 xl:border-[40px]"
         v-if="status === 'completed'"
       >
-        <p class="absolute -left-6 -top-6 xl:text-lg font-cn_3">完结</p>
+        <p class="absolute -left-6 -top-6 xl:text-lg font-base_3">完结</p>
       </div>
       <div class="relative flex justify-center pb-6 pt-8 lg:w-3/5">
         <TheImage
@@ -130,7 +130,7 @@ export default {
         />
       </div>
       <div class="card-body pt-4 px-6 md:px-6 rounded-b-xl xl:text-lg">
-        <h1 class="font-cn_3 card-title text-2xl xl:text-3xl self-center pb-2">{{ name }}</h1>
+        <h1 class="font-base_3 card-title text-2xl xl:text-3xl self-center pb-2">{{ name }}</h1>
         <div class="text-accent">
           <span>{{ new Date(date).toLocaleDateString() }}</span
           >&nbsp; | &nbsp;<i class="fa-solid fa-eye"></i>&nbsp;
@@ -139,16 +139,16 @@ export default {
           >&nbsp; | &nbsp;<i class="fa-solid fa-book"></i>&nbsp;
           <span>{{ chapters }}</span>
         </div>
-        <div class="font-cn_2">
+        <div class="font-base_2">
           作者：<button class="btn btn-sm btn-secondary">{{ author }}</button>
         </div>
-        <div class="font-cn_2 space-x-1.5">
+        <div class="font-base_2 space-x-1.5">
           标签：
           <template v-for="tag in tags" :key="tag">
             <button class="btn btn-sm btn-secondary">{{ tag }}</button>
           </template>
         </div>
-        <div class="font-cn_2">简介：{{ description }}</div>
+        <div class="font-base_2">简介：{{ description }}</div>
         <TheButton
           type="error"
           class="w-32 lg:w-28 xl:w-32 mx-auto my-3"
@@ -160,7 +160,7 @@ export default {
             :variant="isFavorited ? 'solid' : 'regular'"
           />
         </TheButton>
-        <h1 class="font-cn_3 text-lg mx-auto">章节</h1>
+        <h1 class="font-base_3 text-lg mx-auto">章节</h1>
         <div class="grid grid-cols-4 gap-x-6 place-items-center">
           <template v-for="n in chapters" :key="n">
             <RouterLink

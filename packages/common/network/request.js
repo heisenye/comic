@@ -26,7 +26,6 @@ function createRequest() {
       return service(config)
         .then((response) => response.data)
         .catch((error) => {
-          console.error(error)
           throw error
         })
     }
@@ -46,7 +45,6 @@ function createRequest() {
         if (useCache) {
           cache.delete(configKey)
         }
-        console.log(error.response.headers)
         throw error
       })
   }

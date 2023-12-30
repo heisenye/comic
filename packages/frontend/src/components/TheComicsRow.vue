@@ -39,12 +39,12 @@ export default {
           </div>
           <div class="relative w-full h-24 bg-primary rounded-b-2xl">
             <h1
-              class="font-cn_2 font-medium text-sm text-center mt-2 mb-1 tracking-wide sm:text-base"
+              class="font-base_2 text-sm text-center mt-2 mb-1 tracking-wide sm:text-base"
             >
               {{ comic.name }}
             </h1>
-            <span class="font-cn_2 font-medium text-xs opacity-60 pl-3">{{ comic.author }}</span>
-            <div class="font-cn_2 font-medium text-xs opacity-60 pl-3 mt-1 space-x-1">
+            <span class="font-base_2 text-xs opacity-60 pl-3">{{ comic.author }}</span>
+            <div class="text-xs opacity-60 pl-3 mt-1 space-x-1">
               <i class="fa-solid fa-eye"></i>
               <span>{{ comic.viewCount }}</span
               >&nbsp;&nbsp;

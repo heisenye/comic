@@ -44,10 +44,10 @@ export default {
           @click="goBook(comic._id)"
         />
         <div class="card-body bg-primary rounded-b-2xl pt-4 px-3 pb-3">
-          <h1 class="font-cn_3 text-center whitespace-nowrap">{{ comic.name }}</h1>
-          <h2 class="font-cn_2 text-sm text-center opacity-60">{{ comic.author }}</h2>
+          <h1 class="font-base_3 text-center whitespace-nowrap">{{ comic.name }}</h1>
+          <h2 class="font-base_2 text-sm text-center opacity-60">{{ comic.author }}</h2>
           <h3 class="opacity-60">
-            <span class="font-cn_2 text-xs">最后更新：</span
+            <span class="font-base_2 text-xs">最后更新：</span
             ><span class="text-xs opacity-60">{{
               new Date(comic.updatedAt).toLocaleDateString()
             }}</span>

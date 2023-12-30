@@ -96,7 +96,7 @@ export default {
     ref="comicPages"
     v-for="(comicPage, index) in comicPageList"
     :key="comicPage"
-    class="relative mx-auto top-20 px-4 my-3 max-w-lg"
+    class="relative mx-auto top-20 px-4 my-3 max-w-xl"
     :id="`p${index + 1}`"
   >
     <TheImage

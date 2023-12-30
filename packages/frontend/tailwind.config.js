@@ -6,8 +6,8 @@ module.exports = {
       fontFamily: {
         Poppins: ['Poppins', 'sans-serif'],
         Noto: ['Noto Sans SC', 'sans-serif'],
-        cn_2: ['tsangeryuyangtw02-subset', 'sans-serif'],
-        cn_3: ['tsangeryuyangtw03-subset', 'sans-serif']
+        base_2: ['tsangeryuyangtw02-subset', 'sans-serif'],
+        base_3: ['tsangeryuyangtw03-subset', 'sans-serif']
       },
       screens: {
         xs: '300px',
@@ -15,7 +15,7 @@ module.exports = {
         md: '475px',
         lg: '600px',
         xl: '768px',
-        '2xl': '900px',
+        '2xl': '896px',
         '3xl': '1024px',
         '4xl': '1280px',
         '5xl': '1536px',

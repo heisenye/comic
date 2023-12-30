@@ -47,11 +47,11 @@ export default {
         </div>
       </template>
       <template #right>
-        <div class="comic-input-container">
-          <input type="text" placeholder="搜索标题或标签" class="comic-input" />
+        <div class="nav-input-container">
+          <input type="text" placeholder="搜索标题或标签" class="nav-input" />
           <TheIcon type="magnifying-glass" class="absolute left-4" />
         </div>
-        <TheButton type="ghost" size="md" shape="circle" class="btn-md text-white">
+        <TheButton type="ghost" size="md" shape="circle" class="lg:hidden btn-md text-white">
           <TheIcon
             type="magnifying-glass"
             class="text-base sm:text-lg xl:text-xl 2xl:text-2xl lg:hidden"

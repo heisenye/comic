@@ -1,4 +1,4 @@
-import { Schema, model, Document, Types } from 'mongoose'
+import { Schema, Types, model } from 'mongoose'
 
 export interface IFavorite extends Document {
   userId: Types.ObjectId

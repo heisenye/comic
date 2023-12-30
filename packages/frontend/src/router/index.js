@@ -64,7 +64,7 @@ const routes = [
     name: 'book',
     component: () => import('../views/BookView.vue'),
     meta: {
-      showNav: false
+      showNav: false,
     },
     beforeEnter: (to, from, next) => {
       storeHistory(to.params.id)
