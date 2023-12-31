@@ -62,6 +62,6 @@ const ComicSchema = new Schema({
   }
 })
 
-const ComicModel: Model<IComic> = model<IComic>('Comic', ComicSchema)
+const Comic: Model<IComic> = model<IComic>('Comic', ComicSchema)
 
-export default ComicModel
+export default Comic

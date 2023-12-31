@@ -10,22 +10,26 @@ import { Server } from 'http'
 import logger from './logger'
 
 const app = new Koa()
-app.use(cors(
-  {exposeHeaders: ['Rate-Limit-Remaining', 'Rate-Limit-Reset', 'Rate-Limit-Total', 'Retry-After']}
-))
-app.use(ratelimit({
-  driver: 'memory',
-  db: new Map(),
-  duration: 60000,
-  id: (ctx) => ctx.ip,
-  headers: {
-    remaining: 'Rate-Limit-Remaining',
-    reset: 'Rate-Limit-Reset',
-    total: 'Rate-Limit-Total'
-  },
-  max: 120,
-  disableHeader: false,
-}))
+app.use(
+  cors({
+    exposeHeaders: ['Rate-Limit-Remaining', 'Rate-Limit-Reset', 'Rate-Limit-Total', 'Retry-After']
+  })
+)
+app.use(
+  ratelimit({
+    driver: 'memory',
+    db: new Map(),
+    duration: 60000,
+    id: (ctx) => ctx.ip,
+    headers: {
+      remaining: 'Rate-Limit-Remaining',
+      reset: 'Rate-Limit-Reset',
+      total: 'Rate-Limit-Total'
+    },
+    max: 120,
+    disableHeader: false
+  })
+)
 
 app.use(serve(__dirname + '/public'))
 app.use(bodyParser())

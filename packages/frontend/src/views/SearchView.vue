@@ -69,8 +69,19 @@ export default {
             @keyup.enter="searchFn"
           />
           <TheIcon type="magnifying-glass" class="absolute left-4" />
-          <TheButton shape="circle" type="error" :disabled="isSearchDisabled" class="absolute right-4 size-6">
-            <TheIcon size="sm" type="arrow-right" class="text-base" :class="{'text-white': !isSearchDisabled}" @click="searchFn" />
+          <TheButton
+            shape="circle"
+            type="error"
+            :disabled="isSearchDisabled"
+            class="absolute right-4 size-6"
+          >
+            <TheIcon
+              size="sm"
+              type="arrow-right"
+              class="text-base"
+              :class="{ 'text-white': !isSearchDisabled }"
+              @click="searchFn"
+            />
           </TheButton>
         </div>
         <router-link :to="{ name: 'home' }" class="relative btn btn-info btn-circle text-white">

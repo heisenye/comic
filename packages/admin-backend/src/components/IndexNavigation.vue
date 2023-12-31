@@ -7,16 +7,7 @@ import { RouterLink, RouterView } from "vue-router"
 export default {
   name: 'IndexNavigation',
   components: {TheButton, TheIcon, TheNavigation, RouterLink },
-  props: {
-    isAsideOpen: {
-      type: Boolean,
-      default: false
-    }
-  },
-  setup(props, {emit}) {
-    const aside = ref(null)
-    const isAsideOpen = ref(props.isAsideOpen)
-
+  setup() {
     const menuItems = reactive([
       {
         text: '用户管理',
@@ -32,9 +23,15 @@ export default {
       }
     ])
 
+    const menu = ref(null)
+    const isMenuOpen = ref(false)
+
+    const toggleMenu = () => {
+      isMenuOpen.value = !isMenuOpen.value
+    }
+
     const openMenu = () => {
-      isAsideOpen.value = true
-      emit('open')
+      isMenuOpen.value = true
     }
 
     const setMenuActive = (to) => {
@@ -43,18 +40,19 @@ export default {
       })
     }
 
-    watch(() => props.isAsideOpen, (newVal) => {
+    watch(isMenuOpen, (newVal) => {
       if (newVal) {
-        aside.value.classList.remove('-translate-x-40')
+        menu.value.classList.remove('-translate-x-40')
       } else {
-        aside.value.classList.add('-translate-x-40')
+        menu.value.classList.add('-translate-x-40')
       }
     })
     return {
-      aside,
+      menu,
       menuItems,
-      isAsideOpen,
+      isMenuOpen,
 
+      toggleMenu,
       openMenu,
       setMenuActive
     }
@@ -73,10 +71,10 @@ export default {
     </TheNavigation>
     <aside
       class="relative z-50 h-screen w-40 bg-white -translate-x-40 transition-all duration-300"
-      ref="aside"
+      ref="menu"
     >
       <div class="py-6 h-full flex flex-col items-center gap-4 font-Noto">
-        <h1 class="text-xl font-medium tracking-wider">Heisenye</h1>
+        <h1 class="text-xl font-medium tracking-wider">MewAcg</h1>
          <div class="w-full mt-4 space-y-8">
              <div class="flex" v-for="item in menuItems" :key="item.to">
                 <span class="bg-secondary w-1 self-stretch" v-show="item.active"></span>
@@ -88,5 +86,27 @@ export default {
           </div>
       </div>
     </aside>
+    <Teleport to="body">
+      <Transition name="bg">
+        <div
+          class="fixed w-full h-full inset-0 bg-black opacity-50"
+          v-show="isMenuOpen" @click="toggleMenu"
+        >
+        </div>
+      </Transition>
+    </Teleport>
   </main>
 </template>
+
+<style>
+.bg-enter-active,
+.bg-leave-active {
+  transition: opacity 0.5s;
+}
+
+.bg-enter-from,
+.bg-leave-to {
+  opacity: 0;
+}
+
+</style>

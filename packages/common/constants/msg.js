@@ -18,5 +18,8 @@ export default {
   UPLOAD_SUCCESS: '上传成功',
   AVATAR_LOAD_FAIL: '头像加载失败',
   UPDATE_COMIC_SUCCESS: '更新漫画成功',
+  UPDATE_COMIC_FAIL: '更新漫画失败',
+  SET_COMIC_COVER_SUCCESS: '设置漫画封面成功',
+  CREATE_COMIC_CHAPTER_SUCCESS: '创建漫画章节成功',
   REACHED_LAST_WATCHED_POSITION: '已到达上次观看位置',
 }

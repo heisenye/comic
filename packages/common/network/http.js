@@ -186,12 +186,12 @@ export function postComic(data) {
   )
 }
 
-export function patchComic(id, data) {
+export function patchComic({id,field, newVal}) {
   return request(
     {
       method: 'PATCH',
       url: `/comic/${id}`,
-      data: data
+      data: {field, newVal}
     },
     {
       useCache: false,
@@ -201,12 +201,12 @@ export function patchComic(id, data) {
   )
 }
 
-export function postComicChapter({ id, chapter, data}) {
+export function postComicChapter({ id, chapter, formData}) {
   return request(
     {
       method: "POST",
       url: `/comics/${id}/${chapter}`,
-      data: data,
+      data: formData,
       headers: {
         'Content-Type': 'multipart/form-data'
       }

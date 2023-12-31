@@ -69,7 +69,7 @@ class UserController {
   public async register(ctx: Context) {
     try {
       const { username, pwd } = ctx.request['body']
-      const existingUser = await User.findOne({username})
+      const existingUser = await User.findOne({ username })
       if (existingUser) {
         ctx.response.status = ResponseCode.Conflict
         ctx.body = Response.UserAlreadyExists()

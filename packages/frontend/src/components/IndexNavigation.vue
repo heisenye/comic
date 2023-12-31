@@ -132,8 +132,19 @@ export default {
             v-model="keyword"
           />
           <TheIcon type="magnifying-glass" class="absolute left-4" />
-          <TheButton shape="circle" type="error" :disabled="isSearchDisabled" class="absolute right-4 size-6 xl:size-7">
-            <TheIcon size="sm" type="arrow-right" class="text-base" :class="{'text-white': !isSearchDisabled}" @click="searchFn" />
+          <TheButton
+            shape="circle"
+            type="error"
+            :disabled="isSearchDisabled"
+            class="absolute right-4 size-6 xl:size-7"
+          >
+            <TheIcon
+              size="sm"
+              type="arrow-right"
+              class="text-base"
+              :class="{ 'text-white': !isSearchDisabled }"
+              @click="searchFn"
+            />
           </TheButton>
         </div>
         <TheButton type="ghost" size="md" shape="circle" class="lg:hidden text-white">

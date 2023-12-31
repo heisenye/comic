@@ -15,6 +15,7 @@ export default {
     const route = useRoute()
     const router = useRouter()
     const comicStore = useComicStore()
+    const id = route.params.id
 
     const selectedComic = ref(null)
     const addComicImageInput = ref()
@@ -24,22 +25,17 @@ export default {
     const formData = new FormData()
 
     const comicName = ref('')
-    const author = ref('')
+    const comicAuthor = ref('')
     const comicStatus = ref('')
     const comicDescription = ref('')
+    const comicTags = ref([])
 
     const selectedChapter = ref(1)
     const selectedPage = ref(1)
 
-    const selectCoverImage = (chapter, page) => {
-      selectedChapter.value = chapter
-      selectedPage.value = page
-    }
-
-
     onMounted(async () => {
         try {
-          const response = await http.getComic(route.params.id)
+          const response = await http.getComic(id)
           comicStore.selectComic(response.data)
           selectedComic.value = response.data
           selectedChapter.value = response.data.coverImage.chapter
@@ -48,16 +44,55 @@ export default {
 
         }
     })
+    const selectCoverImage = async (chapter, page) => {
+      selectedChapter.value = chapter
+      selectedPage.value = page
+    }
 
-    const modifyComic = async (field, newVal) => {
-      const data = {field, newVal}
-      try {
-        const response = await http.patchComic(selectedComic.value._id, data)
-        if (response.code === 200) {
-        showMsg(msg["UPDATE_COMIC_SUCCESS"], "success")
+    const setCoverImage = async () => {
+      const response = await http.putComicCoverImage({
+        id,
+        chapter: selectedChapter.value,
+        page: selectedPage.value
+      })
+      if (response.code === 200) {
+        document.getElementById('coverImage').close()
+        showMsg({
+          messageType: 'success',
+          msg: msg["SET_COMIC_COVER_SUCCESS"],
+          popupType: 'toast'
+        })
         setTimeout(() => {
           router.go(0)
-        }, 2000)
+        }, 1000)
+        return
+      }
+      document.getElementById('coverImage').close()
+      showMsg({
+        messageType: 'error',
+        msg: msg["UPDATE_COMIC_FAIL"],
+        popupType: 'alert'
+      })
+    }
+
+    const modifyComic = async (field, newVal) => {
+      try {
+        const response = await http.patchComic({
+          id,
+          field,
+          newVal
+        })
+        console.log(response)
+        if (response.code === 200) {
+        document.getElementById(field).close()
+        showMsg({
+          messageType: 'success',
+          msg: msg["UPDATE_COMIC_SUCCESS"],
+          popupType: 'toast'
+        })
+        setTimeout(() => {
+          router.go(0)
+        }, 1000)
         }
       } catch (error) {
         console.log(error)
@@ -97,7 +132,22 @@ export default {
         images.value.forEach(image => {
           formData.append('images', image)
         })
-        await http.postComicChapter({id: selectedComic.value._id, chapter: selectedComic.value.chapters + 1 ,data: formData})
+        const response = await http.postComicChapter({
+          id,
+          chapter: selectedComic.value.chapters + 1,
+          formData
+        })
+        if (response.code === 200) {
+          document.getElementById('newChapter').close()
+          showMsg({
+            messageType: 'success',
+            msg: msg["CREATE_COMIC_CHAPTER_SUCCESS"],
+            popupType: 'toast'
+          })
+          setTimeout(() => {
+            router.go(0)
+          }, 1000)
+        }
       } catch (error) {
         console.log(error)
       }
@@ -118,39 +168,36 @@ export default {
 
     }
 
-    const updateCoverImage = async (chapter, page) => {
-      try {
-        const response = await http.putComicCoverImage({id: selectedComic.value._id, chapter, page})
-      } catch (error) {
-
-      }
-    }
-
-
     return {
       BASE_URL,
       statuses,
+      tags,
       goBack: () => router.go(-1),
       selectedComic,
-      modifyComic,
+      imageUrls,
+
       addComicImage,
       bulkAddComicImage,
       removeComicImage,
-      createChapter,
       viewChapter,
       removeChapter,
+      selectCoverImage,
+
+      modifyComic,
+      createChapter,
+      setCoverImage,
+
       addComicImageInput,
       bulkAddComicImageInput,
-      imageUrls,
 
       comicName,
-      author,
+      comicAuthor,
       comicStatus,
       comicDescription,
+      comicTags,
 
       selectedChapter,
       selectedPage,
-      selectCoverImage
     }
   },
 }
@@ -174,10 +221,10 @@ export default {
         <div class="w-full pl-4">
           <span class="mr-auto text-lg 2xl:text-xl">名字</span>
           <span class="text-lg mx-auto">{{selectedComic.name}}</span>
-          <TheButton type="ghost" size="sm" class="bg-base-300 ml-auto" onclick="comicName.showModal()">
+          <TheButton type="ghost" size="sm" class="bg-base-300 ml-auto" onclick="document.getElementById('name').showModal()">
             <TheIcon type="pencil" size="lg" />
           </TheButton>
-          <TheModal id="comicName">
+          <TheModal id="name">
             <input type="text" class="input input-info mx-auto block" v-model="comicName">
             <form method="dialog">
               <TheButton type="info" class="block mx-auto mt-4" @click="modifyComic('name', comicName)">确定</TheButton>
@@ -192,9 +239,9 @@ export default {
             <TheIcon type="pencil" size="lg" />
           </TheButton>
           <TheModal id="author">
-            <input type="text" class="input input-info mx-auto block" v-model="author">
+            <input type="text" class="input input-info mx-auto block" v-model="comicAuthor">
             <form method="dialog">
-              <TheButton type="info" class="block mx-auto mt-4" @click="modifyComic('author', author)">确定</TheButton>
+              <TheButton type="info" class="block mx-auto mt-4" @click="modifyComic('author', comicAuthor)">确定</TheButton>
             </form>
           </TheModal>
         </div>
@@ -202,10 +249,10 @@ export default {
         <div class=" w-full pl-4">
           <span class="mr-auto text-lg 2xl:text-xl">状态</span>
           <span class="text-lg mx-auto">{{statuses.find(status => status.value === selectedComic.status).label}}</span>
-          <TheButton type="ghost" size="sm" class="bg-base-300 ml-auto" onclick="comicStatus.showModal()">
+          <TheButton type="ghost" size="sm" class="bg-base-300 ml-auto" onclick="document.getElementById('status').showModal()">
             <TheIcon type="pencil" size="lg" />
           </TheButton>
-          <TheModal id="comicStatus">
+          <TheModal id="status">
             <select class="select select-bordered block mx-auto" required v-model="comicStatus">
               <option disabled selected value="">状态</option>
               <template v-for="status in statuses">
@@ -227,7 +274,7 @@ export default {
             <TheIcon type="pencil" size="lg" />
           </TheButton>
           <TheModal id="description">
-            <textarea class="textarea textarea-primary mx-auto block" v-model="comicDescription">
+            <textarea class="textarea textarea-primary mx-auto block" rows="3" v-model="comicDescription">
 
             </textarea>
             <form method="dialog">
@@ -236,19 +283,32 @@ export default {
           </TheModal>
         </div>
         <div class="divider divider-primary"></div>
+<!--        标签-->
         <div class="w-full pl-4">
           <span class="mr-auto text-lg 2xl:text-xl">标签</span>
           <template v-for="tag in selectedComic.tags">
             <TheButton type="ghost" class="mx-auto bg-base-300">{{tag}}</TheButton>
           </template>
-          <TheButton type="ghost" size="sm" class="bg-base-300 ml-auto">
+          <TheButton type="ghost" size="sm" class="bg-base-300 ml-auto" onclick="document.getElementById('tags').showModal()">
             <TheIcon type="pencil" size="lg" />
           </TheButton>
+          <TheModal id="tags">
+            <div class="grid grid-cols-3 gap-2">
+              <template v-for="tag in tags" :key="tag">
+                <input type="checkbox" :id="tag" :value="tag" v-model="comicTags" class="hidden" @change="()=>console.log(comicTags)">
+                <label :for="tag" class="btn checked">{{tag}}</label>
+              </template>
+            </div>
+            <form method="dialog">
+              <TheButton type="info" class=" block mx-auto mt-4" @click="modifyComic('tags', comicTags)">确定</TheButton>
+            </form>
+          </TheModal>
         </div>
+<!--        -->
         <div class="divider divider-primary"></div>
         <div v-if="selectedComic.coverImage" class="w-full pl-4">
           <span class="mr-auto text-lg 2xl:text-xl whitespace-nowrap">封面</span>
-          <div class="px-8">
+          <div class="px-8 max-w-screen-xs">
             <img  class="rounded-xl" :src="`${BASE_URL}/${selectedComic._id}/${selectedComic.coverImage.chapter}/${selectedComic.coverImage.page}.webp`" alt="">
           </div>
           <TheButton type="ghost" size="sm" class="bg-base-300 ml-auto" onclick="coverImage.showModal()">
@@ -257,7 +317,7 @@ export default {
           <TheModal id="coverImage">
             <div class="w-full grid grid-cols-3 gap-4">
               <template v-for="chapter in selectedComic.chapters" :key="chapter">
-                <TheButton type="ghost" class="bg-primary-content" onclick="selectCoverImage.showModal()" @click="viewChapter(chapter)">{{chapter}}</TheButton>
+                <TheButton type="ghost" class="bg-primary-content" onclick="document.getElementById('selectCoverImage').showModal()" @click="viewChapter(chapter)">{{chapter}}</TheButton>
                 <TheModal id="selectCoverImage">
                   <div class="w-full mt-4 px-4 grid grid-cols-3 gap-4">
                     <div v-for="(image, index) in imageUrls" :key="index" class="relative rounded-lg">
@@ -268,7 +328,7 @@ export default {
                     </div>
                   </div>
                   <form method="dialog">
-                    <TheButton type="info" class=" block mx-auto mt-4" @click="">确定</TheButton>
+                    <TheButton type="info" class=" block mx-auto mt-4" @click="setCoverImage">确定</TheButton>
                   </form>
                 </TheModal>
               </template>
@@ -287,7 +347,7 @@ export default {
           <TheModal id="chapters">
               <div class="w-full grid grid-cols-3 gap-4">
                 <template v-for="i in selectedComic.chapters" :key="i">
-                  <TheButton type="ghost" class="bg-primary-content" onclick="viewChapter.showModal()" @click="viewChapter(i)">{{i}}</TheButton>
+                  <TheButton type="ghost" class="bg-primary-content" onclick="document.getElementById('viewChapter').showModal()" @click="viewChapter(i)">{{i}}</TheButton>
                 </template>
                 <TheModal id="viewChapter">
                   <div class="w-full mt-4 px-4 grid grid-cols-3 gap-4">
@@ -302,11 +362,11 @@ export default {
               </div>
               <div v-if="!selectedComic.chapters" class="flex items-center place-items-center px-4">
                 <span  class="text-lg ">当前无章节</span>
-                <TheButton type="info" size="md" shape="circle" class="ml-auto" onclick="addChapter.showModal()">
+                <TheButton type="info" size="md" shape="circle" class="ml-auto" onclick="document.getElementById('newChapter').showModal()">
                   <TheIcon type="plus" size="xl" class="text-white"/>
                 </TheButton>
               </div>
-              <TheModal id="addChapter">
+              <TheModal id="newChapter">
                   <h1 class="text-center text-lg">第{{selectedComic.chapters + 1}}章</h1>
                   <div class="w-full mt-4 px-4 grid grid-cols-3 gap-4">
                     <div v-for="(image, index) in imageUrls" :key="index" class="relative rounded-lg">

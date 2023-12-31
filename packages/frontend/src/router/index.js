@@ -53,10 +53,10 @@ const routes = [
       token.value
         ? next()
         : showMsg({
-          msg: msg['NO_TOKEN'],
-          messageType: 'info',
-          popupType: 'alert'
-        })
+            msg: msg['NO_TOKEN'],
+            messageType: 'info',
+            popupType: 'alert'
+          })
     }
   },
   {
@@ -64,7 +64,7 @@ const routes = [
     name: 'book',
     component: () => import('../views/BookView.vue'),
     meta: {
-      showNav: false,
+      showNav: false
     },
     beforeEnter: (to, from, next) => {
       storeHistory(to.params.id)
@@ -106,10 +106,10 @@ const routes = [
       token.value
         ? next()
         : showMsg({
-          msg: msg['NO_TOKEN'],
-          messageType: 'info',
-          popupType: 'toast'
-        })
+            msg: msg['NO_TOKEN'],
+            messageType: 'info',
+            popupType: 'toast'
+          })
     }
   },
   {
@@ -119,17 +119,15 @@ const routes = [
     meta: {
       showNav: false
     }
-  },
+  }
 ]
 
 if (import.meta.env.MODE === 'development') {
-  routes.push(
-    {
-      path: '/test',
-      name: 'test',
-      component: () => import('../views/TestView.vue')
-    }
-  )
+  routes.push({
+    path: '/test',
+    name: 'test',
+    component: () => import('../views/TestView.vue')
+  })
 }
 
 const router = createRouter({

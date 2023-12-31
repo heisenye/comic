@@ -38,9 +38,7 @@ export default {
             />
           </div>
           <div class="relative w-full h-24 bg-primary rounded-b-2xl">
-            <h1
-              class="font-base_2 text-sm text-center mt-2 mb-1 tracking-wide sm:text-base"
-            >
+            <h1 class="font-base_2 text-sm text-center mt-2 mb-1 tracking-wide sm:text-base">
               {{ comic.name }}
             </h1>
             <span class="font-base_2 text-xs opacity-60 pl-3">{{ comic.author }}</span>

@@ -3,7 +3,7 @@ import * as path from 'path'
 import { Context } from 'koa'
 import multer = require('@koa/multer')
 import mongoose from 'mongoose'
-import ComicModel, { IComic } from '../model/comic.model'
+import Comic, { IComic } from '../model/comic.model'
 import ComicChapterModel, { IComicChapter } from '../model/comicChapter.model'
 import Favorite from '../model/favorite.model'
 import Response from '../utils/response'
@@ -14,7 +14,7 @@ import logger from '../logger'
 class ComicController {
   public async getComics(ctx: Context) {
     try {
-      const comics = await ComicModel.find({})
+      const comics = await Comic.find({})
       ctx.response.status = ResponseCode.OK
       ctx.body = Response.Success<IComic[]>({ data: comics })
     } catch (error) {
@@ -31,7 +31,7 @@ class ComicController {
         ctx.body = Response.InValidId()
         return
       }
-      const comic = await ComicModel.findById(id)
+      const comic = await Comic.findById(id)
       if (!comic) {
         ctx.response.status = ResponseCode.Not_Found
         ctx.body = Response.NoComic()
@@ -81,7 +81,7 @@ class ComicController {
         return
       }
       if (typeof ids === 'string') {
-        const historyComic = await ComicModel.findById(ids)
+        const historyComic = await Comic.findById(ids)
         if (!historyComic) {
           ctx.response.status = ResponseCode.Not_Found
           ctx.body = Response.NoComic()
@@ -91,7 +91,7 @@ class ComicController {
         ctx.body = Response.Success<IComic[]>({ data: [historyComic] })
         return
       }
-      const unorderedHistoryComics = await ComicModel.find({ _id: { $in: ids } })
+      const unorderedHistoryComics = await Comic.find({ _id: { $in: ids } })
       const orderedHistoryComics = ids
         .map((id) => unorderedHistoryComics.find((comic) => comic._id.toString() === id))
         .filter((comic) => comic !== undefined) as IComic[]
@@ -115,7 +115,7 @@ class ComicController {
         return
       }
       favoriteRecord = await Favorite.create({ userId, comicId })
-      await ComicModel.updateOne({ _id: comicId }, { $inc: { favoriteCount: 1 } })
+      await Comic.updateOne({ _id: comicId }, { $inc: { favoriteCount: 1 } })
       ctx.response.status = ResponseCode.OK
       ctx.body = Response.Success({})
     } catch (error) {
@@ -146,7 +146,7 @@ class ComicController {
         ctx.body = Response.NoComic()
         return
       }
-      await ComicModel.updateOne({ _id: comicId }, { $inc: { favoriteCount: -1 } })
+      await Comic.updateOne({ _id: comicId }, { $inc: { favoriteCount: -1 } })
       ctx.response.status = ResponseCode.OK
       ctx.body = Response.Success()
     } catch (error) {
@@ -200,7 +200,7 @@ class ComicController {
         ctx.body = Response.Success<IComic[]>({ data: [] })
         return
       }
-      const searchComics = await ComicModel.find({ name: { $regex: keyword, $options: 'i' } })
+      const searchComics = await Comic.find({ name: { $regex: keyword, $options: 'i' } })
       ctx.body = Response.Success<IComic[]>({ data: searchComics })
     } catch (error) {
       ctx.response.status = ResponseCode.Internal_Server_Error
@@ -211,7 +211,7 @@ class ComicController {
   public async createComic(ctx: Context) {
     try {
       const { name, author, status, tags, description } = ctx.request['body']
-      const comic = await ComicModel.create({ name, author, status, tags, description })
+      const comic = await Comic.create({ name, author, status, tags, description })
       console.log(comic)
       ctx.body = Response.Success()
     } catch (error) {
@@ -228,7 +228,7 @@ class ComicController {
         ctx.body = Response.InValidId()
         return
       }
-      await ComicModel.updateOne({ _id: id }, { [field]: newVal })
+      await Comic.updateOne({ _id: id }, { [field]: newVal })
       ctx.body = Response.Success()
     } catch (error) {
       ctx.response.status = ResponseCode.Internal_Server_Error
@@ -253,11 +253,35 @@ class ComicController {
         sharp(file.buffer)
           .webp({ quality: 80 })
           .toFile(filePath, (err) => {
-          if (err) {
+            if (err) {
               logger.error(err)
             }
           })
       })
+      ctx.body = Response.Success()
+    } catch (error) {
+      ctx.response.status = ResponseCode.Internal_Server_Error
+      Response.UnknownError(error as Error)
+    }
+  }
+
+  public async setComicCover(ctx: Context) {
+    try {
+      const { id } = ctx.params
+      const { chapter, page } = ctx.request['body']
+      const comic = await Comic.findById(id)
+      if (!comic) {
+        ctx.response.status = ResponseCode.Not_Found
+        ctx.body = Response.NoComic()
+        return
+      }
+      const result = await comic.updateOne({ coverImage: { chapter, page } })
+      if (result.nModified === 0) {
+        ctx.response.status = ResponseCode.Not_Found
+        ctx.body = Response.NoComic()
+        return
+      }
+      ctx.response.status = ResponseCode.OK
       ctx.body = Response.Success()
     } catch (error) {
       ctx.response.status = ResponseCode.Internal_Server_Error

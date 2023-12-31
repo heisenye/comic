@@ -18,5 +18,6 @@ router.get('/search', comicController.getSearchComics)
 router.post('/comic', comicController.createComic)
 router.patch('/comic/:id', comicController.updateComic)
 router.post('/comics/:id/:chapter', upload.array('images'), comicController.createComicChapter)
+router.put('/comics/:id/cover', comicController.setComicCover)
 
 export default router

@@ -1,6 +1,6 @@
 name: GitHub Actions to backend
 run-name: build and deploy backend
-on: [push]
+on: workflow_dispatch
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
