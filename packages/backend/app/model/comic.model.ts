@@ -1,4 +1,4 @@
-import { Schema, model, Document, Model } from 'mongoose'
+import { Schema, model} from 'mongoose'
 
 export interface IComic extends Document {
   name: string
@@ -62,6 +62,6 @@ const ComicSchema = new Schema({
   }
 })
 
-const Comic: Model<IComic> = model<IComic>('Comic', ComicSchema)
+const Comic = model<IComic>('Comic', ComicSchema)
 
 export default Comic

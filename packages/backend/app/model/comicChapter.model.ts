@@ -1,5 +1,5 @@
-import { Schema, model, Document, Model } from 'mongoose'
-import comic from './comic.model'
+import { Schema, model, Document } from 'mongoose'
+import Comic from './comic.model'
 
 export interface IComicChapter extends Document {
   comicId: string
@@ -17,7 +17,7 @@ const comicChapterSchema = new Schema({
 
 comicChapterSchema.pre('save', async function (next) {
   const comicChapter = this
-  await comic
+  await Comic
     .updateOne(
       { _id: comicChapter.comicId },
       { $inc: { chapters: 1 }, $set: { updatedAt: new Date() } }
@@ -26,7 +26,7 @@ comicChapterSchema.pre('save', async function (next) {
   next()
 })
 
-const ComicChapterModel: Model<IComicChapter> = model<IComicChapter>(
+const ComicChapterModel = model<IComicChapter>(
   'ComicChapter',
   comicChapterSchema
 )

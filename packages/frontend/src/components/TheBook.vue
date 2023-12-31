@@ -1,15 +1,12 @@
 <script>
-import { onMounted, ref, toRefs } from 'vue'
-import { TheButton, TheIcon, TheImage } from 'ui'
-import { http } from 'common'
-import { useToken } from 'common'
-import { showMsg } from 'common'
-import { msg } from 'common'
-import { BASE_URL } from 'common'
+import { onMounted, ref, watch, toRefs } from 'vue'
+import { useRoute } from 'vue-router'
+import { TheButton, TheIcon, TheImage, TheModal } from 'ui'
+import { http, useToken, showMsg, msg, BASE_URL } from 'common'
 
 export default {
   name: 'TheBook',
-  components: { TheButton, TheIcon, TheImage },
+  components: { TheButton, TheIcon, TheImage, TheModal },
   props: {
     comic: {
       type: Object,
@@ -17,10 +14,18 @@ export default {
     }
   },
   setup(props) {
+    const route = useRoute()
+
     const { comic } = props
     const { token } = useToken()
 
     const isFavorited = ref(false)
+    const isProgressRemembered = ref(route.meta['isProgressRemembered'])
+
+    watch(isProgressRemembered, (newVal) => {
+      localStorage.setItem('isProgressRemembered', String(newVal))
+      route.meta['isProgressRemembered'] = newVal
+    })
 
     const {
       name,
@@ -95,6 +100,7 @@ export default {
     return {
       BASE_URL,
       isFavorited,
+      isProgressRemembered,
       id,
       coverImage,
       name,
@@ -129,9 +135,11 @@ export default {
           class="rounded-lg w-3/5 lg:rounded-lg h-fit"
         />
       </div>
-      <div class="card-body pt-4 px-6 md:px-6 rounded-b-xl xl:text-lg">
-        <h1 class="font-base_3 card-title text-2xl xl:text-3xl self-center pb-2">{{ name }}</h1>
-        <div class="text-accent">
+      <div class="card-body pt-4 md:pt-6 px-6 md:px-10 lg:px-4 rounded-b-xl xl:text-lg">
+        <h1 class="card-title text-2xl xl:text-3xl self-center pb-2 font-base_3 text-white">
+          {{ name }}
+        </h1>
+        <div class="text-accent opacity-80">
           <span>{{ new Date(date).toLocaleDateString() }}</span
           >&nbsp; | &nbsp;<i class="fa-solid fa-eye"></i>&nbsp;
           <span>{{ viewCount }}</span>
@@ -139,16 +147,20 @@ export default {
           >&nbsp; | &nbsp;<i class="fa-solid fa-book"></i>&nbsp;
           <span>{{ chapters }}</span>
         </div>
-        <div class="font-base_2">
+        <div class="text-white font-base_2">
           作者：<button class="btn btn-sm btn-secondary">{{ author }}</button>
         </div>
-        <div class="font-base_2 space-x-1.5">
+        <div class="space-x-1.5 text-white font-base_2">
           标签：
           <template v-for="tag in tags" :key="tag">
-            <button class="btn btn-sm btn-secondary">{{ tag }}</button>
+            <TheButton type="secondary" size="sm">
+              {{ tag }}
+            </TheButton>
           </template>
         </div>
-        <div class="font-base_2">简介：{{ description }}</div>
+        <div class="text-white font-base_2">
+          简介：<span class="opacity-80">{{ description }}</span>
+        </div>
         <TheButton
           type="error"
           class="w-32 lg:w-28 xl:w-32 mx-auto my-3"
@@ -160,7 +172,30 @@ export default {
             :variant="isFavorited ? 'solid' : 'regular'"
           />
         </TheButton>
-        <h1 class="font-base_3 text-lg mx-auto">章节</h1>
+        <h3 class="font-base_3 text-lg mx-auto">章节</h3>
+        <div>
+          <TheButton
+            type="secondary"
+            size="sm"
+            shape="square"
+            class="block mx-auto"
+            onclick="document.getElementById('settings').showModal()"
+          >
+            <TheIcon type="gear" />
+          </TheButton>
+        </div>
+        <TheModal id="settings" class="bg-primary">
+          <div class="flex items-center">
+            <label for="progress" class="mr-6">是否记忆阅读进度</label>
+            <input
+              type="checkbox"
+              id="progress"
+              value="true"
+              v-model="isProgressRemembered"
+              class="checkbox checkbox-xs checkbox-success"
+            />
+          </div>
+        </TheModal>
         <div class="grid grid-cols-4 gap-x-6 place-items-center">
           <template v-for="n in chapters" :key="n">
             <RouterLink

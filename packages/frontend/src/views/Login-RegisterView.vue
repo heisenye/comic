@@ -110,7 +110,7 @@ export default {
 
 <template>
   <main class="flex justify-center items-center h-screen">
-    <div class="card bg-primary shadow-md shadow-accent max-w-lg w-4/5">
+    <div class="card bg-primary shadow-md shadow-neutral max-w-lg w-4/5">
       <div class="card-body pb-6 pt-8 font-base_2">
         <div class="card-title my-4 tracking-wider whitespace-nowrap justify-between">
           <TheButton type="secondary" size="sm" class="self-start lg:btn-md" @click="goHome">
@@ -118,7 +118,7 @@ export default {
           </TheButton>
           <span v-if="isLogin" class="text-lg md:text-xl lg:text-2xl">登入 Heisenye</span>
           <span v-else class="text-lg md:text-xl lg:text-2xl">注册 Heisenye</span>
-          <TheButton type="accent" size="sm" shape="circle" class="lg:btn-md">
+          <TheButton type="accent" size="sm" shape="circle" class="lg:btn-md text-white">
             <i
               class="fa-solid text-base"
               :class="{ 'fa-lock': !isSuccess, 'fa-lock-open': isSuccess }"

@@ -13,4 +13,6 @@ const FavoriteSchema = new Schema(
   { timestamps: true }
 )
 
-export default model<IFavorite>('Favorite', FavoriteSchema)
+const Favorite = model<IFavorite>('Favorite', FavoriteSchema)
+
+export default Favorite

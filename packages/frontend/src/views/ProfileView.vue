@@ -164,7 +164,7 @@ export default {
           </div>
         </div>
         <div class="flex justify-center">
-          <TheButton type="accent" class="w-32 lg:w-20 mx-auto my-3" @click="uploadAvatar">
+          <TheButton type="neutral" class="w-32 lg:w-20 mx-auto my-3" @click="uploadAvatar">
             <span class="font-base_3">上传</span>
           </TheButton>
           <form method="dialog" class="hidden lg:block mx-auto">

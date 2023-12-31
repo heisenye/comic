@@ -45,7 +45,7 @@
       @apply bg-secondary;
     }
     50% {
-      @apply bg-accent;
+      @apply bg-neutral;
     }
     100% {
       @apply bg-secondary;
@@ -77,7 +77,7 @@
   }
 
   .nav-input {
-    @apply input input-accent bg-secondary w-full h-9 xl:h-10 pl-12 xl:pl-14 2xl:pl-16 3xl:pl-20 text-sm xl:text-base rounded tracking-widest;
+    @apply input  bg-secondary w-full h-9 xl:h-10 pl-12 xl:pl-14 2xl:pl-16 3xl:pl-20 text-sm xl:text-base rounded tracking-widest;
   }
   .nav-input-container {
     @apply relative mx-auto hidden lg:flex lg:items-center w-[21rem] xl:w-[24rem] 2xl:w-[27rem] 3xl:w-[30rem] font-Noto;
@@ -129,7 +129,7 @@ body {
 }
 
 ::selection {
-  @apply bg-accent;
+  @apply bg-neutral;
   border-radius: 5px;
 }
 

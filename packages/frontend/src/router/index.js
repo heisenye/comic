@@ -64,10 +64,12 @@ const routes = [
     name: 'book',
     component: () => import('../views/BookView.vue'),
     meta: {
-      showNav: false
+      showNav: false,
+      isProgressRemembered: true
     },
     beforeEnter: (to, from, next) => {
       storeHistory(to.params.id)
+      to.meta.isProgressRemembered = 'true' === localStorage.getItem('isProgressRemembered')
       next()
     }
   },
@@ -133,8 +135,9 @@ if (import.meta.env.MODE === 'development') {
 const router = createRouter({
   history: createWebHashHistory(import.meta.env.BASE_URL),
   routes,
-  scrollBehavior(to) {
-    if (to.name === 'read') {
+  scrollBehavior(to, from) {
+    if (to.name === 'read' && from.meta['isProgressRemembered']) {
+      console.log(to)
       const { id, chapter } = to.params
       const ele = localStorage.getItem(`${id}-${chapter}`)
       if (ele) {

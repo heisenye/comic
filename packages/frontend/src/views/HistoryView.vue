@@ -56,7 +56,7 @@ export default {
     <template v-for="comic in historyComics" :key="comic._id">
       <div
         v-if="comic.isVisible"
-        class="w-1/2 md:w-1/3 lg:w-1/4 xl:w-1/5 card inline-flex px-4 indicator"
+        class="w-1/2 md:w-1/3 lg:w-1/4 xl:w-1/5 card inline-flex px-6 md:px-4 lg:px-3 indicator"
       >
         <TheImage
           class="cursor-pointer"

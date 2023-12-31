@@ -47,7 +47,9 @@ module.exports = {
 
           secondary: 'rgb(82, 82, 82)',
 
-          accent: 'rgb(100 116 139)',
+          accent: 'rgb(167 139 250)',
+
+          neutral: 'rgb(100 116 139)',
 
           info: 'rgb(96 165 250)',
 

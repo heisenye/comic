@@ -136,7 +136,7 @@ export default {
             shape="circle"
             type="error"
             :disabled="isSearchDisabled"
-            class="absolute right-4 size-6 xl:size-7"
+            class="absolute right-4 size-6 xl:size-7 shadow-md"
           >
             <TheIcon
               size="sm"

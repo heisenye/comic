@@ -1,5 +1,4 @@
 import { Schema, Types, model } from 'mongoose'
-
 export interface IView extends Document {
   userId: Types.ObjectId
   comicId: Types.ObjectId
@@ -10,4 +9,6 @@ const ViewSchema = new Schema({
   comicId: { type: Types.ObjectId, ref: 'Comic', required: true }
 })
 
-export default model<IView>('View', ViewSchema)
+const View = model<IView>('View', ViewSchema)
+
+export default View

@@ -73,7 +73,7 @@ export default {
             shape="circle"
             type="error"
             :disabled="isSearchDisabled"
-            class="absolute right-4 size-6"
+            class="absolute right-4 size-6 shadow-md"
           >
             <TheIcon
               size="sm"
@@ -84,7 +84,10 @@ export default {
             />
           </TheButton>
         </div>
-        <router-link :to="{ name: 'home' }" class="relative btn btn-info btn-circle text-white">
+        <router-link
+          :to="{ name: 'home' }"
+          class="relative btn btn-info btn-circle shadow-neutral shadow-md text-white"
+        >
           <TheIcon type="house" class="lg:text-lg xl:text-xl 2xl:text-2xl"></TheIcon>
         </router-link>
       </template>
