@@ -6,7 +6,7 @@ export default {
 
 <template>
   <header class="fixed top-0 pl-4 navbar bg-primary">
-    <div class="relative mx-auto flex justify-between min-w-[300px] w-full max-w-screen-5xl">
+    <div class="relative mx-auto flex justify-between min-w-[300px] w-full max-w-screen-6xl">
       <div class="relative left-0 flex">
         <slot name="left"></slot>
       </div>

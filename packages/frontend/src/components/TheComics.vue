@@ -26,7 +26,7 @@ export default {
     class="absolute left-1/2 -translate-x-1/2 w-full max-w-4xl min-w-[300px] space-y-4 text-white px-1"
   >
     <template v-for="comic in comicList" :key="comic._id">
-      <div class="w-1/2 md:w-1/3 lg:w-1/4 xl:w-1/5 inline-flex card px-6 md:px-4 lg:px-2">
+      <div class="w-1/2 md:w-1/3 lg:w-1/4 xl:w-1/5 inline-flex card px-4 md:px-3 lg:px-2">
         <TheImage
           :src="`${BASE_URL}/${comic._id}/${comic.coverImage.chapter}/${comic.coverImage.page}.webp`"
           :blur="false"

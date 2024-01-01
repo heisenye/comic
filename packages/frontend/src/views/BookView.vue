@@ -43,7 +43,7 @@ export default {
           class="text-white btn btn-ghost tracking-wider font-medium text-lg px-4"
           @click="goBack"
         >
-          <span class="text-xl 2xl:text-2xl 2xl:tracking-widest">&lt;&nbsp;&nbsp;Back</span>
+          <span class="text-xl 2xl:text-2xl 2xl:tracking-wider">&lt;&nbsp;&nbsp;Back</span>
         </div>
       </template>
       <template #right>

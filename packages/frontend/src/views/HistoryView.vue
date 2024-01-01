@@ -52,20 +52,21 @@ export default {
 </script>
 
 <template>
-  <main class="relative top-40 mx-auto w-full max-w-4xl min-w-[300px] px-1 space-y-4 text-white">
+  <main
+    class="relative top-40 mx-auto w-full max-w-screen-2xl min-w-[300px] px-1 space-y-4 text-white"
+  >
     <template v-for="comic in historyComics" :key="comic._id">
       <div
         v-if="comic.isVisible"
-        class="w-1/2 md:w-1/3 lg:w-1/4 xl:w-1/5 card inline-flex px-6 md:px-4 lg:px-3 indicator"
+        class="w-1/2 md:w-1/3 lg:w-1/4 xl:w-1/5 card inline-flex px-3 lg:px-2.5 indicator"
       >
         <TheImage
           class="cursor-pointer"
           :src="`${BASE_URL}/${comic._id}/${comic.coverImage.chapter}/${comic.coverImage.page}.webp`"
-          :alt="comic.name"
           @click="goBook(comic._id)"
         />
         <i
-          class="indicator-item fa-solid fa-circle-xmark absolute right-2"
+          class="indicator-item cursor-pointer fa-solid fa-circle-xmark absolute right-2"
           @click="removeHistory(comic._id)"
         ></i>
         <div

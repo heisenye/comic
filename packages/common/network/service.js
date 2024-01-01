@@ -41,7 +41,7 @@ service.interceptors.response.use(
       error.config.loading.remove()
     }
 
-    if (error.code === 'ERR_BAD_REQUEST') {
+    if (error.code === 'ERR_BAD_REQUEST' && error.response.status === 429) {
       error.response.data = {
         code: 429,
         msg: msg['TOO_MANY_REQUESTS_RETRY_AFTER'](error.response.headers['retry-after'])

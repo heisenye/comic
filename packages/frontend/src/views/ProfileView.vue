@@ -124,10 +124,15 @@ export default {
         <TheButton type="secondary" shape="circle" class="relative h-20 w-20 lg:h-24 lg:w-24">
           <input type="file" class="hidden h-0 w-0" ref="input" @change="showPreview" />
           <TheAvatar
-            size="2xl"
             class="w-full hover:opacity-40 transition-opacity z-20"
             @click="() => input.click()"
-          />
+          >
+            <TheIcon
+              type="user"
+              size="2xl"
+              class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 lg:text-3xl text-neutral"
+            />
+          </TheAvatar>
         </TheButton>
         <div class="mx-4 lg:mx-6 flex-1">
           <span class="text-xl lg:text-2xl tracking-wider">{{ username }}</span>

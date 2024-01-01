@@ -39,8 +39,8 @@ export default {
     )
 
     const linkBottomPosition = computed(() => {
-      if (windowWidth.value > 1024) {
-        const gap = (768 - 60 * 5) / 6
+      if (windowWidth.value > 1050) {
+        const gap = (760 - 60 * 5) / 6
         return {
           left: activeLinkIndex.value * (gap + 60) + gap + 'px'
         }
@@ -100,7 +100,7 @@ export default {
         <template v-for="(link, index) in links" :key="link">
           <RouterLink
             :to="{ name: link.name }"
-            class="link link-hover text-base xl:text-lg font-semibold px-3 py-1 font-base_2"
+            class="link link-hover text-base 3xl:text-lg font-semibold px-3 py-1 font-base_2"
             :class="{ 'text-info': activeLinkIndex === index }"
             @click="() => (activeLinkIndex = index)"
             >{{ link.zh }}
@@ -119,7 +119,7 @@ export default {
           :to="{ name: 'home' }"
           class="relative btn btn-ghost tracking-wider font-medium rounded-lg font-Poppins normal-case overflow-hidden after:halo active:after:halo-active text-white"
         >
-          <span class="text-xl 2xl:text-2xl 2xl:tracking-widest"> MewAcg </span>
+          <span class="text-xl 3xl:text-2xl 3xl:tracking-wider"> MewAcg </span>
         </RouterLink>
       </template>
       <template #right>
@@ -131,12 +131,12 @@ export default {
             @keyup.enter="searchFn"
             v-model="keyword"
           />
-          <TheIcon type="magnifying-glass" class="absolute left-4" />
+          <TheIcon type="magnifying-glass" class="absolute left-4 3xl:text-lg text-accent" />
           <TheButton
             shape="circle"
             type="error"
             :disabled="isSearchDisabled"
-            class="absolute right-4 size-6 xl:size-7 shadow-md"
+            class="absolute right-4 size-6 3xl:size-8 shadow-md"
           >
             <TheIcon
               size="sm"
@@ -162,7 +162,7 @@ export default {
           :transition="true"
           class="before:text-sm md:text-md text-white"
         >
-          <TheIcon type="bell" size="lg" class="xl:text-xl 2xl:text-2xl" />
+          <TheIcon type="bell" size="lg" class="2xl:text-xl 3xl:text-2xl" />
         </TheButton>
         <TheButton
           type="ghost"
@@ -177,7 +177,7 @@ export default {
             <TheIcon
               type="user"
               size="lg"
-              class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 text-white sm:text-lg xl:text-xl 2xl:text-2xl"
+              class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 text-white sm:text-lg 2xl:text-xl 3xl:text-2xl"
             />
           </TheAvatar>
         </TheButton>

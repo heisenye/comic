@@ -119,24 +119,24 @@ export default {
 </script>
 
 <template>
-  <main class="absolute w-full top-20 px-3 sm:px-4 md:px-6 lg:px-4">
-    <div
-      class="relative left-1/2 -translate-x-1/2 w-full card rounded max-w-3xl bg-primary lg:card-side lg:py-4"
-    >
+  <main class="relative w-full top-20 px-3 sm:px-4 md:px-6 lg:px-4">
+    <div class="relative w-full mx-auto card rounded max-w-3xl bg-primary lg:card-side lg:py-4">
       <div
         class="absolute bookmark border-[32px] -left-4 -top-4 xl:border-[40px]"
         v-if="status === 'completed'"
       >
         <p class="absolute -left-6 -top-6 xl:text-lg font-base_3">完结</p>
       </div>
-      <div class="relative flex justify-center pb-6 pt-8 lg:w-3/5">
+      <div
+        class="relative flex items-center justify-center pb-6 pt-8 md:px-3 lg:px-0 xl:px-4 lg:w-3/5"
+      >
         <TheImage
           :src="`${BASE_URL}/${id}/${coverImage.chapter}/${coverImage.page}.webp`"
           class="rounded-lg w-3/5 lg:rounded-lg h-fit"
         />
       </div>
       <div class="card-body pt-4 md:pt-6 px-6 md:px-10 lg:px-4 rounded-b-xl xl:text-lg">
-        <h1 class="card-title text-2xl xl:text-3xl self-center pb-2 font-base_3 text-white">
+        <h1 class="card-title text-2xl self-center pb-2 font-base_3 text-white">
           {{ name }}
         </h1>
         <div class="text-accent opacity-80">
@@ -181,10 +181,10 @@ export default {
             class="block mx-auto"
             onclick="document.getElementById('settings').showModal()"
           >
-            <TheIcon type="gear" />
+            <TheIcon type="gear" class="text-success" />
           </TheButton>
         </div>
-        <TheModal id="settings" class="bg-primary">
+        <TheModal id="settings" class="bg-primary font-base_2">
           <div class="flex items-center">
             <label for="progress" class="mr-6">是否记忆阅读进度</label>
             <input
@@ -199,7 +199,7 @@ export default {
         <div class="grid grid-cols-4 gap-x-6 place-items-center">
           <template v-for="n in chapters" :key="n">
             <RouterLink
-              :to="{ name: 'read', params: { id: id, chapter: n } }"
+              :to="{ name: 'read', params: { id, chapter: n } }"
               class="btn btn-sm btn-secondary w-12"
               replace
             >

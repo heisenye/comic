@@ -9,17 +9,20 @@ module.exports = {
         base_2: ['tsangeryuyangtw02-subset', 'sans-serif'],
         base_3: ['tsangeryuyangtw03-subset', 'sans-serif']
       },
+      fontSize: {
+
+      },
       screens: {
         xs: '300px',
         sm: '360px',
-        md: '475px',
+        md: '450px',
         lg: '600px',
-        xl: '768px',
-        '2xl': '896px',
-        '3xl': '1024px',
-        '4xl': '1280px',
-        '5xl': '1536px',
-        '6xl': '1920px'
+        xl: '760px',
+        '2xl': '885px',
+        '3xl': '1050px',
+        '4xl': '1120x',
+        '5xl': '1350px',
+        '6xl': '1500px'
       },
       aspectRatio: {
         '3/4': '3 / 4'
@@ -47,7 +50,7 @@ module.exports = {
 
           secondary: 'rgb(82, 82, 82)',
 
-          accent: 'rgb(167 139 250)',
+          accent: 'rgb(165 180 252)',
 
           neutral: 'rgb(100 116 139)',
 

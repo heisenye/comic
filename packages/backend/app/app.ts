@@ -8,6 +8,8 @@ import comicsRouter from './router/comics'
 import userRouter from './router/user'
 import { Server } from 'http'
 import logger from './logger'
+import { ResponseCode } from './constants/status'
+import Response from './utils/response'
 
 const app = new Koa()
 app.use(
@@ -37,6 +39,12 @@ app.use(bodyParser())
 app.use(indexRouter.routes())
 app.use(comicsRouter.routes()).use(comicsRouter.allowedMethods())
 app.use(userRouter.routes()).use(userRouter.allowedMethods())
+
+app.on('error', (err, ctx) => {
+  logger.error(err)
+  ctx.response.status = ResponseCode.Internal_Server_Error
+  ctx.body = Response.UnknownError(err as Error)
+})
 
 const run = (port: number): Server => {
   return app.listen(port, () => {
