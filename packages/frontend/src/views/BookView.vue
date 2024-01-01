@@ -16,13 +16,9 @@ export default {
     const comic = ref(null)
 
     onMounted(async () => {
-      try {
-        const response = await http.getComic(id)
-        if (response.code === 200) {
-          comic.value = response.data
-        }
-      } catch (error) {
-        console.error(error)
+      const response = await http.getComic(id)
+      if (response.code === 200) {
+        comic.value = response.data
       }
     })
     return {

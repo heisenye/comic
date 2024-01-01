@@ -26,12 +26,8 @@ export default {
     }
 
     onMounted(async () => {
-      try {
-        const response = await http.getComicChapter(id, chapter)
-        pages.value = response.data.pages
-      } catch (error) {
-        console.error(error)
-      }
+      const response = await http.getComicChapter(id, chapter)
+      pages.value = response.data.pages
       window.addEventListener('scroll', scrollFn)
     })
 

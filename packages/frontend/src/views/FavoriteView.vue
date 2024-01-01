@@ -12,13 +12,9 @@ export default {
     const favoriteComics = ref([])
 
     onMounted(async () => {
-      try {
-        const response = await http.getFavoriteComics()
-        if (response.code === 200) {
-          favoriteComics.value = response.data
-        }
-      } catch (error) {
-        console.error(error)
+      const response = await http.getFavoriteComics()
+      if (response.code === 200) {
+        favoriteComics.value = response.data
       }
     })
     return {

@@ -25,20 +25,16 @@ export default {
     }
 
     onMounted(async () => {
-      try {
-        const response = await http.getHistoryComics(history)
-        if (response.code === 200) {
-          const comics = response.data
-          if (typeof comics === 'object' && !Array.isArray(comics)) {
-            comics.isVisible = true
-            historyComics.value = [comics]
-            return
-          }
-          comics.forEach((comic) => (comic.isVisible = true))
-          historyComics.value = comics
+      const response = await http.getHistoryComics(history)
+      if (response.code === 200) {
+        const comics = response.data
+        if (typeof comics === 'object' && !Array.isArray(comics)) {
+          comics.isVisible = true
+          historyComics.value = [comics]
+          return
         }
-      } catch (error) {
-        console.error(error)
+        comics.forEach((comic) => (comic.isVisible = true))
+        historyComics.value = comics
       }
     })
 

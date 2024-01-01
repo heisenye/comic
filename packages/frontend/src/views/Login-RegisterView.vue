@@ -38,28 +38,24 @@ export default {
         }
       }
 
-      try {
-        const response = await http.login(data)
-        if (response.code === 200) {
-          userStore.setUser(response.data)
+      const response = await http.login(data)
+      if (response.code === 200) {
+        userStore.setUser(response.data)
 
-          const token = response.data.token
-          setToken(token)
-          isSuccess.value = true
-          showMsg({
-            msg: msg['LOGIN_SUCCESS'],
-            messageType: 'success',
-            popupType: 'toast',
-            toastPos: ['bottom', 'end']
-          })
-          setTimeout(() => {
-            if (route.name === 'login') {
-              goHome()
-            }
-          }, 2000)
-        }
-      } catch (error) {
-        console.error(error)
+        const token = response.data.token
+        setToken(token)
+        isSuccess.value = true
+        showMsg({
+          msg: msg['LOGIN_SUCCESS'],
+          messageType: 'success',
+          popupType: 'toast',
+          toastPos: ['bottom', 'end']
+        })
+        setTimeout(() => {
+          if (route.name === 'login') {
+            goHome()
+          }
+        }, 2000)
       }
     }
 
@@ -75,22 +71,18 @@ export default {
           return
         }
       }
-      try {
-        const response = await http.register(data)
-        if (response.code === 200) {
-          isSuccess.value = true
-          showMsg({
-            msg: msg['REGISTER_SUCCESS'],
-            messageType: 'success',
-            popupType: 'toast',
-            toastPos: ['bottom', 'end']
-          })
-          setTimeout(() => {
-            replaceLogin()
-          }, 1000)
-        }
-      } catch (error) {
-        console.error(error)
+      const response = await http.register(data)
+      if (response.code === 200) {
+        isSuccess.value = true
+        showMsg({
+          msg: msg['REGISTER_SUCCESS'],
+          messageType: 'success',
+          popupType: 'toast',
+          toastPos: ['bottom', 'end']
+        })
+        setTimeout(() => {
+          replaceLogin()
+        }, 1000)
       }
     }
 

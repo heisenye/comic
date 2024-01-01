@@ -45,55 +45,47 @@ export default {
       if (!token.value) {
         return
       }
-      try {
-        const response = await http.getFavorite(id)
-        if (response.data) {
-          isFavorited.value = true
-        }
-      } catch (error) {
-        console.error(error)
+      const response = await http.getFavorite(id)
+      if (response.data) {
+        isFavorited.value = true
       }
     })
 
     const addOrDeleteFavoriteFn = async () => {
-      try {
-        if (!token.value) {
+      if (!token.value) {
+        showMsg({
+          msg: msg['NO_TOKEN'],
+          messageType: 'info',
+          popupType: 'alert'
+        })
+        return
+      }
+      if (isFavorited.value) {
+        const response = await http.deleteFavorite(id)
+        if (response.code === 200) {
+          isFavorited.value = false
+          favoriteCount.value--
           showMsg({
-            msg: msg['NO_TOKEN'],
-            messageType: 'info',
-            popupType: 'alert'
+            msg: msg['DELETE_FAVORITE_SUCCESS'],
+            messageType: 'success',
+            popupType: 'toast',
+            toastPos: ['end', 'bottom']
           })
-          return
         }
-        if (isFavorited.value) {
-          const response = await http.deleteFavorite(id)
-          if (response.code === 200) {
-            isFavorited.value = false
-            favoriteCount.value--
-            showMsg({
-              msg: msg['DELETE_FAVORITE_SUCCESS'],
-              messageType: 'success',
-              popupType: 'toast',
-              toastPos: ['end', 'bottom']
-            })
-          }
-        } else {
-          const response = await http.postFavorite({
-            id
+      } else {
+        const response = await http.postFavorite({
+          id
+        })
+        if (response.code === 200) {
+          isFavorited.value = true
+          favoriteCount.value++
+          showMsg({
+            msg: msg['ADD_FAVORITE_SUCCESS'],
+            messageType: 'success',
+            popupType: 'toast',
+            toastPos: ['start', 'bottom']
           })
-          if (response.code === 200) {
-            isFavorited.value = true
-            favoriteCount.value++
-            showMsg({
-              msg: msg['ADD_FAVORITE_SUCCESS'],
-              messageType: 'success',
-              popupType: 'toast',
-              toastPos: ['start', 'bottom']
-            })
-          }
         }
-      } catch (error) {
-        console.error(error)
       }
     }
 

@@ -80,13 +80,9 @@ export default {
     }
 
     onMounted(async () => {
-      try {
-        const response = await http.getProfile(token.value)
-        if (response.code === 200) {
-          userStore.setUser(response.data)
-        }
-      } catch (error) {
-        console.error(error)
+      const response = await http.getProfile(token.value)
+      if (response.code === 200) {
+        userStore.setUser(response.data)
       }
     })
 

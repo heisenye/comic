@@ -12,13 +12,9 @@ export default {
     const comicList = ref(null)
 
     onBeforeMount(async () => {
-      try {
-        const response = await http.getComics()
-        if (response) {
-          comicList.value = response.data.filter((comic) => comic.chapters !== 0)
-        }
-      } catch (error) {
-        console.error(error)
+      const response = await http.getComics()
+      if (response) {
+        comicList.value = response.data.filter((comic) => comic.chapters !== 0)
       }
     })
 
