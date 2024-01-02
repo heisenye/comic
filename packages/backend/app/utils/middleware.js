@@ -136,8 +136,31 @@ var response_1 = require('../utils/response')
 var status_1 = require('../constants/status')
 var jsonwebtoken_1 = require('jsonwebtoken')
 var secretKey = process.env.SECRET_KEY
+var refererUrl = process.env.REFERER_URL
 var Middleware = /** @class */ (function () {
   function Middleware() {}
+  Middleware.checkReferer = function (ctx, next) {
+    return __awaiter(this, void 0, void 0, function () {
+      var referer
+      return __generator(this, function (_a) {
+        switch (_a.label) {
+          case 0:
+            referer = ctx.request.header.referer
+            if (!(referer && referer.startsWith(refererUrl))) return [3 /*break*/, 2]
+            return [4 /*yield*/, next()]
+          case 1:
+            _a.sent()
+            return [3 /*break*/, 3]
+          case 2:
+            ctx.response.status = status_1.ResponseCode.Forbidden
+            ctx.body = response_1.default.Forbidden()
+            _a.label = 3
+          case 3:
+            return [2 /*return*/]
+        }
+      })
+    })
+  }
   Middleware.validateObjectId = function (ctx, next) {
     return __awaiter(this, void 0, void 0, function () {
       var id

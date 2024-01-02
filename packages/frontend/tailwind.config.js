@@ -50,17 +50,27 @@ module.exports = {
 
           secondary: 'rgb(82, 82, 82)',
 
+          'secondary-content': 'rgb(228 228 231)',
+
           accent: 'rgb(165 180 252)',
 
           neutral: 'rgb(100 116 139)',
 
           info: 'rgb(96 165 250)',
 
-          success: 'rgb(52 211 153)',
+          'info-content': 'rgb(224 242 254)',
+
+          success: 'rgb(74 222 128)',
+
+          'success-content': 'rgb(2 44 34)',
 
           warning: 'rgb(217 119 6)',
 
-          error: 'rgb(248 113 113)'
+          'warning-content': 'rgb(255 237 213)',
+
+          error: 'rgb(248 113 113)',
+
+          'error-content': 'rgb(76 5 25)'
         }
       }
     ]

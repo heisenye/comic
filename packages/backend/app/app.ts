@@ -10,6 +10,7 @@ import { Server } from 'http'
 import logger from './logger'
 import { ResponseCode } from './constants/status'
 import Response from './utils/response'
+// import Middleware from './utils/middleware'
 
 const app = new Koa()
 app.use(
@@ -17,6 +18,8 @@ app.use(
     exposeHeaders: ['Rate-Limit-Remaining', 'Rate-Limit-Reset', 'Rate-Limit-Total', 'Retry-After']
   })
 )
+// app.use(Middleware.checkReferer)
+
 app.use(
   ratelimit({
     driver: 'memory',

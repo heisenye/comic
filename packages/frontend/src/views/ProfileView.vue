@@ -135,7 +135,7 @@ export default {
         </div>
         <TheButton
           type="error"
-          class="z-50 h-10 lg:h-12 lg:w-20 lg:text-base text-black font-base_2"
+          class="z-50 h-10 lg:h-12 lg:w-20 lg:text-base font-base_2"
           @click="logout"
         >
           登出

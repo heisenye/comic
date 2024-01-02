@@ -1,16 +1,19 @@
 import request from './request'
+const blankCb = () => {}
 
 export function getComics() {
   return request({
     method: 'GET',
     url: '/comics'
   })
+    .catch(blankCb)
 }
 export function getComic(id) {
   return request({
     method: 'GET',
     url: `/comics/${id}`
   })
+    .catch(() => {})
 }
 
 export function login(data) {
@@ -26,6 +29,7 @@ export function login(data) {
       throttleTime: 3000
     }
   )
+    .catch(() => {})
 }
 
 export function register(data) {
@@ -41,6 +45,7 @@ export function register(data) {
       throttleTime: 3000
     }
   )
+    .catch(() => {})
 }
 
 export function getComicChapter(id, chapter) {
@@ -50,6 +55,7 @@ export function getComicChapter(id, chapter) {
       url: `/comics/${id}/${chapter}`
     },
   )
+    .catch(() => {})
 }
 
 export function getHistoryComics(ids) {
@@ -67,6 +73,7 @@ export function getHistoryComics(ids) {
       useCache: false
     }
   )
+    .catch(() => {})
 }
 
 export function getProfile(token) {
@@ -80,6 +87,7 @@ export function getProfile(token) {
       useCache: false
     }
   )
+    .catch(() => {})
 }
 
 export function postFavorite(data) {
@@ -95,6 +103,7 @@ export function postFavorite(data) {
       throttleTime: 3000
     }
   )
+    .catch(() => {})
 }
 
 export function deleteFavorite(id) {
@@ -109,6 +118,7 @@ export function deleteFavorite(id) {
       throttleTime: 3000
     }
   )
+    .catch(() => {})
 }
 
 export function getFavoriteComics() {
@@ -123,6 +133,7 @@ export function getFavoriteComics() {
       throttleTime: 1000
     }
   )
+    .catch(() => {})
 }
 
 export function getFavorite(id) {
@@ -137,6 +148,7 @@ export function getFavorite(id) {
       throttleTime: 1000
     }
   )
+    .catch(() => {})
 }
 
 export function postAvatar(data) {
@@ -149,8 +161,8 @@ export function postAvatar(data) {
         'Content-Type': 'multipart/form-data'
       }
     },
-
   )
+    .catch(() => {})
 }
 
 export function getSearch(keyword) {
@@ -169,6 +181,7 @@ export function getSearch(keyword) {
       throttleTime: 0
     }
   )
+    .catch(() => {})
 }
 
 export function postComic(data) {
@@ -184,6 +197,7 @@ export function postComic(data) {
       throttleTime: 0
     }
   )
+    .catch(() => {})
 }
 
 export function patchComic({id,field, newVal}) {
@@ -199,6 +213,7 @@ export function patchComic({id,field, newVal}) {
       throttleTime: 0
     }
   )
+    .catch(() => {})
 }
 
 export function postComicChapter({ id, chapter, formData}) {
@@ -217,6 +232,7 @@ export function postComicChapter({ id, chapter, formData}) {
       throttleTime: 10000
     }
   )
+    .catch(() => {})
 }
 
 export function removeComicChapter(id, chapter) {
@@ -231,15 +247,18 @@ export function removeComicChapter(id, chapter) {
       throttleTime: 10000
     }
   )
+    .catch(() => {})
 }
 
 export function putComicCoverImage({id, chapter, page}) {
-  return request({
-    method: "PUT",
-    url: `/comics/${id}/cover`,
-    data: {
-      chapter: chapter,
-      page: page
+  return request(
+      {
+      method: "PUT",
+      url: `/comics/${id}/cover`,
+      data: {
+        chapter: chapter,
+        page: page
+      }
     }
-  })
+  ).catch(() => {})
 }

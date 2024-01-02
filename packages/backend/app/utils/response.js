@@ -22,6 +22,12 @@ var Response = /** @class */ (function () {
       data: data
     }
   }
+  Response.Forbidden = function (msg) {
+    return {
+      code: status_1.ResponseCode.Forbidden,
+      msg: msg || message_1.default['FORBIDDEN']
+    }
+  }
   Response.InValidId = function (msg) {
     return {
       code: status_1.ResponseCode.Bad_Request,

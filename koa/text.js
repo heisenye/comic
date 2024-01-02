@@ -1,23 +1,17 @@
-async function asy1(){
-  console.log(1)
-  const b = await asy2()
-  console.log(b)
-  console.log(2)
+async function foo() {
+  return Promise.reject('error')
 }
 
-asy2 = async () => {
-  const a5 = await setTimeout(() => {
-    console.log(3)
-    console.log(4)
-  }, 0)
+const bar = async () => {
+  return foo()
+    .then((res) => res)
+    .catch((err)=> err)
 }
 
-asy3 = async () => {
-  Promise.resolve().then(() => {
-    console.log(6)
-  })
+const baz = async () => {
+  const a = await bar()
+  console.log(a)
 }
 
-asy1()
-console.log(7)
-asy3()
+
+baz()

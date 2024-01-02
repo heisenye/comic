@@ -28,6 +28,13 @@ export default class Response {
     }
   }
 
+  public static Forbidden(msg?: string): IResponseBody {
+    return {
+      code: ResponseCode.Forbidden,
+      msg: msg || message['FORBIDDEN']
+    }
+  }
+
   public static InValidId(msg?: string): IResponseBody {
     return {
       code: ResponseCode.Bad_Request,

@@ -11,12 +11,14 @@ var user_1 = require('./router/user')
 var logger_1 = require('./logger')
 var status_1 = require('./constants/status')
 var response_1 = require('./utils/response')
+// import Middleware from './utils/middleware'
 var app = new Koa()
 app.use(
   cors({
     exposeHeaders: ['Rate-Limit-Remaining', 'Rate-Limit-Reset', 'Rate-Limit-Total', 'Retry-After']
   })
 )
+// app.use(Middleware.checkReferer)
 app.use(
   ratelimit({
     driver: 'memory',

@@ -137,7 +137,6 @@ const router = createRouter({
   routes,
   scrollBehavior(to, from) {
     if (to.name === 'read' && from.meta['isProgressRemembered']) {
-      console.log(to)
       const { id, chapter } = to.params
       const ele = localStorage.getItem(`${id}-${chapter}`)
       if (ele) {

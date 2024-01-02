@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Title</title>
+  <style>
+    .div {
+      position: relative;
+      margin: auto;
+      width: 300px;
+      height: 200px;
+      background-color: bisque;
+      border-radius: 12px;
+      border: 20px dashed  mediumpurple;
+      box-sizing: border-box;
+      background-clip: padding-box;
+    }
+    .abc {
+      height: 30px;
+      width: 20px;
+      background-color: skyblue;
+    }
+    div:nth-of-type(2) {
+      background-color: red;
+      border-radius: 12px;
+    }
+  </style>
+</head>
+<body>
+
+<div class="div">
+  <div class="abc"></div>
+  <div class="abc"></div>
+  <div class="abc"></div>
+</div>
+
+</body>
+</html>

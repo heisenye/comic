@@ -10,7 +10,7 @@ const BASE_URL = import.meta.env.VITE_BASE_URL
 
 const service = axios.create({
   baseURL: `${BASE_URL}/api`,
-  timeout: 20000
+  timeout: 20000,
 })
 
 service.interceptors.request.use(
@@ -30,6 +30,7 @@ service.interceptors.request.use(
 
 service.interceptors.response.use(
   (response) => {
+
     if (response.config['loading']) {
       response.config['loading'].remove()
     }
