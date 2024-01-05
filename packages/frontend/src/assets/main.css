@@ -16,17 +16,8 @@
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-
-  --fallback-p: rgb(38 38 38);
-  --fallback-s: rgb(82 82 82);
-  --fallback-a: rgb(165 180 252);
-  --fallback-n: rgb(100 116 139);
-  --fallback-b1: #000000;
-  --fallback-bc: rgb(214 211 209);
-  --fallback-in: rgb(96 165 250);
-  --fallback-su: rgb(52 211 153);
-  --fallback-wa: rgb(217 119 6);
-  --fallback-er: rgb(248 113 113);
+  --warning: rgb(217 119 6);
+  --info: rgb(96 165 250)
 }
 
 body {
@@ -57,28 +48,18 @@ body {
   .bookmark {
     border-bottom: solid transparent;
     border-right: solid transparent;
-    border-left: solid rgb(217 119 6);
-    border-top: solid rgb(217 119 6);
+    border-left: solid var(--warning);
+    border-top: solid var(--warning);
     clip-path: polygon(50% 0%, 100% 0%, 0% 100%, 0% 50%);
   }
 
   .bookmark p {
-    transform: rotate(-45deg);
-    text-align: center;
-    white-space: nowrap;
+    @apply -rotate-45 text-center whitespace-nowrap
   }
 
-  /*.placeholder {*/
-  /*  content: '';*/
-  /*  position: absolute;*/
-  /*  inset: 0;*/
-  /*  @apply bg-secondary;*/
-  /*  z-index: -1;*/
-  /*  animation: purse 2s infinite;*/
-  /*}*/
   .placeholder {
     @apply content-[''] absolute inset-0 bg-secondary -z-10;
-    animation: purse 2s infinite;
+    animation: purse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
   }
 
   @keyframes purse {
@@ -94,26 +75,15 @@ body {
   }
 
   .splash {
-    content: '';
-    display: block;
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    pointer-events: none;
-    background-color: transparent;
-    background-image: radial-gradient(circle, #fff 10%, transparent 10.01%);
-    background-repeat: no-repeat;
-    background-position: 50%;
-    transform: scale(10, 10);
-    opacity: 0;
+    @apply content-[''] block absolute size-full scale-[10] opacity-0;
+    background-image: radial-gradient(circle, var(--info) 10%, transparent 10.01%);
     transition:
       transform 0.5s,
       opacity 1s;
   }
 
   .splash-active {
-    transform: scale(0, 0);
-    opacity: 0.3;
+    @apply scale-0 opacity-30;
     transition: 0s;
   }
 
@@ -126,26 +96,13 @@ body {
 
   @media (hover: none) {
     .circle-splash {
-      content: '';
-      display: block;
-      position: absolute;
-      @apply size-full;
-      top: 0;
-      left: 0;
-      pointer-events: none;
-      @apply bg-info;
-      border-radius: 50%;
-      background-repeat: no-repeat;
-      background-position: 50%;
-      transform: scale(1.2, 1.2);
-      opacity: 0 !important;
+      @apply content-[''] block absolute size-full inset-0 bg-info rounded-full scale-125 !opacity-0;
       transition:
         transform 0.5s,
         opacity 1s;
     }
     .circle-splash-active {
-      transform: scale(0, 0);
-      opacity: 0.3 !important;
+      @apply scale-0 !opacity-30;
       transition: 0s;
     }
   }

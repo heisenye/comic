@@ -15,8 +15,8 @@ export default {
     const userStore = useUserStore()
     const { token } = useToken()
 
-    const uploadInput = ref()
-    const preview = ref()
+    const uploadAvatarInput = ref()
+    const previewAvatarModal = ref()
     const previewSrc = ref('')
 
     const uploadError = () => {
@@ -32,22 +32,22 @@ export default {
     const cancelUpload = () => {
       URL.revokeObjectURL(previewSrc.value)
       previewSrc.value = ''
-      uploadInput.value.value = null
+      uploadAvatarInput.value.value = null
     }
-    const showPreview = () => {
-      const file = uploadInput.value.files[0]
+    const previewAvatar = () => {
+      const file = uploadAvatarInput.value.files[0]
       if (!file) return
       const fileType = file.type
       if (allowedTypes.includes(fileType)) {
         previewSrc.value = URL.createObjectURL(file)
-        preview.value.showModal()
+        previewAvatarModal.value.showModal()
       } else {
         showMsg({
           msg: msg['AVATAR_FORMAT_ERROR'],
           messageType: 'error',
           popupType: 'alert'
         })
-        uploadInput.value.value = null
+        uploadAvatarInput.value.value = null
         return
       }
       if (file.size > 1024 * 1024 * 10) {
@@ -56,7 +56,7 @@ export default {
           messageType: 'error',
           popupType: 'alert'
         })
-        uploadInput.value.value = null
+        uploadAvatarInput.value.value = null
       }
     }
 
@@ -67,7 +67,7 @@ export default {
         popupType: 'alert'
       })
       const form = new FormData()
-      form.append('avatar', uploadInput.value.files[0])
+      form.append('avatar', uploadAvatarInput.value.files[0])
       const response = await http.postAvatar(form)
       if (response.code === 200) {
         refresh()
@@ -93,9 +93,9 @@ export default {
       id,
       createdAt,
       previewSrc,
-      uploadInput,
-      preview,
-      showPreview,
+      uploadAvatarInput,
+      previewAvatarModal,
+      previewAvatar,
       uploadError,
       cancelUpload,
       uploadAvatar,
@@ -113,10 +113,10 @@ export default {
     >
       <div class="navbar rounded-xl bg-primary w-full text-sm px-4 lg:col-span-2">
         <TheButton type="secondary" shape="circle" class="relative size-20 lg:size-24 overflow-hidden">
-          <input type="file" class="hidden h-0 w-0" ref="input" @change="showPreview" />
+          <input type="file" class="hidden h-0 w-0" ref="input" @change="previewAvatar" />
           <TheAvatar
             class="w-full hover:opacity-40 hover:scale-110 transition-all duration-500 z-20"
-            @click="() => uploadInput.click()"
+            @click="() => uploadAvatarInput.click()"
           >
             <TheIcon
               type="user"
@@ -147,7 +147,7 @@ export default {
         <span class=" tracking-wide">{{ createdAt }}</span>
       </div>
     </div>
-    <dialog class="modal" ref="preview">
+    <dialog class="modal" ref="previewAvatarModal">
       <div class="modal-box bg-primary">
         <form method="dialog">
           <TheButton type="ghost" shape="circle" class="absolute right-0 top-0 z-10">

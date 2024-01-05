@@ -131,7 +131,7 @@ export default {
             @keyup.enter="searchFn"
             v-model="keyword"
           />
-          <TheIcon type="magnifying-glass" class="absolute left-4 3xl:text-lg text-accent" />
+          <TheIcon type="magnifying-glass" class="absolute left-4 3xl:text-lg text-accent " />
           <TheButton
             shape="circle"
             type="error"
@@ -162,7 +162,7 @@ export default {
           :transition="true"
           class="before:text-sm md:text-md text-white"
         >
-          <TheIcon type="bell" size="lg" class="2xl:text-xl 3xl:text-2xl" />
+          <TheIcon type="bell" size="lg" class="2xl:text-xl 3xl:text-2xl " />
         </TheButton>
         <TheButton
           type="ghost"
