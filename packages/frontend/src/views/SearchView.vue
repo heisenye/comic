@@ -93,7 +93,7 @@ export default {
       </template>
     </TheNavigation>
     <h1
-      class="absolute top-44 text-xl text-center w-full text-white font-base_3"
+      class="absolute top-44 text-xl text-center w-full text-white font-base"
       v-if="searchComics.length === 0 && $route.query.keyword"
     >
       什么也没有找见

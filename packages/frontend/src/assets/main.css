@@ -3,18 +3,55 @@
 @tailwind utilities;
 
 @font-face {
-  font-family: 'tsangeryuyangtw02-subset';
-  src: url('/TsangerYuYangT_W02_W02-subset.ttf') format('truetype');
+  font-family: 'tsangeryuyangtw-subset';
+  src: url('/TsangerYuYangT-subset.ttf') format('truetype');
   font-weight: normal;
   font-style: normal;
 }
 
-@font-face {
-  font-family: 'tsangeryuyangtw03-subset';
-  src: url('/TsangerYuYangT_W03_W03-subset.ttf') format('truetype');
-  font-weight: normal;
-  font-style: normal;
+:root {
+  font-family: 'Poppins', sans-serif;
+  overflow-x: hidden;
+  /*font-synthesis: none;*/
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+  --fallback-p: rgb(38 38 38);
+  --fallback-s: rgb(82 82 82);
+  --fallback-a: rgb(165 180 252);
+  --fallback-n: rgb(100 116 139);
+  --fallback-b1: #000000;
+  --fallback-bc: rgb(214 211 209);
+  --fallback-in: rgb(96 165 250);
+  --fallback-su: rgb(52 211 153);
+  --fallback-wa: rgb(217 119 6);
+  --fallback-er: rgb(248 113 113);
 }
+
+body {
+  padding: 0;
+  margin: 0;
+  min-width: 320px;
+  min-height: 100vh;
+}
+
+@supports not (color: oklch(0 0 0)) {
+  :root {
+    color-scheme: dark_;
+    --fallback-p: rgb(38 38 38);
+    --fallback-s: rgb(82 82 82);
+    --fallback-a: rgb(165 180 252);
+    --fallback-n: rgb(100 116 139);
+    --fallback-b1: #000000;
+    --fallback-bc: rgb(214 211 209);
+    --fallback-in: rgb(96 165 250);
+    --fallback-su: rgb(52 211 153);
+    --fallback-wa: rgb(217 119 6);
+    --fallback-er: rgb(248 113 113);
+  }
+}
+
 
 @layer components {
   .bookmark {
@@ -31,12 +68,16 @@
     white-space: nowrap;
   }
 
+  /*.placeholder {*/
+  /*  content: '';*/
+  /*  position: absolute;*/
+  /*  inset: 0;*/
+  /*  @apply bg-secondary;*/
+  /*  z-index: -1;*/
+  /*  animation: purse 2s infinite;*/
+  /*}*/
   .placeholder {
-    content: '';
-    position: absolute;
-    inset: 0;
-    @apply bg-secondary;
-    z-index: -1;
+    @apply content-[''] absolute inset-0 bg-secondary -z-10;
     animation: purse 2s infinite;
   }
 
@@ -52,7 +93,7 @@
     }
   }
 
-  .halo {
+  .splash {
     content: '';
     display: block;
     position: absolute;
@@ -70,7 +111,7 @@
       opacity 1s;
   }
 
-  .halo-active {
+  .splash-active {
     transform: scale(0, 0);
     opacity: 0.3;
     transition: 0s;
@@ -80,20 +121,19 @@
     @apply input bg-secondary w-full h-9 pl-12 xl:pl-14 2xl:pl-16 3xl:h-10 3xl:pl-20 text-sm 3xl:text-base rounded tracking-widest;
   }
   .nav-input-container {
-    @apply relative mx-auto hidden lg:flex lg:items-center w-[21rem] xl:w-[24rem] 2xl:w-[27rem] 3xl:w-[30rem] font-Noto;
+    @apply relative mx-auto hidden lg:flex lg:items-center w-[20rem] xl:w-[24rem] 2xl:w-[27rem] 3xl:w-[30rem] font-Noto;
   }
 
   @media (hover: none) {
-    .square-halo {
+    .circle-splash {
       content: '';
       display: block;
       position: absolute;
-      width: 100%;
-      height: 100%;
+      @apply size-full;
       top: 0;
       left: 0;
       pointer-events: none;
-      background-color: white;
+      @apply bg-info;
       border-radius: 50%;
       background-repeat: no-repeat;
       background-position: 50%;
@@ -103,7 +143,7 @@
         transform 0.5s,
         opacity 1s;
     }
-    .square-halo-active {
+    .circle-splash-active {
       transform: scale(0, 0);
       opacity: 0.3 !important;
       transition: 0s;
@@ -111,22 +151,7 @@
   }
 }
 
-:root {
-  font-family: 'Poppins', sans-serif;
-  overflow-x: hidden;
 
-  /*font-synthesis: none;*/
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-body {
-  padding: 0;
-  margin: 0;
-  min-width: 320px;
-  min-height: 100vh;
-}
 
 ::selection {
   @apply bg-neutral;
@@ -158,20 +183,4 @@ body {
 ::-webkit-scrollbar-button {
   background-color: #888;
   color: #fff;
-}
-
-@supports not (color: oklch(0 0 0)) {
-  :root {
-    color-scheme: dark_;
-    --fallback-p: rgb(38 38 38);
-    --fallback-s: rgb(82 82 82);
-    --fallback-a: rgb(165 180 252);
-    --fallback-n: rgb(100 116 139);
-    --fallback-b1: #000000;
-    --fallback-bc: rgb(214 211 209);
-    --fallback-in: rgb(96 165 250);
-    --fallback-su: rgb(52 211 153);
-    --fallback-wa: rgb(217 119 6);
-    --fallback-er: rgb(248 113 113);
-  }
 }

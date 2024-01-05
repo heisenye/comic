@@ -6,8 +6,7 @@ module.exports = {
       fontFamily: {
         Poppins: ['Poppins', 'sans-serif'],
         Noto: ['Noto Sans SC', 'sans-serif'],
-        base_2: ['tsangeryuyangtw02-subset', 'sans-serif'],
-        base_3: ['tsangeryuyangtw03-subset', 'sans-serif']
+        base: ['tsangeryuyangtw-subset', 'sans-serif'],
       },
       fontSize: {
 

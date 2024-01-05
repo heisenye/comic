@@ -12,10 +12,8 @@ union_text_set.update(string.ascii_uppercase)
 
 
 SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
-FONT_2_PATH = os.path.join(SCRIPT_DIR, "./TsangerYuYangT_W02_W02.ttf")
-FONT_3_PATH = os.path.join(SCRIPT_DIR, "./TsangerYuYangT_W03_W03.ttf")
-OUTPUT_2_PATH = os.path.join(SCRIPT_DIR, "../public/TsangerYuYangT_W02_W02-subset.ttf")
-OUTPUT_3_PATH = os.path.join(SCRIPT_DIR, "../public/TsangerYuYangT_W03_W03-subset.ttf")
+FONT_PATH = os.path.join(SCRIPT_DIR, "./TsangerYuYangT.ttf")
+OUTPUT_PATH = os.path.join(SCRIPT_DIR, "../public/TsangerYuYangT-subset.ttf")
 
 def create_subset_font(font_path, output_path, characters):
     options = subset.Options()
@@ -27,8 +25,7 @@ def create_subset_font(font_path, output_path, characters):
 
 
 def main():
-    create_subset_font(FONT_2_PATH, OUTPUT_2_PATH, union_text_set)
-    create_subset_font(FONT_3_PATH, OUTPUT_3_PATH, union_text_set)
+    create_subset_font(FONT_PATH, OUTPUT_PATH, union_text_set)
 
 if __name__ == "__main__":
     main()

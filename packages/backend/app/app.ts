@@ -15,7 +15,7 @@ import Response from './utils/response'
 const app = new Koa()
 app.use(
   cors({
-    exposeHeaders: ['Rate-Limit-Remaining', 'Rate-Limit-Reset', 'Rate-Limit-Total', 'Retry-After']
+    exposeHeaders: ['Retry-After']
   })
 )
 // app.use(Middleware.checkReferer)

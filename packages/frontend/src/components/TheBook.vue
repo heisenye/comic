@@ -117,7 +117,7 @@ export default {
         class="absolute bookmark border-[32px] -left-4 -top-4 xl:border-[40px]"
         v-if="status === 'completed'"
       >
-        <p class="absolute -left-6 -top-6 text-warning-content xl:text-lg font-base_3">完结</p>
+        <p class="absolute -left-6 -top-6 text-warning-content xl:text-lg font-base font-extrabold">完结</p>
       </div>
       <div
         class="relative flex items-center justify-center pb-6 pt-8 md:px-3 lg:px-0 xl:px-4 lg:w-3/5"
@@ -128,7 +128,7 @@ export default {
         />
       </div>
       <div class="card-body pt-4 md:pt-6 px-6 md:px-10 lg:px-4 rounded-b-xl xl:text-lg">
-        <h1 class="card-title text-2xl self-center pb-2 font-base_3 text-white">
+        <h1 class="card-title text-2xl self-center pb-2 font-base font-extrabold text-white">
           {{ name }}
         </h1>
         <div class="text-accent opacity-80">
@@ -139,10 +139,10 @@ export default {
           >&nbsp; | &nbsp;<i class="fa-solid fa-book"></i>&nbsp;
           <span>{{ chapters }}</span>
         </div>
-        <div class="text-white font-base_2">
+        <div class="text-white font-base">
           作者：<button class="btn btn-sm btn-secondary">{{ author }}</button>
         </div>
-        <div class="space-x-1.5 text-white font-base_2">
+        <div class="space-x-1.5 text-white font-base">
           标签：
           <template v-for="tag in tags" :key="tag">
             <TheButton type="secondary" size="sm">
@@ -150,7 +150,7 @@ export default {
             </TheButton>
           </template>
         </div>
-        <div class="text-white font-base_2">
+        <div class="text-white font-base">
           简介：<span class="opacity-80">{{ description }}</span>
         </div>
         <TheButton
@@ -164,7 +164,7 @@ export default {
             :variant="isFavorited ? 'solid' : 'regular'"
           />
         </TheButton>
-        <h3 class="font-base_3 text-lg mx-auto">章节</h3>
+        <h3 class="font-base text-lg mx-auto">章节</h3>
         <div>
           <TheButton
             type="secondary"
@@ -176,7 +176,7 @@ export default {
             <TheIcon type="gear" class="text-success" />
           </TheButton>
         </div>
-        <TheModal id="settings" class="bg-primary font-base_2">
+        <TheModal id="settings" class="bg-primary font-base">
           <div class="flex items-center">
             <label for="progress" class="mr-6">是否记忆阅读进度</label>
             <input

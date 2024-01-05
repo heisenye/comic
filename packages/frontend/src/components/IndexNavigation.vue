@@ -93,14 +93,14 @@ export default {
 
 <template>
   <main class="relative">
-    <nav class="navbar bg-primary fixed top-16 min-w-[300px] font-base_2">
+    <nav class="navbar bg-primary fixed top-16 min-w-[300px] font-base">
       <div
         class="absolute left-1/2 -translate-x-1/2 max-w-screen-lg 3xl:max-w-screen-xl w-full flex justify-evenly"
       >
         <template v-for="(link, index) in links" :key="link">
           <RouterLink
             :to="{ name: link.name }"
-            class="link link-hover text-base 3xl:text-lg font-semibold px-3 py-1 font-base_2"
+            class="link link-hover text-base 3xl:text-lg font-semibold px-3 py-1 font-base"
             :class="{ 'text-info': activeLinkIndex === index }"
             @click="() => (activeLinkIndex = index)"
             >{{ link.zh }}
@@ -117,7 +117,7 @@ export default {
       <template #left>
         <RouterLink
           :to="{ name: 'home' }"
-          class="relative btn btn-ghost tracking-wider font-medium rounded-lg font-Poppins normal-case overflow-hidden after:halo active:after:halo-active text-white"
+          class="relative btn btn-ghost tracking-wider font-medium rounded-lg font-Poppins normal-case overflow-hidden after:splash active:after:splash-active text-white"
         >
           <span class="text-xl 3xl:text-2xl 3xl:tracking-wider"> MewAcg </span>
         </RouterLink>
@@ -166,14 +166,13 @@ export default {
         </TheButton>
         <TheButton
           type="ghost"
-          size="md"
           shape="square"
           tooltip="个人中心"
           :transition="true"
-          class="before:text-xs md:before:text-sm"
+          class="before:text-xs md:before:text-sm size-12 lg:size-14 2xl:size-16"
           @click="token ? goProfile() : goLogin()"
         >
-          <TheAvatar size="lg" class="sm:text-xl 2xl:text-2xl">
+          <TheAvatar class="sm:text-xl 2xl:text-2xl">
             <TheIcon
               type="user"
               size="lg"

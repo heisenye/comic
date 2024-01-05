@@ -1,17 +1,12 @@
 <script>
 import { onMounted, onUnmounted, ref } from 'vue'
-import { storeToRefs } from 'pinia'
 import { refresh } from '@/utils/router'
 import { useUserStore } from '@/stores/userStore'
 import TheAvatar from '@/components/TheAvatar.vue'
 import { TheButton, TheIcon } from 'ui'
-import { useToken } from 'common'
-import { http } from 'common'
-import { showMsg } from 'common'
-import { msg } from 'common'
-import { BASE_URL } from 'common'
+import { useToken, http, showMsg, msg, BASE_URL } from 'common'
 
-const allowedTypes = ['image/jpeg', 'image/png', 'image/jpg', 'image/gif']
+const allowedTypes = ['image/jpeg', 'image/png', 'image/jpg']
 
 export default {
   name: 'ProfileView',
@@ -20,8 +15,8 @@ export default {
     const userStore = useUserStore()
     const { token } = useToken()
 
-    const input = ref()
-    const modal = ref()
+    const uploadInput = ref()
+    const preview = ref()
     const previewSrc = ref('')
 
     const uploadError = () => {
@@ -37,22 +32,22 @@ export default {
     const cancelUpload = () => {
       URL.revokeObjectURL(previewSrc.value)
       previewSrc.value = ''
-      input.value.value = null
+      uploadInput.value.value = null
     }
     const showPreview = () => {
-      const file = input.value.files[0]
+      const file = uploadInput.value.files[0]
       if (!file) return
       const fileType = file.type
       if (allowedTypes.includes(fileType)) {
         previewSrc.value = URL.createObjectURL(file)
-        modal.value.showModal()
+        preview.value.showModal()
       } else {
         showMsg({
           msg: msg['AVATAR_FORMAT_ERROR'],
           messageType: 'error',
           popupType: 'alert'
         })
-        input.value.value = null
+        uploadInput.value.value = null
         return
       }
       if (file.size > 1024 * 1024 * 10) {
@@ -61,7 +56,7 @@ export default {
           messageType: 'error',
           popupType: 'alert'
         })
-        input.value.value = null
+        uploadInput.value.value = null
       }
     }
 
@@ -72,7 +67,7 @@ export default {
         popupType: 'alert'
       })
       const form = new FormData()
-      form.append('avatar', input.value.files[0])
+      form.append('avatar', uploadInput.value.files[0])
       const response = await http.postAvatar(form)
       if (response.code === 200) {
         refresh()
@@ -98,8 +93,8 @@ export default {
       id,
       createdAt,
       previewSrc,
-      input,
-      modal,
+      uploadInput,
+      preview,
       showPreview,
       uploadError,
       cancelUpload,
@@ -117,11 +112,11 @@ export default {
       class="relative max-w-2xl w-full left-1/2 -translate-x-1/2 space-y-4 grid grid-cols-1 lg:grid-cols-2 lg:gap-x-3"
     >
       <div class="navbar rounded-xl bg-primary w-full text-sm px-4 lg:col-span-2">
-        <TheButton type="secondary" shape="circle" class="relative h-20 w-20 lg:h-24 lg:w-24">
+        <TheButton type="secondary" shape="circle" class="relative size-20 lg:size-24 overflow-hidden">
           <input type="file" class="hidden h-0 w-0" ref="input" @change="showPreview" />
           <TheAvatar
-            class="w-full hover:opacity-40 transition-opacity z-20"
-            @click="() => input.click()"
+            class="w-full hover:opacity-40 hover:scale-110 transition-all duration-500 z-20"
+            @click="() => uploadInput.click()"
           >
             <TheIcon
               type="user"
@@ -135,24 +130,24 @@ export default {
         </div>
         <TheButton
           type="error"
-          class="z-50 h-10 lg:h-12 lg:w-20 lg:text-base font-base_2"
+          class="z-50 h-10 lg:h-12 lg:w-20 lg:text-base font-base"
           @click="logout"
         >
           登出
         </TheButton>
       </div>
-      <div class="navbar rounded-xl bg-primary w-full text-sm px-4">
+      <div class="navbar rounded-xl bg-primary w-full px-4">
         <div class="flex-none lg:flex lg:flex-col lg:w-full lg:items-start lg:pl-2">
-          <span class="text-xl tracking-wider text-white pr-4">UID</span>
-          <span class="tracking-wider">{{ id }}</span>
+          <span class="text-xl pr-4 tracking-widest text-white ">UID</span>
+          <span class="text-sm tracking-wider">{{ id }}</span>
         </div>
       </div>
-      <div class="navbar rounded-xl bg-primary w-full text-sm px-4">
-        <span class="font-base_3 text-lg text-white pr-4">注册时间</span>
-        <span class="text-lg tracking-wide">{{ createdAt }}</span>
+      <div class="navbar px-4 rounded-xl bg-primary w-full text-lg ">
+        <span class="pr-6 tracking-wider text-white font-base font-black">注册时间</span>
+        <span class=" tracking-wide">{{ createdAt }}</span>
       </div>
     </div>
-    <dialog class="modal" ref="modal">
+    <dialog class="modal" ref="preview">
       <div class="modal-box bg-primary">
         <form method="dialog">
           <TheButton type="ghost" shape="circle" class="absolute right-0 top-0 z-10">
@@ -166,11 +161,11 @@ export default {
         </div>
         <div class="flex justify-center">
           <TheButton type="neutral" class="w-32 lg:w-20 mx-auto my-3" @click="uploadAvatar">
-            <span class="font-base_3">上传</span>
+            <span class="font-base">上传</span>
           </TheButton>
           <form method="dialog" class="hidden lg:block mx-auto">
             <TheButton type="info" class="w-20 my-3" @click="cancelUpload">
-              <span class="font-base_3">取消</span>
+              <span class="font-base">取消</span>
             </TheButton>
           </form>
         </div>

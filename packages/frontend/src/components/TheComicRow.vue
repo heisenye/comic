@@ -32,7 +32,7 @@ export default {
   <main class="absolute top-40 w-full max-w-md px-3 text-white">
     <div v-if="comic" class="w-full bg-primary card card-side rounded">
       <TheImage class="min-w-[35%] w-1/3" :src="`${BASE_URL}/${comic._id}/1/7.webp`" />
-      <div class="card-body px-4 py-6 font-base_2">
+      <div class="card-body px-4 py-6 font-base">
         <h2 class="card-title mx-auto">{{ comic.name }}</h2>
         <div class="mt-4 text-sm opacity-60">
           {{ comic.author }} |
