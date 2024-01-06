@@ -1,4 +1,4 @@
-import {ref, watch} from 'vue'
+import { ref, watch } from 'vue'
 
 const getHistoryFromStorage = () => {
   return JSON.parse(localStorage.getItem('history') ?? JSON.stringify([]))

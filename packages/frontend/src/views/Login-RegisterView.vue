@@ -120,7 +120,9 @@ export default {
         <div class="md:space-y-4 lg:space-y-8">
           <div class="form-control">
             <label for="username" class="label">
-              <span class="label-text lg:text-base"><span v-if="!isLogin" class="text-warning">*</span>用户名</span>
+              <span class="label-text lg:text-base"
+                ><span v-if="!isLogin" class="text-warning">*</span>用户名</span
+              >
             </label>
             <input
               id="username"
@@ -132,7 +134,9 @@ export default {
           </div>
           <div class="form-control">
             <label for="pwd" class="label">
-              <span class="label-text lg:text-base"><span v-if="!isLogin" class="text-warning">*</span>密码</span>
+              <span class="label-text lg:text-base"
+                ><span v-if="!isLogin" class="text-warning">*</span>密码</span
+              >
             </label>
             <input
               id="pwd"

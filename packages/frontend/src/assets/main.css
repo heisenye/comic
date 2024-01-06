@@ -17,7 +17,7 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   --warning: rgb(217 119 6);
-  --info: rgb(96 165 250)
+  --info: rgb(96 165 250);
 }
 
 body {
@@ -43,7 +43,6 @@ body {
   }
 }
 
-
 @layer components {
   .bookmark {
     border-bottom: solid transparent;
@@ -54,7 +53,7 @@ body {
   }
 
   .bookmark p {
-    @apply -rotate-45 text-center whitespace-nowrap
+    @apply -rotate-45 text-center whitespace-nowrap;
   }
 
   .placeholder {
@@ -107,8 +106,6 @@ body {
     }
   }
 }
-
-
 
 ::selection {
   @apply bg-neutral;

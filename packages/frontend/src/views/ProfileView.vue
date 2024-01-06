@@ -112,8 +112,17 @@ export default {
       class="relative max-w-2xl w-full left-1/2 -translate-x-1/2 space-y-4 grid grid-cols-1 lg:grid-cols-2 lg:gap-x-3"
     >
       <div class="navbar rounded-xl bg-primary w-full text-sm px-4 lg:col-span-2">
-        <TheButton type="secondary" shape="circle" class="relative size-20 lg:size-24 overflow-hidden">
-          <input type="file" class="hidden h-0 w-0" ref="uploadAvatarInput" @change="previewAvatar" />
+        <TheButton
+          type="secondary"
+          shape="circle"
+          class="relative size-20 lg:size-24 overflow-hidden"
+        >
+          <input
+            type="file"
+            class="hidden h-0 w-0"
+            ref="uploadAvatarInput"
+            @change="previewAvatar"
+          />
           <TheAvatar
             class="w-full hover:opacity-40 hover:scale-110 transition-all duration-500 z-20"
             @click="() => uploadAvatarInput.click()"
@@ -138,13 +147,13 @@ export default {
       </div>
       <div class="navbar rounded-xl bg-primary w-full px-4">
         <div class="flex-none lg:flex lg:flex-col lg:w-full lg:items-start lg:pl-2">
-          <span class="text-xl pr-4 tracking-widest text-white ">UID</span>
+          <span class="text-xl pr-4 tracking-widest text-white">UID</span>
           <span class="text-sm tracking-wider">{{ id }}</span>
         </div>
       </div>
-      <div class="navbar px-4 rounded-xl bg-primary w-full text-lg ">
+      <div class="navbar px-4 rounded-xl bg-primary w-full text-lg">
         <span class="pr-6 tracking-wider text-white font-base font-black">注册时间</span>
-        <span class=" tracking-wide">{{ createdAt }}</span>
+        <span class="tracking-wide">{{ createdAt }}</span>
       </div>
     </div>
     <dialog class="modal" ref="previewAvatarModal">

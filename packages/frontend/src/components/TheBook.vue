@@ -117,7 +117,9 @@ export default {
         class="absolute bookmark border-[32px] -left-4 -top-4 xl:border-[40px]"
         v-if="status === 'completed'"
       >
-        <p class="absolute -left-6 -top-6 text-warning-content xl:text-lg font-base font-extrabold">完结</p>
+        <p class="absolute -left-6 -top-6 text-warning-content xl:text-lg font-base font-extrabold">
+          完结
+        </p>
       </div>
       <div
         class="relative flex items-center justify-center pb-6 pt-8 md:px-3 lg:px-0 xl:px-4 lg:w-3/5"
