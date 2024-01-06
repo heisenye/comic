@@ -55,7 +55,7 @@ export function getComicChapter(id, chapter) {
       url: `/comics/${id}/${chapter}`
     },
   )
-    .catch(() => {})
+    .catch(blankCb)
 }
 
 export function getHistoryComics(ids) {

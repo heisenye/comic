@@ -108,7 +108,7 @@ var ComicController = /** @class */ (function () {
     };
     ComicController.prototype.getHistoryComics = function (ctx) {
         return __awaiter(this, void 0, void 0, function () {
-            var ids, historyComic, unorderedHistoryComics, orderedHistoryComics;
+            var ids, historyComic, historyComics;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
@@ -129,13 +129,19 @@ var ComicController = /** @class */ (function () {
                         ctx.response.status = status_1.ResponseCode.OK;
                         ctx.body = response_1.default.Success({ data: [historyComic] });
                         return [2 /*return*/];
-                    case 2: return [4 /*yield*/, comic_model_1.default.find({ _id: { $in: ids } })];
+                    case 2: return [4 /*yield*/, comic_model_1.default.find({ _id: { $in: ids } })
+                        // const unorderedHistoryComics = await Comic.find({ _id: { $in: ids } })
+                        // const orderedHistoryComics = ids
+                        //   .map((id) => unorderedHistoryComics.find((comic) => comic._id.toString() === id))
+                        //   .filter((comic) => comic !== undefined) as IComic[]
+                    ];
                     case 3:
-                        unorderedHistoryComics = _a.sent();
-                        orderedHistoryComics = ids
-                            .map(function (id) { return unorderedHistoryComics.find(function (comic) { return comic._id.toString() === id; }); })
-                            .filter(function (comic) { return comic !== undefined; });
-                        ctx.body = response_1.default.Success({ data: orderedHistoryComics });
+                        historyComics = _a.sent();
+                        // const unorderedHistoryComics = await Comic.find({ _id: { $in: ids } })
+                        // const orderedHistoryComics = ids
+                        //   .map((id) => unorderedHistoryComics.find((comic) => comic._id.toString() === id))
+                        //   .filter((comic) => comic !== undefined) as IComic[]
+                        ctx.body = response_1.default.Success({ data: historyComics });
                         return [2 /*return*/];
                 }
             });

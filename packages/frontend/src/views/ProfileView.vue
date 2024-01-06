@@ -113,7 +113,7 @@ export default {
     >
       <div class="navbar rounded-xl bg-primary w-full text-sm px-4 lg:col-span-2">
         <TheButton type="secondary" shape="circle" class="relative size-20 lg:size-24 overflow-hidden">
-          <input type="file" class="hidden h-0 w-0" ref="input" @change="previewAvatar" />
+          <input type="file" class="hidden h-0 w-0" ref="uploadAvatarInput" @change="previewAvatar" />
           <TheAvatar
             class="w-full hover:opacity-40 hover:scale-110 transition-all duration-500 z-20"
             @click="() => uploadAvatarInput.click()"

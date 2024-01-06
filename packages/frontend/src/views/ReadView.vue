@@ -19,6 +19,7 @@ export default {
     let lastScrollPos = 0
     const scrollFn = () => {
       const currentScrollPos = window.scrollY
+      console.log(currentScrollPos)
       currentScrollPos - lastScrollPos > 0
         ? (isScrollingDown.value = true)
         : (isScrollingDown.value = false)
@@ -60,7 +61,7 @@ export default {
           type="ghost"
           shape="circle"
           size="md"
-          onclick="document.getElementById('resizeImage').showModal()"
+          onclick="document.getElementById('resizeImageModal').showModal()"
         >
           <TheIcon
             type="magnifying-glass-plus"
@@ -68,7 +69,7 @@ export default {
             class="xl:text-xl 2xl:text-2xl text-white"
           />
         </TheButton>
-        <TheModal id="resizeImage" class="fixed top-0">
+        <TheModal id="resizeImageModal" class="fixed top-8">
           <input
             type="range"
             min="50"

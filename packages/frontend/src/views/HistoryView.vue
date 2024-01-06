@@ -1,47 +1,39 @@
 <script>
-import { onMounted, ref } from 'vue'
+import { onMounted, ref, watchEffect } from 'vue'
 import { goBook } from '@/utils/router'
+import { useHistory } from '@/utils/useHistory.js'
 import { TheImage } from 'ui'
-import { getHistory } from '@/utils/history'
-import { http } from 'common'
-import { BASE_URL } from 'common'
+import { http, BASE_URL } from 'common'
+
 
 export default {
   name: 'HistoryView',
   methods: { goBook },
   components: { TheImage },
   setup() {
-    const history = getHistory()
-    const historyComics = ref(null)
+    const { history } = useHistory()
+    const historyComics = ref([])
 
-    const removeHistory = (id) => {
-      const idSet = new Set(JSON.parse(localStorage.getItem('history')))
-      idSet.delete(id)
-
-      const comic = historyComics.value.find((comic) => comic._id === id)
-      if (comic) comic.isVisible = false
-
-      localStorage.setItem('history', JSON.stringify(Array.from(idSet)))
-    }
+    watchEffect(() => {
+      historyComics.value = historyComics.value.filter(comic => {
+        return history.value.includes(comic._id)
+      })
+    })
 
     onMounted(async () => {
-      const response = await http.getHistoryComics(history)
+      const response = await http.getHistoryComics(history.value)
       if (response.code === 200) {
         const comics = response.data
-        if (typeof comics === 'object' && !Array.isArray(comics)) {
-          comics.isVisible = true
-          historyComics.value = [comics]
-          return
-        }
-        comics.forEach((comic) => (comic.isVisible = true))
-        historyComics.value = comics
+        historyComics.value = comics.sort((a, b) => {
+          return history.value.indexOf(b._id) - history.value.indexOf(a._id)
+        })
       }
     })
 
     return {
       BASE_URL,
       historyComics,
-      removeHistory
+      useHistory
     }
   }
 }
@@ -53,8 +45,7 @@ export default {
   >
     <template v-for="comic in historyComics" :key="comic._id">
       <div
-        v-if="comic.isVisible"
-        class="w-1/2 md:w-1/3 lg:w-1/4 xl:w-1/5 card inline-flex px-3 lg:px-2.5 indicator"
+        class="w-1/2 md:w-1/3 lg:w-1/4 xl:w-1/5 card inline-flex px-4 md:px-3 lg:px-2 indicator"
       >
         <TheImage
           class="cursor-pointer"
@@ -63,7 +54,7 @@ export default {
         />
         <i
           class="indicator-item cursor-pointer fa-solid fa-circle-xmark absolute right-2"
-          @click="removeHistory(comic._id)"
+          @click="useHistory().removeHistoryFromStorage(comic._id)"
         ></i>
         <div
           class="card-body text-center bg-primary rounded-b-2xl font-base py-6 px-0 whitespace-nowrap"

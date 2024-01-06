@@ -102,27 +102,25 @@ export default {
 
 <template>
   <main class="flex justify-center items-center h-screen">
-    <div class="card bg-primary shadow-md shadow-neutral max-w-lg w-4/5">
+    <div class="card bg-primary shadow-md shadow-neutral max-w-md w-4/5">
       <div class="card-body pb-6 pt-8 font-base">
         <div class="card-title my-4 tracking-wider whitespace-nowrap justify-between">
-          <TheButton type="secondary" size="sm" class="self-start lg:btn-md" @click="goHome">
+          <TheButton type="secondary" size="sm" class="self-start" @click="goHome">
             <TheIcon type="house" class="lg:text-lg" />
           </TheButton>
-          <span v-if="isLogin" class="text-lg md:text-xl lg:text-2xl">登入 Heisenye</span>
-          <span v-else class="text-lg md:text-xl lg:text-2xl">注册 Heisenye</span>
-          <TheButton type="accent" size="sm" shape="circle" class="lg:btn-md text-white">
+          <span v-if="isLogin" class="text-lg md:text-xl">登入 MewAcg</span>
+          <span v-else class="text-lg md:text-xl">注册 MewAcg</span>
+          <TheButton type="accent" size="sm" shape="circle" class="text-white">
             <i
               class="fa-solid text-base"
               :class="{ 'fa-lock': !isSuccess, 'fa-lock-open': isSuccess }"
             ></i>
           </TheButton>
         </div>
-        <div class="md:space-y-4 lg:space-y-6">
+        <div class="md:space-y-4 lg:space-y-8">
           <div class="form-control">
             <label for="username" class="label">
-              <span class="label-text"
-                ><span v-if="!isLogin" class="text-warning">*</span>用户名</span
-              >
+              <span class="label-text lg:text-base"><span v-if="!isLogin" class="text-warning">*</span>用户名</span>
             </label>
             <input
               id="username"
@@ -134,9 +132,7 @@ export default {
           </div>
           <div class="form-control">
             <label for="pwd" class="label">
-              <span class="label-text"
-                ><span v-if="!isLogin" class="text-warning">*</span>密码</span
-              >
+              <span class="label-text lg:text-base"><span v-if="!isLogin" class="text-warning">*</span>密码</span>
             </label>
             <input
               id="pwd"

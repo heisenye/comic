@@ -57,11 +57,12 @@ class ComicController {
       ctx.body = Response.Success<IComic[]>({ data: [historyComic] })
       return
     }
-    const unorderedHistoryComics = await Comic.find({ _id: { $in: ids } })
-    const orderedHistoryComics = ids
-      .map((id) => unorderedHistoryComics.find((comic) => comic._id.toString() === id))
-      .filter((comic) => comic !== undefined) as IComic[]
-    ctx.body = Response.Success<IComic[]>({ data: orderedHistoryComics })
+    const historyComics = await Comic.find({ _id: { $in: ids } })
+    // const unorderedHistoryComics = await Comic.find({ _id: { $in: ids } })
+    // const orderedHistoryComics = ids
+    //   .map((id) => unorderedHistoryComics.find((comic) => comic._id.toString() === id))
+    //   .filter((comic) => comic !== undefined) as IComic[]
+    ctx.body = Response.Success<IComic[]>({ data: historyComics })
   }
 
   public async createFavoriteComic(ctx: Context) {
