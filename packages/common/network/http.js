@@ -247,7 +247,7 @@ export function removeComicChapter(id, chapter) {
       throttleTime: 10000
     }
   )
-    .catch(() => {})
+    .catch(blankCb)
 }
 
 export function putComicCoverImage({id, chapter, page}) {
@@ -260,5 +260,34 @@ export function putComicCoverImage({id, chapter, page}) {
         page: page
       }
     }
-  ).catch(() => {})
+  ).catch(blankCb)
+}
+
+export function getComicComments(id) {
+  return request(
+    {
+      method: "GET",
+      url: `comics/${id}/comments`
+    },
+    {
+      useCache: false,
+      useThrottle: true,
+      throttleTime: 0
+    }
+  ).catch(blankCb)
+}
+
+export function postComicComment({id, content}) {
+  return request(
+    {
+      method: "POST",
+      url: `/comics/${id}/comments`,
+      data: { content }
+    },
+    {
+      useCache: false,
+      useThrottle: true,
+      throttleTime: 0
+    }
+  ).catch(blankCb)
 }

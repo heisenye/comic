@@ -60,5 +60,11 @@ export default {
         </div>
       </div>
     </template>
+    <h1
+      v-if="historyComics.length === 0"
+      class="relative top-20 text-lg font-black text-center font-base"
+    >
+      当前未观看漫画哦
+    </h1>
   </main>
 </template>

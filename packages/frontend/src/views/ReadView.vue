@@ -2,7 +2,7 @@
 import { onMounted, onUnmounted, ref } from 'vue'
 import { useRoute } from 'vue-router'
 import { TheImage, TheNavigation, TheIcon, TheButton, TheModal } from 'ui'
-import { http } from 'common'
+import { http, useDebounce } from 'common'
 import TheRead from '@/components/TheRead.vue'
 
 export default {
@@ -16,15 +16,17 @@ export default {
     const isScrollingDown = ref(false)
     const imageWidth = ref('100')
 
-    let lastScrollPos = 0
-    const scrollFn = () => {
-      const currentScrollPos = window.scrollY
-      console.log(currentScrollPos)
-      currentScrollPos - lastScrollPos > 0
-        ? (isScrollingDown.value = true)
-        : (isScrollingDown.value = false)
-      lastScrollPos = currentScrollPos
-    }
+    const scrollFn = (() => {
+      let lastScrollPos = 0
+
+      return useDebounce(() => {
+        const currentScrollPos = window.scrollY
+        currentScrollPos - lastScrollPos > 0
+          ? (isScrollingDown.value = true)
+          : (isScrollingDown.value = false)
+        lastScrollPos = currentScrollPos
+      }, 100) //useDebounce
+    })() //IIFE Immediately Invoked Function Expression
 
     onMounted(async () => {
       const response = await http.getComicChapter(id, chapter)

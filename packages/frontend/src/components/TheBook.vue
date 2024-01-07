@@ -3,10 +3,11 @@ import { onMounted, ref, watch, toRefs } from 'vue'
 import { useRoute } from 'vue-router'
 import { TheButton, TheIcon, TheImage, TheModal } from 'ui'
 import { http, useToken, showMsg, msg, BASE_URL } from 'common'
+import TheComments from '@/components/TheComments.vue'
 
 export default {
   name: 'TheBook',
-  components: { TheButton, TheIcon, TheImage, TheModal },
+  components: { TheComments, TheButton, TheIcon, TheImage, TheModal },
   props: {
     comic: {
       type: Object,
@@ -111,7 +112,7 @@ export default {
 </script>
 
 <template>
-  <main class="relative w-full top-20 px-3 sm:px-4 md:px-6 lg:px-4">
+  <main class="relative w-full top-20 px-3 sm:px-4 md:px-8 lg:px-4 pb-8">
     <div class="relative w-full mx-auto card rounded max-w-3xl bg-primary lg:card-side lg:py-4">
       <div
         class="absolute bookmark border-[32px] -left-4 -top-4 xl:border-[40px]"
@@ -122,7 +123,7 @@ export default {
         </p>
       </div>
       <div
-        class="relative flex items-center justify-center pb-6 pt-8 md:px-3 lg:px-0 xl:px-4 lg:w-3/5"
+        class="relative flex items-center justify-center pb-6 pt-8 md:px-6 lg:px-0 xl:px-4 lg:w-3/5"
       >
         <TheImage
           :src="`${BASE_URL}/${id}/${coverImage.chapter}/${coverImage.page}.webp`"
@@ -203,5 +204,7 @@ export default {
         </div>
       </div>
     </div>
+    <!-- card -->
+    <TheComments />
   </main>
 </template>

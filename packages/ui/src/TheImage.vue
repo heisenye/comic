@@ -56,7 +56,7 @@ export default {
 
     const imgContainerClassName = computed(() => ({
       'before:placeholder': !isLoaded.value,
-      'before:blur-sm': !isLoaded.value && blur,
+      'before:blur-md': !isLoaded.value && blur,
       'aspect-3/4': !isLoaded.value,
       'aspect-auto': isLoaded.value,
     }))
@@ -71,7 +71,7 @@ export default {
 </script>
 
 <template>
-  <figure :class="['relative', imgContainerClassName, 'overflow-none']">
+  <figure :class="['relative', imgContainerClassName]">
     <img
       v-lazy="{ isLazy: lazy }"
       :data-src="src"

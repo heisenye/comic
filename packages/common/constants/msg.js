@@ -1,4 +1,5 @@
 export default {
+  INTERNAL_SERVER_ERROR: '服务器内部错误',
   UNKNOWN_ERROR: '未知错误',
   NETWORK_ERROR: '网络错误',
   TOO_MANY_REQUESTS: '请求过于频繁',
@@ -22,4 +23,5 @@ export default {
   SET_COMIC_COVER_SUCCESS: '设置漫画封面成功',
   CREATE_COMIC_CHAPTER_SUCCESS: '创建漫画章节成功',
   REACHED_LAST_WATCHED_POSITION: '已到达上次观看位置',
+  SUBMIT_COMMENT_SUCCESS: '提交评论成功',
 }

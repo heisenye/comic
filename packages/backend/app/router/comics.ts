@@ -8,10 +8,17 @@ const upload = multer()
 router.get('/comics', comicController.getComics)
 router.get('/comics/:id', Middleware.validateObjectId, comicController.getComic)
 router.get(
-  '/comics/:id/:chapter',
+  '/comics/:id/:chapter(\\d+)',
   Middleware.validateObjectId,
   Middleware.validateChapter,
   comicController.getComicImages
+)
+router.post(
+  '/comics/:id/:chapter(\\d+)',
+  Middleware.validateObjectId,
+  Middleware.validateChapter,
+  upload.array('images'),
+  comicController.createComicChapter
 )
 router.get('/history', comicController.getHistoryComics)
 router.post('/favorite', Middleware.auth, comicController.createFavoriteComic)
@@ -32,13 +39,14 @@ router.get('/search', comicController.getSearchComics)
 
 router.post('/comic', comicController.createComic)
 router.patch('/comic/:id', Middleware.validateObjectId, comicController.updateComic)
-router.post(
-  '/comics/:id/:chapter',
-  Middleware.validateObjectId,
-  Middleware.validateChapter,
-  upload.array('images'),
-  comicController.createComicChapter
-)
+
 router.put('/comics/:id/cover', Middleware.validateObjectId, comicController.setComicCover)
+router.get('/comics/:id/comments', Middleware.validateObjectId, comicController.getComicComments)
+router.post(
+  '/comics/:id/comments',
+  Middleware.auth,
+  Middleware.validateObjectId,
+  comicController.createComicComment
+)
 
 export default router

@@ -38,8 +38,16 @@ service.interceptors.response.use(
     return response
   },
   (error) => {
+    console.log(error)
     if (error.config.loading) {
       error.config.loading.remove()
+    }
+
+    if (error.code === 'ERR_BAD_RESPONSE' && error.response.status === 500) {
+      error.response.data = {
+        code: 500,
+        msg: msg['INTERNAL_SERVER_ERROR']
+      }
     }
 
     if (error.code === 'ERR_BAD_REQUEST' && error.response.status === 429) {

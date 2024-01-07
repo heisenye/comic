@@ -6,6 +6,7 @@ import mongoose from 'mongoose'
 import Comic, { IComic } from '../model/comic.model'
 import ComicChapterModel, { IComicChapter } from '../model/comicChapter.model'
 import Favorite from '../model/favorite.model'
+import Comment from '../model/comment.model'
 import Response from '../utils/response'
 import { ResponseCode } from '../constants/status'
 import sharp = require('sharp')
@@ -58,10 +59,6 @@ class ComicController {
       return
     }
     const historyComics = await Comic.find({ _id: { $in: ids } })
-    // const unorderedHistoryComics = await Comic.find({ _id: { $in: ids } })
-    // const orderedHistoryComics = ids
-    //   .map((id) => unorderedHistoryComics.find((comic) => comic._id.toString() === id))
-    //   .filter((comic) => comic !== undefined) as IComic[]
     ctx.body = Response.Success<IComic[]>({ data: historyComics })
   }
 
@@ -174,6 +171,23 @@ class ComicController {
     }
     await comic.updateOne({ coverImage: { chapter, page } })
     ctx.response.status = ResponseCode.OK
+    ctx.body = Response.Success()
+  }
+
+  public async getComicComments(ctx: Context) {
+    const { id: comicId } = ctx.params
+    const comments = await Comment.find({ comicId }).populate({
+      path: 'userId',
+      select: 'username'
+    })
+    ctx.body = Response.Success({ data: comments })
+  }
+
+  public async createComicComment(ctx: Context) {
+    const userId = ctx.state.userId
+    const { id: comicId } = ctx.params
+    const { content } = ctx.request['body']
+    await Comment.create({ comicId, userId, content })
     ctx.body = Response.Success()
   }
 }

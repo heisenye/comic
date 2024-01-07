@@ -5,7 +5,6 @@ import { useToken } from 'common'
 import { showMsg } from 'common'
 import { msg } from 'common'
 const { token } = useToken()
-const { storeHistoryToStorage } = useHistory()
 
 const routes = [
   {
@@ -69,7 +68,7 @@ const routes = [
       isProgressRemembered: true
     },
     beforeEnter: (to, from, next) => {
-      storeHistoryToStorage(to.params.id)
+      useHistory().storeHistoryToStorage(to.params.id)
       to.meta.isProgressRemembered = 'true' === localStorage.getItem('isProgressRemembered')
       next()
     }
@@ -138,6 +137,9 @@ const router = createRouter({
   routes,
   scrollBehavior(to, from) {
     if (to.name === 'read' && from.meta['isProgressRemembered']) {
+      setTimeout(() => {
+        window.scrollTo(0, 0)
+      }, 120) //setTimeout
       const { id, chapter } = to.params
       const ele = localStorage.getItem(`${id}-${chapter}`)
       if (ele) {
@@ -147,15 +149,23 @@ const router = createRouter({
               msg: msg['REACHED_LAST_WATCHED_POSITION'],
               messageType: 'success',
               popupType: 'toast'
-            })
+            }) //showMsg
             resolve({
               el: `#${ele}`,
               top: 10,
               behavior: 'smooth'
-            })
-          }, 1000)
-        })
+            }) // resolve
+          }, 1000) //setTimeout
+        }) //Promise
       }
+    } else {
+      return new Promise((resolve) => {
+        setTimeout(() => {
+          resolve({
+            top: 0
+          }) //resolve
+        }, 120) //setTimeout
+      }) //Promise
     }
   }
 })

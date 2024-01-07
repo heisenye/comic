@@ -1,9 +1,9 @@
 <script>
 import { onMounted, ref } from 'vue'
 import { useRoute } from 'vue-router'
-import { TheNavigation, TheButton, TheIcon } from 'ui'
-import TheBook from '@/components/TheBook.vue'
 import { goBack, goHome } from '@/utils/router'
+import TheBook from '@/components/TheBook.vue'
+import { TheNavigation, TheButton, TheIcon } from 'ui'
 import { http } from 'common'
 
 export default {
@@ -33,7 +33,7 @@ export default {
 
 <template>
   <main>
-    <TheNavigation class="z-50">
+    <TheNavigation class="z-50 shadow-md shadow-primary">
       <template #left>
         <div
           class="text-white btn btn-ghost tracking-wider font-medium text-lg px-4"

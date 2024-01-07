@@ -39,7 +39,7 @@ export default {
       }
 
       const response = await http.login(data)
-      if (response.code === 200) {
+      if (response && response.code === 200) {
         userStore.setUser(response.data)
 
         const token = response.data.token

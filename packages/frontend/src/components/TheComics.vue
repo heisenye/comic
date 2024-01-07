@@ -10,6 +10,9 @@ export default {
     comicList: {
       type: Array,
       required: true
+    },
+    emptyListMsg: {
+      type: String
     }
   },
   setup() {
@@ -50,5 +53,11 @@ export default {
         </div>
       </div>
     </template>
+    <h1
+      v-if="comicList.length === 0 && emptyListMsg"
+      class="relative top-20 text-lg text-center font-black font-base"
+    >
+      {{ emptyListMsg }}
+    </h1>
   </main>
 </template>

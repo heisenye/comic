@@ -28,5 +28,5 @@ export default {
 </script>
 
 <template>
-  <TheComics class="top-40" :comic-list="favoriteComics" />
+  <TheComics class="top-40" empty-list-msg="当前未收藏漫画哦" :comic-list="favoriteComics" />
 </template>
