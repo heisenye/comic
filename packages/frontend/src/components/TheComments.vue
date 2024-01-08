@@ -1,5 +1,5 @@
 <script>
-import { computed, onMounted, onUnmounted, ref } from 'vue'
+import { computed, onBeforeMount, onMounted, onUnmounted, ref } from 'vue'
 import { useRoute } from 'vue-router'
 import { refresh } from '@/utils/router.js'
 import TheComment from '@/components/TheComment.vue'
@@ -17,7 +17,7 @@ export default {
     const route = useRoute()
     const { id } = route.params
 
-    const { token } = useToken()
+    const { token } = useToken
     const inputComment = ref('')
     const commentInputEl = ref(null)
     const isSubmitDisabled = computed(() => !inputComment.value)
@@ -26,7 +26,6 @@ export default {
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
-          console.log(entry)
           isScrollButtonShow.value = !entry.isIntersecting
         })
       },
@@ -38,15 +37,13 @@ export default {
     const comments = ref([])
     onMounted(async () => {
       const response = await http.getComicComments(id)
-      if (response.code === 200) {
+      if (response && response.code === 200) {
         comments.value = response.data
       }
       observer.observe(commentInputEl.value)
     })
     onUnmounted(() => {
-      if (isScrollButtonShow.value) {
-        observer.unobserve(commentInputEl.value)
-      }
+      observer.disconnect()
     })
 
     const commentSubmitHandler = async () => {

@@ -1,5 +1,3 @@
-import router from "@/router"
+import router from '@/router'
 
-export const goTest = () => {
-
-}
+export const goTest = () => {}

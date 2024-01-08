@@ -21,10 +21,17 @@ const removeHistoryFromStorage = (id) => {
 
 watch(history, (newVal) => localStorage.setItem('history', JSON.stringify(newVal)))
 
-export function useHistory() {
-  return {
-    history,
-    storeHistoryToStorage,
-    removeHistoryFromStorage
-  }
+const useHistory = {
+  history,
+  storeHistoryToStorage,
+  removeHistoryFromStorage
 }
+
+export default useHistory
+// export function useHistory() {
+//   return {
+//     history,
+//     storeHistoryToStorage,
+//     removeHistoryFromStorage
+//   }
+// }

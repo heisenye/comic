@@ -2,9 +2,9 @@ import axios from 'axios'
 import msg from '../constants/msg'
 import showMsg from '../utils/showMsg'
 import showLoader from '../utils/showLoader'
-import { useToken } from '../utils/useToken'
+import useToken from '../utils/useToken'
 
-const { removeToken } = useToken()
+const { removeToken } = useToken
 
 const BASE_URL = import.meta.env.VITE_BASE_URL
 
@@ -41,6 +41,13 @@ service.interceptors.response.use(
     console.log(error)
     if (error.config.loading) {
       error.config.loading.remove()
+    }
+
+    if (error.code === 'ERR_BAD_REQUEST' && error.response.status === 405) {
+      error.response.data = {
+        code: 405,
+        msg: msg['METHOD_NOT_ALLOWED']
+      }
     }
 
     if (error.code === 'ERR_BAD_RESPONSE' && error.response.status === 500) {

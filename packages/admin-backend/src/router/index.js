@@ -2,7 +2,7 @@ import { createRouter, createWebHashHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
 
 const router = createRouter({
-  history: createWebHashHistory('/admin'),
+  history: createWebHashHistory(),
   routes: [
     {
       path: '/admin',
@@ -15,7 +15,7 @@ const router = createRouter({
     {
       path: '/admin/comic',
       name: 'comic-management',
-      component: () => import("../views/ComicManagementView.vue"),
+      component: () => import('../views/ComicManagementView.vue'),
       meta: {
         showNav: true
       }
@@ -23,7 +23,7 @@ const router = createRouter({
     {
       path: '/admin/user',
       name: 'user-management',
-      component: () => import("../views/UserManagementView.vue"),
+      component: () => import('../views/UserManagementView.vue'),
       meta: {
         showNav: true
       }
@@ -31,7 +31,7 @@ const router = createRouter({
     {
       path: '/admin/comic/:id',
       name: 'comic-detail',
-      component: () => import("../views/ComicDetailView.vue"),
+      component: () => import('../views/ComicDetailView.vue'),
       meta: {
         showNav: false
       }

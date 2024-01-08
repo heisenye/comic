@@ -1,13 +1,9 @@
 <script>
 export default {
-  name: "UserManagementView"
+  name: 'UserManagementView'
 }
 </script>
 
-<template>
+<template></template>
 
-</template>
-
-<style scoped>
-
-</style>
+<style scoped></style>

@@ -6,7 +6,10 @@ import multer = require('@koa/multer')
 const upload = multer()
 
 router.get('/comics', comicController.getComics)
+router.post('/comic', comicController.createComic)
 router.get('/comics/:id', Middleware.validateObjectId, comicController.getComic)
+router.patch('/comic/:id', Middleware.validateObjectId, comicController.updateComic)
+router.delete('/comics/:id', Middleware.validateObjectId, comicController.removeComic)
 router.get(
   '/comics/:id/:chapter(\\d+)',
   Middleware.validateObjectId,
@@ -37,8 +40,8 @@ router.get(
 )
 router.get('/search', comicController.getSearchComics)
 
-router.post('/comic', comicController.createComic)
-router.patch('/comic/:id', Middleware.validateObjectId, comicController.updateComic)
+
+
 
 router.put('/comics/:id/cover', Middleware.validateObjectId, comicController.setComicCover)
 router.get('/comics/:id/comments', Middleware.validateObjectId, comicController.getComicComments)

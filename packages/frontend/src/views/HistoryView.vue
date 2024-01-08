@@ -1,7 +1,7 @@
 <script>
 import { onMounted, ref, watchEffect } from 'vue'
 import { goBook } from '@/utils/router'
-import { useHistory } from '@/utils/useHistory.js'
+import useHistory from '@/utils/useHistory.js'
 import { TheImage } from 'ui'
 import { http, BASE_URL } from 'common'
 
@@ -10,9 +10,9 @@ export default {
   methods: { goBook },
   components: { TheImage },
   setup() {
-    const { history } = useHistory()
-    const historyComics = ref([])
+    const { history } = useHistory
 
+    const historyComics = ref([])
     watchEffect(() => {
       historyComics.value = historyComics.value.filter((comic) => {
         return history.value.includes(comic._id)
@@ -51,7 +51,7 @@ export default {
         />
         <i
           class="indicator-item cursor-pointer fa-solid fa-circle-xmark absolute right-2"
-          @click="useHistory().removeHistoryFromStorage(comic._id)"
+          @click="useHistory.removeHistoryFromStorage(comic._id)"
         ></i>
         <div
           class="card-body text-center bg-primary rounded-b-2xl font-base py-6 px-0 whitespace-nowrap"

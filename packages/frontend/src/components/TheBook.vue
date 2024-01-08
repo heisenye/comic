@@ -18,7 +18,7 @@ export default {
     const route = useRoute()
 
     const { comic } = props
-    const { token } = useToken()
+    const { token } = useToken
 
     const isFavorited = ref(false)
     const isProgressRemembered = ref(route.meta['isProgressRemembered'])

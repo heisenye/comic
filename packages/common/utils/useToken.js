@@ -14,14 +14,14 @@ watch(token, (newVal) => {
   }
 })
 
-export function useToken() {
-  return {
-    token,
-    setToken(value) {
-      token.value = value
-    },
-    removeToken() {
-      token.value = null
-    }
+const useToken = {
+  token,
+  setToken(value) {
+    token.value = value
+  },
+  removeToken() {
+    token.value = null
   }
 }
+
+export default useToken

@@ -3,71 +3,69 @@
 @tailwind utilities;
 
 @layer components {
-    input[type="checkbox"]:checked + .checked {
-        @apply bg-success;
-    }
+  input[type='checkbox']:checked + .checked {
+    @apply bg-success;
+  }
 
-    .bookmark {
-        position: absolute;
-        border-bottom: solid transparent;
-        border-right: solid transparent;
-        border-left: solid rgb(217 119 6);
-        border-top: solid rgb(217 119 6);
-        clip-path: polygon(50% 0%, 100% 0%, 0% 100%, 0% 50%);
-    }
+  .bookmark {
+    position: absolute;
+    border-bottom: solid transparent;
+    border-right: solid transparent;
+    border-left: solid rgb(217 119 6);
+    border-top: solid rgb(217 119 6);
+    clip-path: polygon(50% 0%, 100% 0%, 0% 100%, 0% 50%);
+  }
 
-    .bookmark p {
-        position: absolute;
-        transform: rotate(-45deg);
-        text-align: center;
-        white-space: nowrap;
-    }
+  .bookmark p {
+    position: absolute;
+    transform: rotate(-45deg);
+    text-align: center;
+    white-space: nowrap;
+  }
 }
 
 body {
-    padding: 0;
-    margin: 0;
+  padding: 0;
+  margin: 0;
 }
 
 :root {
-    font-family: "Noto Sans SC", sans-serif;
+  font-family: 'Noto Sans SC', sans-serif;
 }
-
 
 .v-enter-from,
 .v-leave-to {
-    opacity: 0;
+  opacity: 0;
 }
 
 .v-enter-active,
 .v-leave-active {
-    transition: opacity 0.3s;
+  transition: opacity 0.3s;
 }
 
 ::-webkit-scrollbar {
-    display: none;
+  display: none;
 }
 
 ::-webkit-scrollbar {
-    width: 8px;
-    height: 8px;
-    border-radius: 5px;
+  width: 8px;
+  height: 8px;
+  border-radius: 5px;
 }
 
 ::-webkit-scrollbar-track {
-    background: none;
+  background: none;
 }
 
 ::-webkit-scrollbar-thumb {
-    background-color: #666666;
-    border-radius: 5px;
+  background-color: #666666;
+  border-radius: 5px;
 }
 
 ::-webkit-scrollbar-button {
-    display: none;
+  display: none;
 }
 ::-webkit-scrollbar-button {
-    background-color: #888;
-    color: #fff;
+  background-color: #888;
+  color: #fff;
 }
-

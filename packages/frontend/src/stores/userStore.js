@@ -2,7 +2,7 @@ import { defineStore } from 'pinia'
 import { useToken } from 'common'
 import { goHome } from '@/utils/router'
 
-const { removeToken } = useToken()
+const { removeToken } = useToken
 
 export const useUserStore = defineStore({
   id: 'user',

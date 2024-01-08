@@ -20,7 +20,7 @@ export default {
   components: { TheButton, TheIcon, TheNavigation, RouterLink, TheAvatar },
   setup() {
     const route = useRoute()
-    const { token } = useToken()
+    const { token } = useToken
 
     const keyword = ref('')
     const isSearchDisabled = computed(() => !keyword.value.trim())
@@ -100,7 +100,7 @@ export default {
         <template v-for="(link, index) in links" :key="link">
           <RouterLink
             :to="{ name: link.name }"
-            class="link link-hover text-base 3xl:text-lg font-semibold px-3 py-1 font-base"
+            class="link link-hover text-base 3xl:text-lg font-black px-3 py-1 font-base"
             :class="{ 'text-info': activeLinkIndex === index }"
             @click="() => (activeLinkIndex = index)"
             >{{ link.zh }}
@@ -166,7 +166,7 @@ export default {
         </TheButton>
         <TheButton
           type="ghost"
-          shape="square"
+          shape="circle"
           tooltip="个人中心"
           :transition="true"
           class="before:text-xs md:before:text-sm size-12 lg:size-14 2xl:size-16"

@@ -5,7 +5,8 @@
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
-    "test:unit": "vitest"
+    "test:unit": "vitest",
+    "format": "prettier --write src/"
   },
   "dependencies": {
     "common": "workspace:^",

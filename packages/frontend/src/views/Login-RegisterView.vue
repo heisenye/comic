@@ -13,7 +13,7 @@ export default {
     const route = useRoute()
 
     const userStore = useUserStore()
-    const { setToken } = useToken()
+    const { setToken } = useToken
 
     const isLogin = ref(route.fullPath === '/login')
     const username = ref('')

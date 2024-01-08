@@ -30,6 +30,30 @@ class ComicController {
     ctx.body = Response.Success<IComic>({ data: comic })
   }
 
+  public async createComic(ctx: Context) {
+    const { name, author, status, tags, description } = ctx.request['body']
+    await Comic.create({ name, author, status, tags, description })
+    ctx.body = Response.Success()
+  }
+
+  public async updateComic(ctx: Context) {
+    const { field, newVal } = ctx.request['body']
+    const { id } = ctx.params
+    await Comic.updateOne({ _id: id }, { [field]: newVal })
+    ctx.body = Response.Success()
+  }
+
+  public async removeComic(ctx: Context) {
+    const { id } = ctx.params
+    const result = await Comic.deleteOne({_id: id})
+    if (result.deletedCount === 0) {
+      ctx.response.status = ResponseCode.Not_Found
+      ctx.body = Response.NoComic()
+      return
+    }
+    ctx.body = Response.Success()
+  }
+
   public async getComicImages(ctx: Context) {
     const { id, chapter } = ctx.params
     const comicImages = await ComicChapterModel.findOne({ comicId: id, chapter: Number(chapter) })
@@ -65,13 +89,7 @@ class ComicController {
   public async createFavoriteComic(ctx: Context) {
     const userId = ctx.state.userId
     const { id: comicId } = ctx.request['body']
-    try {
-      await Favorite.create({ userId, comicId })
-    } catch (error) {
-      ctx.response.status = ResponseCode.Internal_Server_Error
-      ctx.body = Response.UnknownError(error as Error, message['FAVORITE_COMIC_FAILED'])
-      return
-    }
+    await Favorite.create({ userId, comicId })
     ctx.response.status = ResponseCode.OK
     ctx.body = Response.Success({})
   }
@@ -118,23 +136,6 @@ class ComicController {
     }
     const searchComics = await Comic.find({ name: { $regex: keyword, $options: 'i' } })
     ctx.body = Response.Success<IComic[]>({ data: searchComics })
-  }
-
-  public async createComic(ctx: Context) {
-    const { name, author, status, tags, description } = ctx.request['body']
-    await Comic.create({ name, author, status, tags, description })
-    ctx.body = Response.Success()
-  }
-
-  public async updateComic(ctx: Context) {
-    const { field, newVal } = ctx.request['body']
-    const { id } = ctx.params
-    if (!mongoose.Types.ObjectId.isValid(id)) {
-      ctx.body = Response.InValidId()
-      return
-    }
-    await Comic.updateOne({ _id: id }, { [field]: newVal })
-    ctx.body = Response.Success()
   }
 
   public async createComicChapter(ctx: Context) {

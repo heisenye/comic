@@ -38,7 +38,6 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var fs = require("fs");
 var path = require("path");
-var mongoose_1 = require("mongoose");
 var comic_model_1 = require("../model/comic.model");
 var comicChapter_model_1 = require("../model/comicChapter.model");
 var favorite_model_1 = require("../model/favorite.model");
@@ -47,7 +46,6 @@ var response_1 = require("../utils/response");
 var status_1 = require("../constants/status");
 var sharp = require("sharp");
 var logger_1 = require("../logger");
-var message_1 = require("../constants/message");
 var ComicController = /** @class */ (function () {
     function ComicController() {
     }
@@ -81,6 +79,61 @@ var ComicController = /** @class */ (function () {
                             return [2 /*return*/];
                         }
                         ctx.body = response_1.default.Success({ data: comic });
+                        return [2 /*return*/];
+                }
+            });
+        });
+    };
+    ComicController.prototype.createComic = function (ctx) {
+        return __awaiter(this, void 0, void 0, function () {
+            var _a, name, author, status, tags, description;
+            return __generator(this, function (_b) {
+                switch (_b.label) {
+                    case 0:
+                        _a = ctx.request['body'], name = _a.name, author = _a.author, status = _a.status, tags = _a.tags, description = _a.description;
+                        return [4 /*yield*/, comic_model_1.default.create({ name: name, author: author, status: status, tags: tags, description: description })];
+                    case 1:
+                        _b.sent();
+                        ctx.body = response_1.default.Success();
+                        return [2 /*return*/];
+                }
+            });
+        });
+    };
+    ComicController.prototype.updateComic = function (ctx) {
+        return __awaiter(this, void 0, void 0, function () {
+            var _a, field, newVal, id;
+            var _b;
+            return __generator(this, function (_c) {
+                switch (_c.label) {
+                    case 0:
+                        _a = ctx.request['body'], field = _a.field, newVal = _a.newVal;
+                        id = ctx.params.id;
+                        return [4 /*yield*/, comic_model_1.default.updateOne({ _id: id }, (_b = {}, _b[field] = newVal, _b))];
+                    case 1:
+                        _c.sent();
+                        ctx.body = response_1.default.Success();
+                        return [2 /*return*/];
+                }
+            });
+        });
+    };
+    ComicController.prototype.removeComic = function (ctx) {
+        return __awaiter(this, void 0, void 0, function () {
+            var id, result;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        id = ctx.params.id;
+                        return [4 /*yield*/, comic_model_1.default.deleteOne({ _id: id })];
+                    case 1:
+                        result = _a.sent();
+                        if (result.deletedCount === 0) {
+                            ctx.response.status = status_1.ResponseCode.Not_Found;
+                            ctx.body = response_1.default.NoComic();
+                            return [2 /*return*/];
+                        }
+                        ctx.body = response_1.default.Success();
                         return [2 /*return*/];
                 }
             });
@@ -141,25 +194,15 @@ var ComicController = /** @class */ (function () {
     };
     ComicController.prototype.createFavoriteComic = function (ctx) {
         return __awaiter(this, void 0, void 0, function () {
-            var userId, comicId, error_1;
+            var userId, comicId;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
                         userId = ctx.state.userId;
                         comicId = ctx.request['body'].id;
-                        _a.label = 1;
-                    case 1:
-                        _a.trys.push([1, 3, , 4]);
                         return [4 /*yield*/, favorite_model_1.default.create({ userId: userId, comicId: comicId })];
-                    case 2:
+                    case 1:
                         _a.sent();
-                        return [3 /*break*/, 4];
-                    case 3:
-                        error_1 = _a.sent();
-                        ctx.response.status = status_1.ResponseCode.Internal_Server_Error;
-                        ctx.body = response_1.default.UnknownError(error_1, message_1.default['FAVORITE_COMIC_FAILED']);
-                        return [2 /*return*/];
-                    case 4:
                         ctx.response.status = status_1.ResponseCode.OK;
                         ctx.body = response_1.default.Success({});
                         return [2 /*return*/];
@@ -248,44 +291,6 @@ var ComicController = /** @class */ (function () {
                     case 1:
                         searchComics = _a.sent();
                         ctx.body = response_1.default.Success({ data: searchComics });
-                        return [2 /*return*/];
-                }
-            });
-        });
-    };
-    ComicController.prototype.createComic = function (ctx) {
-        return __awaiter(this, void 0, void 0, function () {
-            var _a, name, author, status, tags, description;
-            return __generator(this, function (_b) {
-                switch (_b.label) {
-                    case 0:
-                        _a = ctx.request['body'], name = _a.name, author = _a.author, status = _a.status, tags = _a.tags, description = _a.description;
-                        return [4 /*yield*/, comic_model_1.default.create({ name: name, author: author, status: status, tags: tags, description: description })];
-                    case 1:
-                        _b.sent();
-                        ctx.body = response_1.default.Success();
-                        return [2 /*return*/];
-                }
-            });
-        });
-    };
-    ComicController.prototype.updateComic = function (ctx) {
-        return __awaiter(this, void 0, void 0, function () {
-            var _a, field, newVal, id;
-            var _b;
-            return __generator(this, function (_c) {
-                switch (_c.label) {
-                    case 0:
-                        _a = ctx.request['body'], field = _a.field, newVal = _a.newVal;
-                        id = ctx.params.id;
-                        if (!mongoose_1.default.Types.ObjectId.isValid(id)) {
-                            ctx.body = response_1.default.InValidId();
-                            return [2 /*return*/];
-                        }
-                        return [4 /*yield*/, comic_model_1.default.updateOne({ _id: id }, (_b = {}, _b[field] = newVal, _b))];
-                    case 1:
-                        _c.sent();
-                        ctx.body = response_1.default.Success();
                         return [2 /*return*/];
                 }
             });

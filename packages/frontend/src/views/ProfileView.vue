@@ -13,7 +13,7 @@ export default {
   components: { TheIcon, TheButton, TheAvatar },
   setup() {
     const userStore = useUserStore()
-    const { token } = useToken()
+    const { token } = useToken
 
     const uploadAvatarInput = ref()
     const previewAvatarModal = ref()

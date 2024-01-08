@@ -5,6 +5,15 @@ export function getComics() {
   return request({
     method: 'GET',
     url: '/comics'
+  }).catch(blankCb)
+}
+
+export function getComicsWithoutCache() {
+  return request({
+    method: 'GET',
+    url: '/comics'
+  }, {
+    useCache: false
   })
     .catch(blankCb)
 }
@@ -13,7 +22,15 @@ export function getComic(id) {
     method: 'GET',
     url: `/comics/${id}`
   })
-    .catch(() => {})
+    .catch(blankCb)
+}
+
+export function deleteComic(id) {
+  return request({
+    method: 'DELETE',
+    url: `/comics/${id}`
+  })
+    .catch(blankCb)
 }
 
 export function login(data) {
@@ -23,13 +40,7 @@ export function login(data) {
       url: '/login',
       data: data
     },
-    {
-      useCache: false,
-      useThrottle: true,
-      throttleTime: 3000
-    }
-  )
-    .catch(() => {})
+  ).catch(blankCb)
 }
 
 export function register(data) {
@@ -287,7 +298,7 @@ export function postComicComment({id, content}) {
     {
       useCache: false,
       useThrottle: true,
-      throttleTime: 0
+      throttleTime: 1000 * 60
     }
   ).catch(blankCb)
 }
